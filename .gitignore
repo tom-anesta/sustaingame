@@ -1,0 +1,14 @@
+# Build and Release Folders
+bin/
+bin-debug/
+bin-release/
+
+# Other files and folders
+#obj has .xml setup that we don't need
+#bat is for the bat files for packaging and certifying the application
+obj/
+
+#we don't need to track any of the .bat files, or the readme and we shouldn't need to track the project file
+*.bat
+Air_readme.txt
+*.as3proj
