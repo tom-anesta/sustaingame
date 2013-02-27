@@ -9,5 +9,19 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center"/>
+	</s:layout>
+	<s:Label text="choose your region" height="5%" />
+	<s:Group width="100%">
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle"/>
+		</s:layout>
+		<s:Button id="rs_africaButton" label="Africa" width="33.333%" />
+		<s:Button id="rs_middleEastButton" label="Middle East" width="33.333%" />
+		<s:Button id="rs_southAmericaButton" label="South America" width="33.333%"/>
+	</s:Group>
+	
+	
 	
 </s:Group>

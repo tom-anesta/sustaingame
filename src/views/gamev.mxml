@@ -7,5 +7,15 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="middle"/>
+	</s:layout>
+	
+	<s:Label text="menu placeholder" width="25%" />
+	
+	<s:BorderContainer width="75%" height="100%">
+		<s:Label text="game placeholder"/>
+	</s:BorderContainer>
+	
 	
 </s:Group>
