@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<application xmlns="http://ns.adobe.com/air/application/3.6"> 
+<application xmlns="http://ns.adobe.com/air/application/3.4"> 
 	
 	<id>sustaingame</id> 
 	<versionNumber>1.0</versionNumber> 
-	<filename>sustaingame</filename> 
+	<filename>sustaingame</filename>
 	
 	<name>sustaingame</name> 
 	<description></description> 
 	<copyright></copyright> 
 	
 	<initialWindow> 
+		<height>800</height>
+		<width>1200</width>
 		<title>sustaingame</title> 
-		<content>sustaingame.swf</content> 
+		<content>sustaingame.swf</content>
 		<systemChrome>standard</systemChrome> 
 		<transparent>false</transparent> 
 		<visible>true</visible> 
-		<minimizable>true</minimizable> 
-		<maximizable>true</maximizable> 
-		<resizable>true</resizable> 
+		<minimizable>false</minimizable> 
+		<maximizable>false</maximizable> 
+		<resizable>false</resizable> 
 	</initialWindow> 
 	
 	<!-- 

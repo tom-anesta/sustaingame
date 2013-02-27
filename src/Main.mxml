@@ -1,10 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
                        xmlns:s="library://ns.adobe.com/flex/spark"
-                       xmlns:mx="library://ns.adobe.com/flex/mx">
+                       xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:views="views.*"
+					   xmlns:components="components.*">
+	<!--
+	<mx:Metadata>
+		[SWF(width='800', height='600')]
+	</mx:Metadata>
+	 -->
+					   
+					   
+	<components:CustomViewStack selectedIndex = "0" height="100%" width="100%">
+		<views:loginv/>
+		<views:levelselectv/>
+		<views:gamev/>
+	</components:CustomViewStack>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	
+	
 	
 </s:WindowedApplication>
