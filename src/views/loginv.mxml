@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
-               xmlns:mx="library://ns.adobe.com/flex/halo">
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+			   height="100%" width="100%">
 	
 	<fx:Declarations>
+		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+		<!-- here is where we will place the web services for getting the information when logging in -->
 	</fx:Declarations>
 	
+	<!--
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="left"/>
+	</s:layout>
+	-->
+	<s:Form id="log_form" height="100%" width="25%">
+		
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="left"/>
+		</s:layout>
+	
+		<s:FormHeading label="Log In" id="log_formHeader" height="10%" width="100%" />
+		<s:FormItem height="5%" width="100%">
+			<s:Label text="username" id="log_UNLabel" height="100%"/>
+		</s:FormItem>
+		<s:FormItem height="5%" width="100%">
+			<s:TextInput id="log_UNTextInput" editable="true" height="100%"/>
+		</s:FormItem>
+		<s:FormItem height="5%" width="100%">
+			<s:Label text="password" id="logPWLabel" height="100%"/>
+		</s:FormItem>
+		<s:FormItem height="5%" width="100%">
+			<s:TextInput id="log_PWTextInput" editable="true" height="100%" displayAsPassword="true"/>
+		</s:FormItem>
+		<s:FormItem height="5%">
+			<s:Button label="login" id="log_logInButton" height="100%"/>
+		</s:FormItem>
+		<s:FormItem height="5%">
+			<s:Button label="register new user" id="log_registerButton" height="100%" />
+		</s:FormItem>
+		
+		<s:FormHeading label="SustainGame.Com" id="log_webHeader" height="10%" width="100%"/>
+		<s:FormItem height="5%">
+			<s:Button label="View Leaderboards" id="log_leaderboardButton" height="100%"/><!-- this opens a webpage -->
+		</s:FormItem>
+		<s:FormItem height="5%">
+			<s:Button label="View Forum" id="log_forumButton" height="100%"/>
+		</s:FormItem>
+	
+	</s:Form>
 	
 </s:Group>

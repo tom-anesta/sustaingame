@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="left"/>
+	</s:layout>
+	
+	<s:Label text="Select your saved game" height="5%" />
+	
+	<s:DataGrid width="100%" height="95%">
+		<s:dataProvider>
+            <s:ArrayList> 
+                <fx:Object> 
+                    <fx:Region>Africa</fx:Region> 
+                    <fx:Capital>68.99</fx:Capital> 
+                    <fx:NetWorth>3045.23</fx:NetWorth>
+					<fx:Day>122</fx:Day>
+					<fx:Hour>7</fx:Hour>
+					<fx:Year>2</fx:Year>
+                </fx:Object> 
+				<fx:Object> 
+                    <fx:Region>MiddleEast</fx:Region> 
+                    <fx:Capital>133.68</fx:Capital> 
+                    <fx:NetWorth>6239.11</fx:NetWorth>
+					<fx:Day>34</fx:Day>
+					<fx:Hour>2</fx:Hour>
+					<fx:Year>6</fx:Year>
+                </fx:Object>
+				<fx:Object> 
+                    <fx:Region>SouthAmerica</fx:Region> 
+                    <fx:Capital>9000.01</fx:Capital> 
+                    <fx:NetWorth>9000.01</fx:NetWorth>
+					<fx:Day>360</fx:Day>
+					<fx:Hour>1</fx:Hour>
+					<fx:Year>9</fx:Year>
+                </fx:Object>
+            </s:ArrayList> 
+        </s:dataProvider>
+	</s:DataGrid>
+	
+	
+</s:Group>

@@ -9,13 +9,72 @@
 		[SWF(width='800', height='600')]
 	</mx:Metadata>
 	 -->
-					   
-					   
-	<components:CustomViewStack selectedIndex = "0" height="100%" width="100%">
-		<views:loginv/>
-		<views:levelselectv/>
-		<views:gamev/>
+	
+	<!--
+	<components:CustomViewStack selectedIndex="-1" height="50%" width="50%" id="appViewStack" x="0" y="0">
+		<s:NavigatorContent id="loginScreenNavContent">
+			<views:loginv id="loginScreen" />
+		</s:NavigatorContent>
+		<s:NavigatorContent id="gameSelectScreenNavContent">
+			<views:gameselectv id="gameSelectScreen" />
+		</s:NavigatorContent>
+		<s:NavigatorContent id="levelSelectScreenNavContent">
+			<views:levelselectv id="levelSelectScreen" />
+		</s:NavigatorContent>
+		<s:NavigatorContent id="gameScreenNavContent">
+			<views:gamev id="gameScreen" />
+		</s:NavigatorContent>
 	</components:CustomViewStack>
+	-->
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="left" />
+	</s:layout>
+	
+	<mx:HBox borderStyle="solid" height="5%"> <!-- delete this later -->
+
+            <!-- Define the three buttons. 
+                Each uses the child container identifier 
+                to set the active child container. -->
+            <mx:Button id="loginSwitchButton"
+                label="Login Screen" 
+                click="appViewStack.selectedIndex=0;"/>
+
+            <mx:Button id="gameSelectSwitchButton" 
+                label="Saved Game Select Screen" 
+                click="appViewStack.selectedIndex=1;"/>
+
+            <mx:Button id="levelSelectSwitchButton" 
+                label="Choose Region Screen"
+                click="appViewStack.selectedIndex=2;"/>
+				
+			<mx:Button id="gameSwitchButton"
+				label="Gameplay Screen"
+				click="appViewStack.selectedIndex=3;"/>
+				
+			<mx:Button id="registerSwitchButton"
+				label="Registration Screen"
+				click="appViewStack.selectedIndex=4;"/>
+				
+    </mx:HBox>
+	
+	<mx:ViewStack selectedIndex = "0" height="95%" width="100%" id="appViewStack">
+		<s:NavigatorContent height="100%" width="100%">
+			<views:loginv id="loginScreen" height="100%" width="100%" />
+		</s:NavigatorContent>
+		<s:NavigatorContent height="100%" width="100%">
+			<views:gameselectv id="gameSelectScreen" height="100%" width="100%" />
+		</s:NavigatorContent>
+		<s:NavigatorContent height="100%" width="100%">
+			<views:levelselectv id="levelSelectScreen" height="100%" width="100%" />
+		</s:NavigatorContent>
+		<s:NavigatorContent height="100%" width="100%">
+			<views:gamev id="gameScreen" height="100%" width="100%"/>
+		</s:NavigatorContent>
+		<s:NavigatorContent height="100%" width="100%">
+			<views:registrationv id="registerScreen" height="100%" width="100%" />
+		</s:NavigatorContent>
+	</mx:ViewStack>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->

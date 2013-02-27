@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+			   width="100%" height="100%">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Form id="reg_registerForm" width="100%" height="100%" >
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="left"/>
+		</s:layout>
+		
+		<s:FormHeading label="Registration Form" height="10%"/>
+		
+		<s:FormItem height="10%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left" />
+			</s:layout>
+			<s:Label text="first name:" height="50%"/>
+			<s:TextInput editable="true" height="50%"/>
+		</s:FormItem>
+		<s:FormItem height="10%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left" />
+			</s:layout>
+			<s:Label text="last name:" height="50%"/>
+			<s:TextInput editable="true" height="50%"/>
+		</s:FormItem>
+		<s:FormItem height="10%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left" />
+			</s:layout>
+			<s:Label text="email address" height="50%"/>
+			<s:TextInput editable="true" height="50%"/>
+		</s:FormItem>
+		<s:FormItem height="10%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left"/>
+			</s:layout>
+			<s:Label text="password" height="50%"/>
+			<s:TextInput editable="true" height="50%" displayAsPassword="true"/>
+		</s:FormItem>
+		<s:FormItem height="10%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left"/>
+			</s:layout>
+			<s:Label text="confirm password" height="50%"/>
+			<s:TextInput editable="true" height="50%" displayAsPassword="true"/>
+		</s:FormItem>
+		
+		<s:FormItem height="5%">
+			<s:Button label="submit" id="reg_submitButton" height="100%" />
+		</s:FormItem>
+	</s:Form>
+	
+	
+	
+</s:Group>
