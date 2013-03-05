@@ -3,13 +3,39 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
 			   height="100%" width="100%">
+			   
+	<fx:Script>
+	<![CDATA[
+	
+	import myEvents.viewChangeEvent;
+	
+	]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+			[Event(name="viewChangeEvent", type="myEvents.viewChangeEvent")]
+	</fx:Metadata>
 	
 	<fx:Declarations>
-		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		
-		<!-- here is where we will place the web services for getting the information when logging in -->
+		
+		
 	</fx:Declarations>
+	
+	
+	
+	
+	<!-- 
+	<fx:Script>
+		<![CDATA[
+		
+		[Event(name="viewChangeEvent", type="myEvents.viewChangeEvent")]
+		
+		]]>
+		
+	</fx:Script>
+	 -->
 	
 	<!--
 	<s:layout>
@@ -36,7 +62,7 @@
 			<s:TextInput id="log_PWTextInput" editable="true" height="100%" displayAsPassword="true"/>
 		</s:FormItem>
 		<s:FormItem height="5%">
-			<s:Button label="login" id="log_logInButton" height="100%"/>
+			<s:Button label="login" id="log_logInButton" height="100%" click="dispatchEvent(new viewChangeEvent(viewChangeEvent.VIEW_CHANGE, 1, true))" />
 		</s:FormItem>
 		<s:FormItem height="5%">
 			<s:Button label="register new user" id="log_registerButton" height="100%" />

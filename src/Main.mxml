@@ -3,29 +3,91 @@
                        xmlns:s="library://ns.adobe.com/flex/spark"
                        xmlns:mx="library://ns.adobe.com/flex/mx"
 					   xmlns:views="views.*"
-					   xmlns:components="components.*">
+					   xmlns:components="components.*"
+					   initialize="initApp()"
+					   creationComplete="ccApp()"
+					   >
 	<!--
 	<mx:Metadata>
 		[SWF(width='800', height='600')]
 	</mx:Metadata>
 	 -->
 	
-	<!--
-	<components:CustomViewStack selectedIndex="-1" height="50%" width="50%" id="appViewStack" x="0" y="0">
-		<s:NavigatorContent id="loginScreenNavContent">
-			<views:loginv id="loginScreen" />
-		</s:NavigatorContent>
-		<s:NavigatorContent id="gameSelectScreenNavContent">
-			<views:gameselectv id="gameSelectScreen" />
-		</s:NavigatorContent>
-		<s:NavigatorContent id="levelSelectScreenNavContent">
-			<views:levelselectv id="levelSelectScreen" />
-		</s:NavigatorContent>
-		<s:NavigatorContent id="gameScreenNavContent">
-			<views:gamev id="gameScreen" />
-		</s:NavigatorContent>
-	</components:CustomViewStack>
-	-->
+	<fx:Declarations>
+		
+		<mx:WebService id="userDBService" wsdl="http://localhost/sustainGameService/sustainGameService.asmx?wsdl" fault="sustainGameServiceFault(event)">
+			<mx:operation name="dbLoginReq" result = "dbLoginReqResult(event)"/>
+			<mx:operation name="dbSavedGamesReq" result = "dbSavedGamesReqResult(event)"/>
+			<mx:operation name="dbLoadGameReq" result = "dbLoadGameReqResult(event)"/>
+			<mx:operation name="dbCreateGameReq" result = "dbCreateGameReqResult(event)"/>
+			<mx:operation name="dbSaveGameReq" result = "dbSaveGameReqResult(event)"/>
+			<mx:operation name="dbRetireReq" result = "dbRetireReqResult(event)"/>
+			<mx:operation name="dbDeleteGameReq" result = "dbDeleteGameReqResult(event)"/>
+			<mx:operation name="dbBankruptcyReq" result = "dbBankruptcyReqResult(event)"/>
+			
+		</mx:WebService>
+		
+		<!-- change localhost to 10.0.2.2 when necessary for emulator, wireless address obtained by ipconfig when using phone -->
+		
+		<!-- the popup for the order form can be declared in mxml in the declarations tag.  we can then add and remove it as we wish -->
+		
+		<!--
+		<components:OrderPopUp id="theOrderPopUp"
+			title="VIEW ORDER"
+			close="orderPopUpClose(event)" />
+		-->
+		
+		<!-- it may be a better idea to assign the title value within the component -->
+		
+		<!--
+		<components:inputDeviceNameBox id="loginBox"/>
+		-->
+		
+		<!-- the following array collections are for use as reference variables in drop down lists -->
+		
+		<!--
+		<mx:ArrayCollection id="quantProvider">
+			<fx:Number>1</fx:Number>
+			<fx:Number>5</fx:Number>
+			<fx:Number>10</fx:Number>
+			<fx:Number>50</fx:Number>
+			<fx:Number>100</fx:Number>
+		</mx:ArrayCollection>
+		-->
+		
+		<!-- quantProvider is to be used as the date provider for all quantity combo boxes -->
+		
+		
+		<!--
+		<mx:ArrayCollection id="entryMethodListP">
+			<fx:String>Manual Entry</fx:String>
+			<fx:String>Barcode Capture</fx:String>
+			<fx:String>Inventory Search</fx:String>
+		</mx:ArrayCollection>
+		-->
+		
+		<!-- the entryMethodListP is for use of populating text for the drop down list of entry methods, these should not change -->
+		
+		<!--
+		<mx:ArrayCollection id="entryMethodButtonP">
+			<fx:String>N/A</fx:String>
+			<fx:String>Capture</fx:String>
+			<fx:String>Search</fx:String>
+		</mx:ArrayCollection>
+		-->
+		
+		<!-- the entryMethodButtonP is for use of populating text on label of function button, index match that in entrymethodlistp, these should not change -->
+		
+		
+	</fx:Declarations>
+	 
+	<!-- perform all your as includes here -->
+	<fx:Script>
+		<![CDATA[
+		include "MainProcedures.as";
+		]]>
+	</fx:Script>
+	
 	
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="left" />
@@ -75,10 +137,6 @@
 			<views:registrationv id="registerScreen" height="100%" width="100%" />
 		</s:NavigatorContent>
 	</mx:ViewStack>
-	
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
 	
 	
 	
