@@ -7,6 +7,8 @@ bin-release/
 #obj has .xml setup that we don't need
 #bat is for the bat files for packaging and certifying the application
 obj/
+lib/
+#including lib would just take up space
 
 #we don't need to track any of the .bat files, or the readme and we shouldn't need to track the project file
 *.bat
