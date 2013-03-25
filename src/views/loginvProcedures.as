@@ -42,6 +42,14 @@ private function websiteButtonClicked(ev:MouseEvent):void
 	
 }
 
+private function exitButtonClicked(ev:MouseEvent):void
+{
+	if (ev.target.id == "log_exitButton")
+	{
+		ev.target.dispatchEvent(new Event(Event.CLOSING, true, true));
+	}
+}
+
 private function ccloginv():void
 {
 	//add your event listeners
@@ -49,6 +57,7 @@ private function ccloginv():void
 	log_registerButton.addEventListener(MouseEvent.CLICK, gameButtonClicked);
 	log_leaderboardButton.addEventListener(MouseEvent.CLICK, websiteButtonClicked);
 	log_forumButton.addEventListener(MouseEvent.CLICK, websiteButtonClicked);
+	log_exitButton.addEventListener(MouseEvent.CLICK, exitButtonClicked);
 	//add your sprite
 	if (titleImageData == null)
 	{

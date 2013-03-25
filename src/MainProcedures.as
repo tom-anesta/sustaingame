@@ -14,6 +14,7 @@ import mx.events.ItemClickEvent;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import spark.events.*;
+import flash.desktop.NativeApplication
 //our classes
 //views
 import myEvents.viewChangeEvent
@@ -79,9 +80,12 @@ private function ccApp():void
 	//placing these in init may not have worked because only the immediate children would have been initialized?
 	//can't put event listener on the list's item renderer we have to do it in the item renderer, unnecessary because button for viewing
 	appViewStack.addEventListener(viewChangeEvent.VIEW_CHANGE, switchViewFunc);
+	this.addEventListener(Event.CLOSING, shutDownApp);
 }
 
 //private event handlers
+
+//switch the view
 private function switchViewFunc(e:viewChangeEvent):void
 {
 	var tempint:uint = e.index;
@@ -127,6 +131,15 @@ private function switchViewFunc(e:viewChangeEvent):void
 			break;
 		default:
 			appViewStack.selectedIndex = LOGIN_INDEX;
+	}
+}
+
+//exit the application
+private function shutDownApp(ev:Event):void
+{
+	if (ev.type == Event.CLOSING)
+	{
+		NativeApplication.nativeApplication.exit();
 	}
 }
 

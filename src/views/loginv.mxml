@@ -24,41 +24,51 @@
 		<s:HorizontalLayout/>
 	</s:layout>
 	
-	<s:Form id="log_form" height="100%" width="25%">
+	<s:Group>
 		
-		<s:layout>
-			<s:VerticalLayout horizontalAlign="left"/>
-		</s:layout>
-	
-		<s:FormHeading label="Log In" id="log_formHeader" height="10%" width="100%" />
-		<s:FormItem height="5%" width="100%">
-			<s:Label text="username" id="log_UNLabel" height="100%"/>
-		</s:FormItem>
-		<s:FormItem height="5%" width="100%">
-			<s:TextInput id="log_UNTextInput" editable="true" height="100%"/>
-		</s:FormItem>
-		<s:FormItem height="5%" width="100%">
-			<s:Label text="password" id="logPWLabel" height="100%"/>
-		</s:FormItem>
-		<s:FormItem height="5%" width="100%">
-			<s:TextInput id="log_PWTextInput" editable="true" height="100%" displayAsPassword="true"/>
-		</s:FormItem>
-		<s:FormItem height="5%">
-			<s:Button label="login" id="log_logInButton" height="100%"/>
-		</s:FormItem>
-		<s:FormItem height="5%">
-			<s:Button label="register new user" id="log_registerButton" height="100%" />
-		</s:FormItem>
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left"/>
+			</s:layout>
+			
+			<s:Form id="log_form" height="96%" width="25%">
+			
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="left"/>
+			</s:layout>
 		
-		<s:FormHeading label="SustainGame.Com" id="log_webHeader" height="10%" width="100%"/>
-		<s:FormItem height="5%">
-			<s:Button label="View Leaderboards" id="log_leaderboardButton" height="100%"/><!-- this opens a webpage -->
-		</s:FormItem>
-		<s:FormItem height="5%">
-			<s:Button label="View Forum" id="log_forumButton" height="100%"/>
-		</s:FormItem>
-	
-	</s:Form>
+			<s:FormHeading label="Log In" id="log_formHeader" height="10%" width="100%" />
+			<s:FormItem height="5%" width="100%">
+				<s:Label text="username" id="log_UNLabel" height="100%"/>
+			</s:FormItem>
+			<s:FormItem height="5%" width="100%">
+				<s:TextInput id="log_UNTextInput" editable="true" height="100%"/>
+			</s:FormItem>
+			<s:FormItem height="5%" width="100%">
+				<s:Label text="password" id="logPWLabel" height="100%"/>
+			</s:FormItem>
+			<s:FormItem height="5%" width="100%">
+				<s:TextInput id="log_PWTextInput" editable="true" height="100%" displayAsPassword="true"/>
+			</s:FormItem>
+			<s:FormItem height="5%">
+				<s:Button label="login" id="log_logInButton" height="100%"/>
+			</s:FormItem>
+			<s:FormItem height="5%">
+				<s:Button label="register new user" id="log_registerButton" height="100%" />
+			</s:FormItem>
+			
+			<s:FormHeading label="SustainGame.Com" id="log_webHeader" height="10%" width="100%"/>
+			<s:FormItem height="5%">
+				<s:Button label="View Leaderboards" id="log_leaderboardButton" height="100%"/><!-- this opens a webpage -->
+			</s:FormItem>
+			<s:FormItem height="5%">
+				<s:Button label="View Forum" id="log_forumButton" height="100%"/>
+			</s:FormItem>
+		
+		</s:Form>
+		
+		<s:Button height="4%" width="25%" label="exit" id="log_exitButton" />
+		
+	</s:Group>
 	
 	<s:SpriteVisualElement id="titleGraphic" y="0" width="75%" />
 	
