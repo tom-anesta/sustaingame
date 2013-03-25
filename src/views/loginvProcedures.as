@@ -1,11 +1,21 @@
 
+import flash.display.BitmapData;
+import flash.display.Bitmap;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import myEvents.viewChangeEvent;
+import flash.display.Sprite;
 /**
  * ...
  * @author thomas anesta
  */
+
+[Embed(source="/../assets/images/SustainGameTitle2A.gif")]
+private static var titleImage:Class;
+private static var titleImageData:BitmapData;
+
+
+private var titleSprite:Sprite;
 
 private function gameButtonClicked(ev:MouseEvent):void
 {
@@ -34,8 +44,18 @@ private function websiteButtonClicked(ev:MouseEvent):void
 
 private function ccloginv():void
 {
+	//add your event listeners
 	log_logInButton.addEventListener(MouseEvent.CLICK, gameButtonClicked);
 	log_registerButton.addEventListener(MouseEvent.CLICK, gameButtonClicked);
 	log_leaderboardButton.addEventListener(MouseEvent.CLICK, websiteButtonClicked);
 	log_forumButton.addEventListener(MouseEvent.CLICK, websiteButtonClicked);
+	//add your sprite
+	if (titleImageData == null)
+	{
+		titleImageData = ( (Bitmap) (new titleImage()) ).bitmapData;
+	}
+	var im:Bitmap = new titleImage();
+	titleSprite = new Sprite();
+	titleSprite.addChild(im);
+	titleGraphic.addChild(titleSprite);
 }

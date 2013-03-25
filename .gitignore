@@ -9,6 +9,8 @@ bin-release/
 obj/
 lib/
 #including lib would just take up space
+assets/
+#should not need to change the art resources as much, and they should keep the same names
 
 #we don't need to track any of the .bat files, or the readme and we shouldn't need to track the project file
 *.bat
