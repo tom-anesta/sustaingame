@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
-               xmlns:mx="library://ns.adobe.com/flex/halo">
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+			   creationComplete="ccTimeButtonBar()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+			<s:ArrayCollection id="timeScaleDataProvider">
+				<fx:String>slowest</fx:String>
+				<fx:String>slow</fx:String>
+				<fx:String>normal</fx:String>
+				<fx:String>fast</fx:String>
+				<fx:String>fastest</fx:String>
+			</s:ArrayCollection>
 	</fx:Declarations>
 	
+	<fx:Script>
+		<![CDATA[
+		include "timeButtonBarProcedures.as";
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+	
+	<s:Button label="--" id="slowerTimeButton" width="15%" height="100%" />
+	<s:Button label="{timeScaleDataProvider.getItemAt(2)}" id="mainTimeButton" width="70%" height="100%" />
+	<s:Button label="++" id="fasterTimeButton" width="15%" height="100%" />
 	
 </s:Group>

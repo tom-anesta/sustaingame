@@ -5,6 +5,6 @@
  */
 private function ccgamev():void
 {
-	trace("gamev cc");
+	//trace("gamev cc");
 }
 
