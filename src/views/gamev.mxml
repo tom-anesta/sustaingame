@@ -3,7 +3,8 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
 			   xmlns:components="components.*"
-			   creationComplete="ccgamev()">
+			   creationComplete="ccgamev()"
+			   initialize="initgamev()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -21,9 +22,13 @@
 	
 	<components:gameSideMenu width="25%" height="100%"/>
 	
+	<s:SpriteVisualElement id="gameSpriteContainer" width="75%" height="100%"/>
+	
+	<!--
 	<s:BorderContainer width="75%" height="100%">
 		<s:Label text="game placeholder"/>
 	</s:BorderContainer>
+	-->
 	
 	
 </s:Group>

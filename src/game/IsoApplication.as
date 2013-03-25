@@ -1,4 +1,4 @@
-package 
+package game
 {
 		import eDpLib.events.ProxyEvent;
     	import flash.display.MovieClip;
@@ -27,15 +27,12 @@ package
 		import as3isolib.geom.Pt;
 		import flash.geom.Point;
 		
-		
-		import com.gskinner.motion.GTween;
-		
-		
+		//import com.gskinner.motion.GTween;
 		
         
         public class IsoApplication extends Sprite
         {
-			private var view:IsoView;
+		private var view:IsoView;
 		private var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
@@ -77,24 +74,24 @@ package
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 		}
-		private function viewMouseDown(e:Event)
+		private function viewMouseDown(e:Event):void
 		{
 			panPt = new Point(stage.mouseX, stage.mouseY);
 			view.addEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			view.addEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
-		private function viewPan(e:Event)
+		private function viewPan(e:Event):void
 		{
 			view.panBy(panPt.x - stage.mouseX, panPt.y - stage.mouseY);
 			panPt.x = stage.mouseX;
 			panPt.y = stage.mouseY;
 		}
-		private function viewMouseUp(e:Event)
+		private function viewMouseUp(e:Event):void
 		{
 			view.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			view.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
-		private function viewZoom(e:MouseEvent)
+		private function viewZoom(e:MouseEvent):void
 		{
 			if(e.delta > 0)
 			{
@@ -106,7 +103,7 @@ package
 			}
 			view.currentZoom = zoom;
 		}
-		private function boxClick(e:Event)
+		private function boxClick(e:Event):void
 		{
 			view.centerOnIso(e.target as IsoBox);
 		}
