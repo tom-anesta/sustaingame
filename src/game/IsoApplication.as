@@ -41,38 +41,52 @@ package game
 		private var panPt:Point;
 		private var zoom:Number = 1;
 		
+		private function appOnStage(ev:Event):void
+		{
+			view.setSize(this.parent.width, this.parent.height);
+			trace(this.parent.width);
+			trace(this.parent.height);
+			this.addChild(view);
+			view.addScene(gridHolder);
+			view.addScene(scene);
+			gridHolder.addChild(grid);
+			scene.addChild(box);
+			gridHolder.render();
+			scene.render()
+		}
+		
 		public function IsoApplication() 
 		{
 			view = new IsoView();
-			view.setSize((stage.stageWidth), stage.stageHeight);
+			//view.setSize((this.width), this.height);
 			view.clipContent = true;
 			view.showBorder = false;
-			addChild(view);
+			//addChild(view);
 			
 			gridHolder = new IsoScene();
-			view.addScene(gridHolder);
-			
+			//view.addScene(gridHolder);
 			scene = new IsoScene();
-			view.addScene(scene);
-			
+			//view.addScene(scene);
 			grid = new IsoGrid();
 			grid.cellSize = 40;
 			grid.setGridSize(5, 5, 0);
-			gridHolder.addChild(grid);
+			//gridHolder.addChild(grid);
 			
 			box = new IsoBox();
 			box.setSize(40, 40, 40);
 			box.moveTo(80, 80, 0);
-			scene.addChild(box);
-
-			var pos:Pt = IsoMath.isoToScreen(new Pt(grid.gridSize[0] * grid.cellSize, grid.gridSize[1] * grid.cellSize, 0));
+			//scene.addChild(box);
 			
-			gridHolder.render();
-			scene.render();
+			//var pos:Pt = IsoMath.isoToScreen(new Pt(grid.gridSize[0] * grid.cellSize, grid.gridSize[1] * grid.cellSize, 0));
+			//pos is not mentioned elsewhere.  do we need it?
+			
+			//gridHolder.render();
+			//scene.render();
 			
 			box.addEventListener(MouseEvent.CLICK, boxClick);
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
-			stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
+			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
+			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
 		}
 		private function viewMouseDown(e:Event):void
 		{
