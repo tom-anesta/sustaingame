@@ -5,16 +5,10 @@
 					   xmlns:views="views.*"
 					   xmlns:components="components.*"
 					   initialize="initApp()"
-					   creationComplete="ccApp()"
-					   >
-	<!--
-	<mx:Metadata>
-		[SWF(width='800', height='600')]
-	</mx:Metadata>
-	 -->
-	
+					   creationComplete="ccApp()">
+					   
 	<fx:Declarations>
-		
+		<!--
 		<mx:WebService id="userDBService" wsdl="http://localhost/sustainGameService/sustainGameService.asmx?wsdl" fault="sustainGameServiceFault(event)">
 			<mx:operation name="dbLoginReq" result = "dbLoginReqResult(event)"/>
 			<mx:operation name="dbSavedGamesReq" result = "dbSavedGamesReqResult(event)"/>
@@ -24,61 +18,9 @@
 			<mx:operation name="dbRetireReq" result = "dbRetireReqResult(event)"/>
 			<mx:operation name="dbDeleteGameReq" result = "dbDeleteGameReqResult(event)"/>
 			<mx:operation name="dbBankruptcyReq" result = "dbBankruptcyReqResult(event)"/>
-			
 		</mx:WebService>
-		
+		-->
 		<!-- change localhost to 10.0.2.2 when necessary for emulator, wireless address obtained by ipconfig when using phone -->
-		
-		<!-- the popup for the order form can be declared in mxml in the declarations tag.  we can then add and remove it as we wish -->
-		
-		<!--
-		<components:OrderPopUp id="theOrderPopUp"
-			title="VIEW ORDER"
-			close="orderPopUpClose(event)" />
-		-->
-		
-		<!-- it may be a better idea to assign the title value within the component -->
-		
-		<!--
-		<components:inputDeviceNameBox id="loginBox"/>
-		-->
-		
-		<!-- the following array collections are for use as reference variables in drop down lists -->
-		
-		<!--
-		<mx:ArrayCollection id="quantProvider">
-			<fx:Number>1</fx:Number>
-			<fx:Number>5</fx:Number>
-			<fx:Number>10</fx:Number>
-			<fx:Number>50</fx:Number>
-			<fx:Number>100</fx:Number>
-		</mx:ArrayCollection>
-		-->
-		
-		<!-- quantProvider is to be used as the date provider for all quantity combo boxes -->
-		
-		
-		<!--
-		<mx:ArrayCollection id="entryMethodListP">
-			<fx:String>Manual Entry</fx:String>
-			<fx:String>Barcode Capture</fx:String>
-			<fx:String>Inventory Search</fx:String>
-		</mx:ArrayCollection>
-		-->
-		
-		<!-- the entryMethodListP is for use of populating text for the drop down list of entry methods, these should not change -->
-		
-		<!--
-		<mx:ArrayCollection id="entryMethodButtonP">
-			<fx:String>N/A</fx:String>
-			<fx:String>Capture</fx:String>
-			<fx:String>Search</fx:String>
-		</mx:ArrayCollection>
-		-->
-		
-		<!-- the entryMethodButtonP is for use of populating text on label of function button, index match that in entrymethodlistp, these should not change -->
-		
-		
 	</fx:Declarations>
 	 
 	<!-- perform all your as includes here -->
@@ -88,39 +30,7 @@
 		]]>
 	</fx:Script>
 	
-	
-	<s:layout>
-		<s:VerticalLayout horizontalAlign="left" />
-	</s:layout>
-	
-	<mx:HBox borderStyle="solid" height="5%"> <!-- delete this later -->
-
-            <!-- Define the three buttons. 
-                Each uses the child container identifier 
-                to set the active child container. -->
-            <mx:Button id="loginSwitchButton"
-                label="Login Screen" 
-                click="appViewStack.selectedIndex=0;"/>
-
-            <mx:Button id="gameSelectSwitchButton" 
-                label="Saved Game Select Screen" 
-                click="appViewStack.selectedIndex=1;"/>
-
-            <mx:Button id="levelSelectSwitchButton" 
-                label="Choose Region Screen"
-                click="appViewStack.selectedIndex=2;"/>
-				
-			<mx:Button id="gameSwitchButton"
-				label="Gameplay Screen"
-				click="appViewStack.selectedIndex=3;"/>
-				
-			<mx:Button id="registerSwitchButton"
-				label="Registration Screen"
-				click="appViewStack.selectedIndex=4;"/>
-				
-    </mx:HBox>
-	
-	<mx:ViewStack selectedIndex = "0" height="95%" width="100%" id="appViewStack">
+	<mx:ViewStack selectedIndex = "0" height="100%" width="100%" id="appViewStack" x="0" y="0">
 		<s:NavigatorContent height="100%" width="100%">
 			<views:loginv id="loginScreen" height="100%" width="100%" />
 		</s:NavigatorContent>
@@ -134,10 +44,8 @@
 			<views:gamev id="gameScreen" height="100%" width="100%"/>
 		</s:NavigatorContent>
 		<s:NavigatorContent height="100%" width="100%">
-			<views:registrationv id="registerScreen" height="100%" width="100%" />
+			<views:registrationv id="registerScreen" height="100%" width="100%"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>
-	
-	
 	
 </s:WindowedApplication>

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
-               xmlns:mx="library://ns.adobe.com/flex/halo">
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:components="components.*"
+			   creationComplete="ccgamev()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
+	<fx:Script>
+		<![CDATA[
+		include "gamevProcedures.as";
+		]]>
+	</fx:Script>
+	
 	<s:layout>
 		<s:HorizontalLayout verticalAlign="middle"/>
 	</s:layout>
 	
-	<s:Label text="menu placeholder" width="25%" />
+	<components:gameSideMenu width="25%" height="100%"/>
 	
 	<s:BorderContainer width="75%" height="100%">
 		<s:Label text="game placeholder"/>

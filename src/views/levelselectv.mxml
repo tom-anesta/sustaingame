@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
-               xmlns:mx="library://ns.adobe.com/flex/halo">
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+			   creationComplete="cclevelselectv()">
 			   
 			   
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+		include "levelselectvProcedures.as";
+		]]>
+	</fx:Script>
 	
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"/>
@@ -17,9 +24,9 @@
 		<s:layout>
 			<s:HorizontalLayout verticalAlign="middle"/>
 		</s:layout>
-		<s:Button id="rs_africaButton" label="Africa" width="33.333%" />
-		<s:Button id="rs_middleEastButton" label="Middle East" width="33.333%" />
-		<s:Button id="rs_southAmericaButton" label="South America" width="33.333%"/>
+		<s:Button id="rs_SouthAfricaButton" label="South Africa" width="33.333%"  enabled="true" />
+		<s:Button id="rs_MiddleEastButton" label="Middle East" width="33.333%" enabled="false" />
+		<s:Button id="rs_SouthAmericaButton" label="South America" width="33.333%" enabled="false" />
 	</s:Group>
 	
 	
