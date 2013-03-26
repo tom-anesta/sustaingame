@@ -1,5 +1,6 @@
 import mx.collections.ArrayCollection;
 import flash.events.MouseEvent;
+import myEvents.pauseEvent;
 /**
  * ...
  * @author thomas anesta
@@ -34,12 +35,14 @@ private function mainTimeClicked(ev:MouseEvent):void
 		//mainTimeButton.skin.setCurrentState("over", true);
 		ev.target.skin.setCurrentState("over", true);
 		ev.target.label = stringsArrayCollection[currSpeed];
+		ev.target.dispatchEvent(new pauseEvent(ev.type, false, true, ev.cancelable, ev.localX, ev.localY, ev.relatedObject, ev.ctrlKey, ev.altKey, ev.shiftKey, ev.buttonDown, ev.delta, ev.commandKey, ev.controlKey, ev.clickCount));
 	}
 	else
 	{
 		//mainTimeButton.skin.setCurrentState("down", true);
 		ev.target.skin.setCurrentState("down", true);
 		ev.target.label = stringsArrayCollection[numSpeeds];
+		ev.target.dispatchEvent(new pauseEvent(ev.type, true, true, ev.cancelable, ev.localX, ev.localY, ev.relatedObject, ev.ctrlKey, ev.altKey, ev.shiftKey, ev.buttonDown, ev.delta, ev.commandKey, ev.controlKey, ev.clickCount));
 	}
 	isPaused = !isPaused;
 	//dispatch pause event here, also notify the game screen
