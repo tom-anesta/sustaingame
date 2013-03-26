@@ -2,6 +2,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import game.IsoApplication;
 import mx.events.FlexEvent;
+import flash.events.MouseEvent;
 /**
  * ...
  * @author thomas anesta
