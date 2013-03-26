@@ -13,6 +13,7 @@
 				<fx:String>normal</fx:String>
 				<fx:String>fast</fx:String>
 				<fx:String>fastest</fx:String>
+				<fx:String>paused</fx:String>
 			</s:ArrayCollection>
 	</fx:Declarations>
 	
