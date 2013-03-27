@@ -7,7 +7,7 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class seedDistributableItemObject extends distributableItemObject 
+	public class seedDistributableItemObject extends distributableItemObject
 	{
 		//members
 		//-public
