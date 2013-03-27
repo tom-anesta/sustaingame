@@ -38,32 +38,33 @@ package game
 		public var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
+		private var bg:IsoGrid;
 		private var rect:IsoRectangle;
 		private var _group:Group;
-		
-		private var imgLoader:Loader;
-		private var imgURL:URLRequest;
+		[Embed(source = "../../assets/images/Grass.gif")]
+		private var PlayUpImg : Class;
 		
 		private var panPt:Point;
-		private var zoom:Number = 1;
-		private var _map:Array = [
-		[0, 1, 2, 3, 4],
-		[5, 6, 7, 8, 9],
-		[10, 11, 12, 13, 14],
-		[15, 16, 17, 18, 19],
-		[20, 21, 22, 23, 24]
-		];
+		private var zoom:Number = .09;
+		private var firstRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var secondRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var thirdRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var fourthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var fifthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var sixthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var seventhRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var eigthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var _map:Array = [firstRow, secondRow, thirdRow, fourthRow, fifthRow, sixthRow, seventhRow, eigthRow];
 		
 		private function appOnStage(ev:Event):void
 		{
 			view.setSize(this.parent.width, this.parent.height);
-			trace(this.parent.width);
-			trace(this.parent.height);
+			trace(_map.length);
 			this.addChild(view);
 			view.addScene(gridHolder);
 			view.addScene(scene);
 			gridHolder.addChild(grid);
-			//scene.addChild(rect);
+			scene.addChild(rect);
 			gridHolder.render();
 			createGroup();
 			scene.render()
@@ -72,6 +73,7 @@ package game
 		
 		public function IsoApplication() 
 		{
+			
 			view = new IsoView();
 			view.clipContent = true;
 			view.showBorder = false;
@@ -79,12 +81,15 @@ package game
 			gridHolder = new IsoScene();
 			scene = new IsoScene();
 			grid = new IsoGrid();
-			grid.cellSize = 40;
-			grid.setGridSize(5, 5, 0);
+			grid.cellSize = 500;
+			grid.setGridSize(8, 8, 1);
 			
 			rect = new IsoRectangle();
-			rect.setSize(40, 40, 0);
-			rect.moveTo(80, 80, 0);
+			rect.setSize(10000, 10000, 0);
+			rect.moveTo(-2500, -2500, 0);
+			rect.fill = (new BitmapFill(PlayUpImg, IsoOrientation.XY));
+			
+			view.currentZoom = .06;
 			
 			
 			
@@ -92,10 +97,6 @@ package game
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
-			
-			
-			
-			//createGroup();
 		}
 		private function viewMouseDown(e:Event):void
 		{
@@ -118,13 +119,14 @@ package game
 		{
 			if(e.delta > 0)
 			{
-				zoom +=  0.10;
+				zoom +=  0.01;
 			}
 			if(e.delta < 0)
 			{
-				zoom -=  0.10;
+				zoom -=  0.01;
 			}
 			view.currentZoom = zoom;
+			trace(zoom);
 		}
 		private function rectClick(e:Event):void
 		{
@@ -134,7 +136,7 @@ package game
 		private function createGroup():void
 		{
 			_group = new Group(grid);
-			_group.setMapSoil(_map);
+			_group.setMap(_map);
 			_group.moveTo(0, 0, 0);
 			scene.addChild(_group);
 		}

@@ -35,7 +35,7 @@ package game
             _grid = grid;
         }
 		
-		public function setMapSoil(map:Array):void
+		public function setMap(map:Array):void
 		{
  
 		if (children.length > 0)
@@ -43,8 +43,7 @@ package game
 			removeAllChildren();
 		}
 		
-		//make NxN array that rep­resents the group’s layout
-		//this is the array we’ll rotate
+		//make NxN array that represents the group’s layout
 		var w:Number = Math.max(map[0].length, map.length);
 		_layout = new Array2(w,w);
 		_layout.fill(0);
@@ -57,11 +56,14 @@ package game
 			{
 				rect = new IsoRectangle();
 				rect.setSize(_grid.cellSize, _grid.cellSize, 0);
-				rect.moveTo(_grid.cellSize * col, _grid.cellSize * row, 0);
+				rect.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
 				rect.name = map[row][col];
 				rect.fill = new BitmapFill(imgSoil, IsoOrientation.XY);
 				addChild(rect);
 				_layout.set(col, row, rect);
+			}
+			for each(rect in _layout) {
+				rect.fill = new BitmapFill(imgGrass, IsoOrientation.XY);
 			}
 		}
 	}	
