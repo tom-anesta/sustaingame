@@ -2,10 +2,19 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:mxContainers="mx.containers.*"
+			   xmlns:components="components.*"
 			   creationComplete="ccItemMultiPanel()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+			<s:ArrayCollection id="tabBarDataProvider">
+				<fx:String>Buy</fx:String>
+				<fx:String>Sell</fx:String>
+				<fx:String>Inventory</fx:String>
+				<fx:String>Info</fx:String>
+			</s:ArrayCollection>
+		
 	</fx:Declarations>
 	
 	<fx:Script>
@@ -18,17 +27,12 @@
 		<s:VerticalLayout/>
 	</s:layout>
 	
-	<s:TabBar id="sideMenuInfoPanelBar" selectedIndex="0" height="5%">
-		<s:dataProvider>
-			<s:ArrayCollection id="tabBarDataProvider">
-				<fx:String>Buy</fx:String>
-				<fx:String>Sell</fx:String>
-				<fx:String>Inventory</fx:String>
-				<fx:String>Info</fx:String>
-			</s:ArrayCollection>
-		</s:dataProvider>
-	</s:TabBar>
-	
-	<s:Panel title="{tabBarDataProvider.getItemAt(sideMenuInfoPanelBar.selectedIndex)}" height="95%" width="100%" />
+	<s:TabBar id="multipaneltabs" dataProvider="{multipanelstack}" height="4%" />
+    <mxContainers:ViewStack id="multipanelstack" width="100%" height="96%" selectedIndex="0" top="0" bottom="0" left="0" right="0">
+        <components:buyPanel label="{tabBarDataProvider.getItemAt(0)}"  width="100%" height="100%" top="0" bottom="0" left="0" right="0" />
+        <components:sellPanel label="{tabBarDataProvider.getItemAt(1)}"  width="100%" height="100%"/>
+        <components:inventoryPanel label="{tabBarDataProvider.getItemAt(2)}"  width="100%" height="100%"/>
+		<components:infoPanel label="{tabBarDataProvider.getItemAt(3)}" width="100%" height="100%"/>
+    </mxContainers:ViewStack>
 	
 </s:Group>
