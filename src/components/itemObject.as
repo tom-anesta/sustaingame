@@ -15,9 +15,10 @@ package components
 		public static const DISTRIBUTABLE_TYPE:uint = 0;//INCLUDES SEEDS, FERTILIZER, WATER
 		public static const CROP_TYPE:uint = 1;//INCLUDES SEEDS AFTER DISTRIBUTION ANY CROP AFTER HARVESTING
 		public static const EQUIPMENT_TYPE:uint = 2;//INCLUDES IRRIGATION SYSTEMS, TRACTORS, FARMING EQUIPMENT
+		public static const MAINTYPES_LENGTH = 3;//how many main types are in the main types enum
 		//defaults
 		public static const DEFAULT_TYPE:uint = DISTRIBUTABLE_TYPE;//default is distributable
-		public static const DEFAULT_ITEMKEY:uint = DEFAULT_TYPE;//states that it only has a default type and no details
+		public static const DEFAULT_BASE_ITEMKEY:uint = DEFAULT_TYPE;//states that it only has a default type and no details
 		public static const DEFAULT_COST:uint = uint.MAX_VALUE;
 		public static const DEFAULT_DAYS:uint = 0;//how many days the player has owned this item
 		public static const DEFAULT_REDEEMABILITY:Number = 0.000000000001;//represents sell values
@@ -31,7 +32,7 @@ package components
 		//functions
 		//-public
 		//--constructor
-		public function itemObject(type:uint=DEFAULT_TYPE, itemKey:uint=DEFAULT_ITEMKEY, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
+		public function itemObject(type:uint=DEFAULT_TYPE, itemKey:uint=DEFAULT_BASE_ITEMKEY, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
 		{
 			super();
 			this.m_type = type;

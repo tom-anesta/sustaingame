@@ -8,11 +8,19 @@ package components
 	 */
 	public class itemObjectCollection extends ArrayCollection //the class in inventory that holds multiple objects of the same type
 	{
+		//members
+		//-private
+		//source is all we need
+		//-public
 		
-		public function itemObjectCollection(source:Array=null) 
+		//functions
+		//-private
+		//-public
+		//--constructor
+		public function itemObjectCollection() 
 		{
-			super(source);
-			
+			super();
+			this.source = new Array();
 		}
 		
 	}
