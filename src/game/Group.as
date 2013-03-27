@@ -59,7 +59,7 @@ package game
 				rect.setSize(_grid.cellSize, _grid.cellSize, 0);
 				rect.moveTo(_grid.cellSize * col, _grid.cellSize * row, 0);
 				rect.name = map[row][col];
-				rect.fill = new BitmapFill(imgSoil);
+				rect.fill = new BitmapFill(imgSoil, IsoOrientation.XY);
 				addChild(rect);
 				_layout.set(col, row, rect);
 			}
