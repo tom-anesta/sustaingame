@@ -22,6 +22,7 @@ package components
 		public static const DEFAULT_COST:uint = uint.MAX_VALUE;
 		public static const DEFAULT_DAYS:uint = 0;//how many days the player has owned this item
 		public static const DEFAULT_REDEEMABILITY:Number = 0.000000000001;//represents sell values
+		public static const DEFAULT_NAME:String = "UNKONWN";
 		//public static const DEFAULT_//need something to describe the function for calculating redeemability
 		//-private
 		private var m_itemKey;//the unique itemkey, identifies both type and subtype and name
@@ -29,6 +30,7 @@ package components
 		private var m_cost;//the buy cost of an item
 		private var m_days;//the number of days that have gone by with the player owning it
 		private var m_redeemability;//how much you can sell for
+		private var m_name;//the name of the item, tied to itemkey
 		//functions
 		//-public
 		//--constructor
@@ -40,6 +42,7 @@ package components
 			this.m_cost = cost;
 			this.m_days = days;
 			this.m_redeemability = Math.abs(redeemability);
+			this.m_name = DEFAULT_NAME;
 		}
 		//--getters and setters
 		public function get itemKey():uint
@@ -61,6 +64,10 @@ package components
 		public function get sellPrice():uint
 		{
 			return uint(Math.abs(this.m_redeemability * this.m_cost));
+		}
+		public function get name():String
+		{
+			return this.m_name;
 		}
 		//--update functions
 		
