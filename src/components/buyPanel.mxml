@@ -6,6 +6,16 @@
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<!--
+		<s:ArrayCollection>
+			<s:Object>
+				<s:id>sorghumSeed</s:id>
+				<fx:Number id="itemKey">0</fx:Number>
+				<fx:String id="objName">Sorghum Seed</fx:String>
+				<fx:Number id="cost">100</fx:Number>
+			</s:Object>
+		</s:ArrayCollection>
+		-->
 	</fx:Declarations>
 	
 	<fx:Script>
