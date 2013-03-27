@@ -18,7 +18,7 @@ package game
     {
         protected var _grid:IsoGrid;
 		protected var _layout:Array2;
-		protected var rect:IsoRectangle
+		public var rect:IsoRectangle
 		
 		[Embed(source = "../../assets/images/Grass.gif")]
 		private var imgGrass:Class;
@@ -35,7 +35,7 @@ package game
             _grid = grid;
         }
 		
-		public function setMap(map:Array):void
+		public function setMapSoil(map:Array):void
 		{
  
 		if (children.length > 0)
@@ -67,6 +67,4 @@ package game
 	}	
 	
 	}
-	
-
 }

@@ -16,6 +16,7 @@ package game
 		import as3isolib.display.scene.IsoGrid;
 		import as3isolib.display.IsoView;
 		import as3isolib.enum.RenderStyleType;
+		import as3isolib.graphics.*;
 		import as3isolib.graphics.IStroke;
 		import as3isolib.graphics.SolidColorFill;
 		import as3isolib.graphics.Stroke;
@@ -26,6 +27,7 @@ package game
 		import as3isolib.geom.IsoMath;
 		import as3isolib.geom.Pt;
 		import flash.geom.Point;
+		import de.polygonal.ds.Array2
 		
 		//import com.gskinner.motion.GTween;
 		
@@ -33,13 +35,24 @@ package game
         public class IsoApplication extends Sprite
         {
 		private var view:IsoView;
-		private var scene:IsoScene;
+		public var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
-		private var box:IsoBox;
+		private var rect:IsoRectangle;
+		private var _group:Group;
+		
+		private var imgLoader:Loader;
+		private var imgURL:URLRequest;
 		
 		private var panPt:Point;
 		private var zoom:Number = 1;
+		private var _map:Array = [
+		[0, 1, 2, 3, 4],
+		[5, 6, 7, 8, 9],
+		[10, 11, 12, 13, 14],
+		[15, 16, 17, 18, 19],
+		[20, 21, 22, 23, 24]
+		];
 		
 		private function appOnStage(ev:Event):void
 		{
@@ -50,43 +63,39 @@ package game
 			view.addScene(gridHolder);
 			view.addScene(scene);
 			gridHolder.addChild(grid);
-			scene.addChild(box);
+			//scene.addChild(rect);
 			gridHolder.render();
+			createGroup();
 			scene.render()
+
 		}
 		
 		public function IsoApplication() 
 		{
 			view = new IsoView();
-			//view.setSize((this.width), this.height);
 			view.clipContent = true;
 			view.showBorder = false;
-			//addChild(view);
 			
 			gridHolder = new IsoScene();
-			//view.addScene(gridHolder);
 			scene = new IsoScene();
-			//view.addScene(scene);
 			grid = new IsoGrid();
 			grid.cellSize = 40;
 			grid.setGridSize(5, 5, 0);
-			//gridHolder.addChild(grid);
 			
-			box = new IsoBox();
-			box.setSize(40, 40, 40);
-			box.moveTo(80, 80, 0);
-			//scene.addChild(box);
+			rect = new IsoRectangle();
+			rect.setSize(40, 40, 0);
+			rect.moveTo(80, 80, 0);
 			
-			//var pos:Pt = IsoMath.isoToScreen(new Pt(grid.gridSize[0] * grid.cellSize, grid.gridSize[1] * grid.cellSize, 0));
-			//pos is not mentioned elsewhere.  do we need it?
 			
-			//gridHolder.render();
-			//scene.render();
 			
-			box.addEventListener(MouseEvent.CLICK, boxClick);
+			rect.addEventListener(MouseEvent.CLICK, rectClick);
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
+			
+			
+			
+			//createGroup();
 		}
 		private function viewMouseDown(e:Event):void
 		{
@@ -117,9 +126,17 @@ package game
 			}
 			view.currentZoom = zoom;
 		}
-		private function boxClick(e:Event):void
+		private function rectClick(e:Event):void
 		{
-			view.centerOnIso(e.target as IsoBox);
+			view.centerOnIso(e.target as IsoRectangle);
+		}
+		
+		private function createGroup():void
+		{
+			_group = new Group(grid);
+			_group.setMapSoil(_map);
+			_group.moveTo(0, 0, 0);
+			scene.addChild(_group);
 		}
 	}
 }
