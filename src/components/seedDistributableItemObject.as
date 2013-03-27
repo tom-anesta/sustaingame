@@ -24,6 +24,7 @@ package components
 		//defaults
 		public static const DEFAULT_SEEDDISTRIBUTABLE_ITEMKEY:uint = SORGHUM_SEED_TYPE;
 		//private
+		//-resolve the type and information
 		//functions
 		//-public
 		//--constructor
