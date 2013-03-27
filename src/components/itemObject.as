@@ -32,7 +32,7 @@ package components
 		//functions
 		//-public
 		//--constructor
-		public function itemObject(type:uint=DEFAULT_TYPE, itemKey:uint=DEFAULT_BASE_ITEMKEY, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
+		public function itemObject(itemKey:uint=DEFAULT_BASE_ITEMKEY, type:uint=DEFAULT_TYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
 		{
 			super();
 			this.m_type = type;
@@ -66,5 +66,4 @@ package components
 		
 		
 	}
-
 }

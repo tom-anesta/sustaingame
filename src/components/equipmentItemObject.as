@@ -9,13 +9,32 @@ package components
 	 */
 	public class equipmentItemObject extends itemObject 
 	{
-		
-		public function equipmentItemObject(type:uint=DEFAULT_TYPE, itemKey:uint=DEFAULT_BASE_ITEMKEY, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		//members
+		//-public
+		//--static const
+		public static const TOOL_TYPE:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENTH + 0;
+		public static const VEHICLE_TYPE:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENTH + 1;
+		public static const TRAILER_TYPE:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENTH + 2;
+		public static const IRRIGATIONSYSTEM_TYPE:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENTH + 3;
+		public static const EQUIPMENTTYPES_LENGTH = 4;
+		//defaults
+		public static const DEFAULT_EQUIPMENT_SUBTYPE:uint = TOOL_TYPE;
+		public static const DEFAULT_EQUIPMENT_ITEMKEY:uint = DEFAULT_EQUIPMENT_SUBTYPE;
+		//private
+		private var m_subtype:uint;
+		//functions
+		//-public
+		//--constructor
+		public function equipmentItemObject(itemKey:uint=DEFAULT_EQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(type, itemKey, cost, days, redeemability);
-			
+			super(itemKey, type, cost, days, redeemability);
+			this.m_subtype = subtype;
+		}
+		//--getters and setters
+		public function get subtype():uint
+		{
+			return this.m_subtype;
 		}
 		
 	}
-
 }

@@ -26,13 +26,16 @@ package components
 		//functions
 		//-public
 		//--constructor
-		public function distributableItemObject(type:uint=DEFAULT_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(type, itemKey, cost, days, redeemability);
+			super(itemKey, type, cost, days, redeemability);
 			this.m_subtype = subtype;
 		}
 		//--getters and setters
+		public function get subtype():uint
+		{
+			return this.m_subtype;
+		}
 		
 	}
-
 }
