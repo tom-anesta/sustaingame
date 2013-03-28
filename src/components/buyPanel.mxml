@@ -16,15 +16,17 @@
 		<![CDATA[
 		include "buyPanelProcedures.as";
 		import spark.layouts.TileOrientation;
-		import spark.skins.spark.DefaultComplexItemRenderer
+		import spark.skins.spark.DefaultComplexItemRenderer;
+		import spark.skins.spark.DefaultItemRenderer;
 		]]>
 	</fx:Script>
 	
 	<!--<s:Group>-->
-		<s:List id="buyPanelList" itemRenderer="spark.skins.spark.DefaultComplexItemRenderer" height="100%"> <!-- dataProvider="{buyPanelDataProvider}" > -->
+		<s:List id="buyPanelList" itemRenderer="components.buyPanelItemRenderer" height="100%"> <!-- dataProvider="{buyPanelDataProvider}" > -->
 			<s:layout>
 				<s:TileLayout horizontalGap="0" verticalGap="0" orientation="{spark.layouts.TileOrientation.COLUMNS}" requestedColumnCount="2" /> <!-- columnWidth="{(this.width/2)-5}" rowHeight="{this.height/5}" columnAlign="justifyUsingWidth" requestedRowCount="{buyPanelDataProvider.length/2 + (buyPanelDataProvider.length%2)}"  /> -->
 			</s:layout>
+			
 		</s:List>
 	<!--</s:Group>-->
 	

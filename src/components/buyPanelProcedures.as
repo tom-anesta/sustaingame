@@ -1,6 +1,7 @@
 import Array;
 import mx.collections.ArrayCollection;
 import spark.layouts.TileLayout;
+import components.seedDistributableItemObject;
 /**
  * ...
  * @author thomas anesta
@@ -11,7 +12,8 @@ private function buypanelinit():void
 {
 	buyPanelDataProvider = new ArrayCollection();
 	//buyPanelDataProvider.source = buyPanelDataProvider.source.map(toObject);
-	buyPanelDataProvider.addItem(new Object());
+	//buyPanelDataProvider.addItem({label:'item1', number:57});
+	buyPanelDataProvider.addItem(new seedDistributableItemObject());
 	trace(buyPanelDataProvider);
 }
 //from http://blog.flexexamples.com/2008/03/26/converting-an-array-of-string-objects-to-an-array-of-object-objects-in-flex/

@@ -7,6 +7,7 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
+	[Bindable]
 	public class distributableItemObject extends itemObject 
 	{
 		//members
