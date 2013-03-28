@@ -7,6 +7,7 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
+	[Bindable]
 	public class cropItemObject extends itemObject 
 	{
 		
@@ -30,7 +31,6 @@ package components
 			this.m_subtype = subtype;
 		}
 		//--getters and setters
-		//[Bindable]
 		public function get subtype():uint
 		{
 			return this.m_subtype;

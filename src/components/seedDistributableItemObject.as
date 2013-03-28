@@ -7,6 +7,7 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
+	[Bindable]
 	public class seedDistributableItemObject extends distributableItemObject
 	{
 		//members

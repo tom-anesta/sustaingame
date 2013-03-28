@@ -7,6 +7,7 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
+	[Bindable]
 	public class itemObject extends Object implements IEventDispatcher //the object we are using to represent things in inventory, buy, and sell
 	{
 		
@@ -29,17 +30,11 @@ package components
 		public static const DEFAULT_NAME:String = "UNKNOWN";
 		//public static const DEFAULT_//need something to describe the function for calculating redeemability
 		//-private
-		[Bindable]
 		private var m_itemKey:uint;//the unique itemkey, identifies both type and subtype and name
-		[Bindable]
 		private var m_type:uint;//the main type of this item
-		[Bindable]
 		private var m_cost:uint;//the buy cost of an item
-		[Bindable]
 		private var m_days:uint;//the number of days that have gone by with the player owning it
-		[Bindable]
 		private var m_redeemability:Number;//how much you can sell for
-		[Bindable]
 		private var m_name:String;//the name of the item, tied to itemkey
 		//for event dispatcher support
 		private var m_eventDispatcher:EventDispatcher;
@@ -58,35 +53,33 @@ package components
 			this.m_name = DEFAULT_NAME;
 		}
 		//--getters and setters
-		//[Bindable]
 		public function get itemKey():uint
 		{
 			return this.m_itemKey;
 		}
-		//[Bindable]
 		public function get type():uint
 		{
 			return this.m_type;
 		}
-		//[Bindable]
 		public function get days():uint
 		{
 			return this.m_days;
 		}
-		//[Bindable]
 		public function get redeemability():Number
 		{
 			return this.redeemability;
 		}
-		//[Bindable]
 		public function get sellPrice():uint
 		{
 			return uint(Math.abs(this.m_redeemability * this.m_cost));
 		}
-		//[Bindable]
 		public function get name():String
 		{
 			return this.m_name;
+		}
+		public function get cost():uint
+		{
+			return this.m_cost;
 		}
 		//--update functions
 		

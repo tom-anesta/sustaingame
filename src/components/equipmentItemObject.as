@@ -7,6 +7,7 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
+	[Bindable]
 	public class equipmentItemObject extends itemObject 
 	{
 		//members
@@ -31,7 +32,6 @@ package components
 			this.m_subtype = subtype;
 		}
 		//--getters and setters
-		//[Bindable]
 		public function get subtype():uint
 		{
 			return this.m_subtype;
