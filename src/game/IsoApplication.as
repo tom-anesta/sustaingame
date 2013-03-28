@@ -29,8 +29,6 @@ package game
 		import flash.geom.Point;
 		import de.polygonal.ds.Array2
 		
-		//import com.gskinner.motion.GTween;
-		
         
         public class IsoApplication extends Sprite
         {
@@ -38,7 +36,6 @@ package game
 		public var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
-		private var bg:IsoGrid;
 		private var rect:IsoRectangle;
 		private var _group:Group;
 		[Embed(source = "../../assets/images/Grass.gif")]
@@ -59,7 +56,6 @@ package game
 		private function appOnStage(ev:Event):void
 		{
 			view.setSize(this.parent.width, this.parent.height);
-			trace(_map.length);
 			this.addChild(view);
 			view.addScene(gridHolder);
 			view.addScene(scene);
@@ -90,10 +86,7 @@ package game
 			rect.fill = (new BitmapFill(PlayUpImg, IsoOrientation.XY));
 			
 			view.currentZoom = .06;
-			
-			
-			
-			rect.addEventListener(MouseEvent.CLICK, rectClick);
+
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
@@ -126,11 +119,6 @@ package game
 				zoom -=  0.01;
 			}
 			view.currentZoom = zoom;
-			trace(zoom);
-		}
-		private function rectClick(e:Event):void
-		{
-			view.centerOnIso(e.target as IsoRectangle);
 		}
 		
 		private function createGroup():void
