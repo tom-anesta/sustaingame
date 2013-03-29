@@ -28,14 +28,9 @@ package components
 		//--constructor
 		public function equipmentItemObject(itemKey:uint=DEFAULT_EQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(itemKey, type, cost, days, redeemability);
-			this.m_subtype = subtype;
+			super(itemKey, type, subtype, cost, days, redeemability);
 		}
 		//--getters and setters
-		public function get subtype():uint
-		{
-			return this.m_subtype;
-		}
-		
+
 	}
 }

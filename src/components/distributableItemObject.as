@@ -23,20 +23,15 @@ package components
 		public static const DEFAULT_DISTRIBUTABLE_SUBTYPE:uint = SEED_TYPE;
 		public static const DEFAULT_DISTRIBUTABLE_ITEMKEY:uint = DEFAULT_DISTRIBUTABLE_SUBTYPE;
 		//-private
-		private var m_subtype:uint;
 		//functions
 		//-public
 		//--constructor
 		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(itemKey, type, cost, days, redeemability);
-			this.m_subtype = subtype;
+			super(itemKey, type, subtype, cost, days, redeemability);
 		}
 		//--getters and setters
-		public function get subtype():uint
-		{
-			return this.m_subtype;
-		}
+
 		
 	}
 }

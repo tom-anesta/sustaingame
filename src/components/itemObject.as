@@ -32,6 +32,7 @@ package components
 		//-private
 		private var m_itemKey:uint;//the unique itemkey, identifies both type and subtype and name
 		private var m_type:uint;//the main type of this item
+		private var m_subtype:uint;
 		private var m_cost:uint;//the buy cost of an item
 		private var m_days:uint;//the number of days that have gone by with the player owning it
 		private var m_redeemability:Number;//how much you can sell for
@@ -41,11 +42,12 @@ package components
 		//functions
 		//-public
 		//--constructor
-		public function itemObject(itemKey:uint=DEFAULT_BASE_ITEMKEY, type:uint=DEFAULT_TYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
+		public function itemObject(itemKey:uint=DEFAULT_BASE_ITEMKEY, type:uint=DEFAULT_TYPE, subtype:uint=DEFAULT_TYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
 		{
 			super();
 			this.m_eventDispatcher = new EventDispatcher(this);
 			this.m_type = type;
+			this.m_subtype = subtype;
 			this.m_itemKey = itemKey;
 			this.m_cost = cost;
 			this.m_days = days;
@@ -60,6 +62,10 @@ package components
 		public function get type():uint
 		{
 			return this.m_type;
+		}
+		public function get subtype():uint
+		{
+			return this.m_subtype;
 		}
 		public function get days():uint
 		{
@@ -80,6 +86,36 @@ package components
 		public function get cost():uint
 		{
 			return this.m_cost;
+		}
+		//setters, for data binding (are read only)
+		public function set itemKey():void
+		{
+			return;//do nothing
+		}
+		public function set type():void
+		{
+			return;//do nothing
+		}
+		public function set subtype():void
+		{
+			return;//do nothing
+		}
+
+		public function set redeemability():void
+		{
+			return;//do nothing
+		}
+		public function set sellPrice():void
+		{
+			return;//do nothing
+		}
+		public function set name(value:String):void
+		{
+			return;//do nothing
+		}
+		public function set cost(value:uint):void
+		{
+			return;//do nothing
 		}
 		//--update functions
 		

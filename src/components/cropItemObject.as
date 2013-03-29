@@ -20,21 +20,16 @@ package components
 		//defaults
 		public static const DEFAULT_CROP_SUBTYPE:uint = PLANT_TYPE;
 		public static const DEFAULT_CROP_ITEMKEY:uint = DEFAULT_CROP_SUBTYPE;
-		//private
-		private var m_subtype:uint;
+
 		//functions
 		//-public
 		//--constructor
 		public function cropItemObject(itemKey:uint=DEFAULT_CROP_ITEMKEY, type:uint=CROP_TYPE, subtype:uint=DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(itemKey, type, cost, days, redeemability);
-			this.m_subtype = subtype;
+			super(itemKey, type, subtype, cost, days, redeemability);
 		}
 		//--getters and setters
-		public function get subtype():uint
-		{
-			return this.m_subtype;
-		}
+
 		
 	}
 }
