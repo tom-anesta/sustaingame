@@ -18,10 +18,12 @@ import spark.events.IndexChangeEvent;
 private var buyPanelDataProvider:ArrayCollection;
 
 //event handlers
-private function buyPanelListClicked(ev:ItemClickEvent):void
+/*
+private function buyPanelListDoubleClicked(ev:ItemClickEvent):void
 {
-	
+	trace("item double clicked");
 }
+*/
 //init and cc
 private function buypanelinit():void
 {
@@ -41,5 +43,5 @@ private function ccbuypanel():void
 	((buyPanelList.layout) as TileLayout).rowHeight = this.height / 4;
 	((buyPanelList.layout) as TileLayout).columnAlign = "justifyUsingWidth";
 	((buyPanelList.layout) as TileLayout).requestedRowCount = buyPanelDataProvider.length / 2 + (buyPanelDataProvider.length % 2);
-	buyPanelList.addEventListener(ItemClickEvent.ITEM_CLICK, buyPanelListClicked);
+	//buyPanelList.addEventListener(ItemClickEvent.ITEM_CLICK, buyPanelListDoubleClicked);
 }
