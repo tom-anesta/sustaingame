@@ -31,7 +31,7 @@ package components.itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function equipmentItemObject(itemKey:uint=DEFAULT_EQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function equipmentItemObject(itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
 			super(itemKey, type, subtype, cost, days, redeemability);
 			//this.m_tNSource = DEFAULT_EQUIPMENT_TNSOURCE;
