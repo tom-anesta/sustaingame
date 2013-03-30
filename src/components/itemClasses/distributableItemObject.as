@@ -1,15 +1,15 @@
 package components.itemClasses 
 {
-	import components.itemObject;
-	import components.cropItemObject;
-	import components.equipmentItemObject;
+	import components.itemClasses.itemObject;
+	import components.itemClasses.cropItemObject;
+	import components.itemClasses.equipmentItemObject;
 	import flash.display.Bitmap;
 	/**
 	 * ...
 	 * @author thomas anesta
 	 */
 	[Bindable]
-	public class distributableItemObject extends itemObject 
+	public class distributableItemObject extends itemObject
 	{
 		//members
 		//-public
@@ -26,7 +26,7 @@ package components.itemClasses
 		//public static const DEFAULT_DISTRIBUTABLE_TNSOURCE:String = "/../assets/images/SorghumSeedBag2.gif";
 		//-protected
 		//cannot do this and that makes me sad//[Embed(source = distributableItemObject.DEFAULT_DISTRIBUTABLE_TNSOURCE)]
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected var DEFAULT_DISTRIBUTABLE_TNASSET : Class;
 		//functions
 		//-public

@@ -1,9 +1,10 @@
 package components.itemClasses 
 {
-	import components.itemObject;
-	import components.equipmentItemObject;
-	import components.distributableItemObject;
+	import components.itemClasses.itemObject;
+	import components.itemClasses.equipmentItemObject;
+	import components.itemClasses.distributableItemObject;
 	import flash.display.Bitmap;
+	import flash.utils.*;
 	//embed assets
 	
 	
@@ -26,7 +27,7 @@ package components.itemClasses
 		//public static const DEFAULT_CROP_TNSOURCE:String = "/../assets/images/SorghumStage3.gif";
 		//-protected
 		//cannot do this and that makes me sad//[Embed(source = cropItemObject.DEFAULT_CROP_TNSOURCE)]
-		[Embed(source="../../assets/images/SorghumStage3.gif")]
+		[Embed(source="../../../assets/images/SorghumStage3.gif")]
 		protected static var DEFAULT_CROP_TNASSET : Class;
 		//functions
 		//-public

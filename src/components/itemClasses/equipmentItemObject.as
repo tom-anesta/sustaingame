@@ -1,9 +1,10 @@
 package components.itemClasses
 {
-	import components.itemObject;
-	import components.cropItemObject;
-	import components.distributableItemObject;
+	import components.itemClasses.itemObject;
+	import components.itemClasses.cropItemObject;
+	import components.itemClasses.distributableItemObject;
 	import flash.display.Bitmap;
+	import flash.utils.*;
 	/**
 	 * ...
 	 * @author thomas anesta
@@ -25,7 +26,7 @@ package components.itemClasses
 		//public static const DEFAULT_EQUIPMENT_TNSOURCE:String = "/../assets/images/WaterCanNWater.gif";
 		//-protected
 		//cannot do this and it makes me sad//[Embed(source = equipmentItemObject.DEFAULT_EQUIPMENT_TNSOURCE)]
-		[Embed(source="../../assets/images/WaterCanNWater.gif")]
+		[Embed(source="../../../assets/images/WaterCanNWater.gif")]
 		protected var DEFAULT_EQUIPMENT_TNASSET : Class;
 		//functions
 		//-public

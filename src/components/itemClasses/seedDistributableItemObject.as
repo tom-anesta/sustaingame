@@ -1,8 +1,10 @@
 package components.itemClasses 
 {
-	import components.distributableItemObject;
-	import components.equipmentItemObject;
-	import components.cropItemObject;
+	import components.itemClasses.distributableItemObject;
+	import components.itemClasses.equipmentItemObject;
+	import components.itemClasses.cropItemObject;
+	import components.itemClasses.plantCropItemObject;
+	import components.itemClasses.trailerEquipmentItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	/**
@@ -52,31 +54,31 @@ package components.itemClasses
 		//-protected
 		//--embeds
 		//[Embed(source = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE, mimeType='image.gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var DEFAULT_SEEDDISTRIBUTABLE_TNASSET:Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SORGHUM_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_SORGHUM_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_MAIZE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_MAIZE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_PEANUT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_PEANUT_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SOYBEAN_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_SOYBEAN_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_GRAPE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source = "../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_GRAPE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_TOBACCO_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_TOBACCO_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SUGARCANE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_SUGARCANE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_APRICOT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_APRICOT_TNASSET : Class;
 		//private
 		private static var s_inited:Boolean = false;
@@ -111,7 +113,6 @@ package components.itemClasses
 					break;
 				case SEED_TOBACCO:
 					this.m_itemKey = TOBACCO_SEED_TYPE;
-					this.m_tNSource = SEED_TOBACCO_TNSOURCE;
 					break;
 				case SEED_SUGARCANE:
 					this.m_itemKey = SUGARCANE_SEED_TYPE;
@@ -130,7 +131,6 @@ package components.itemClasses
 		private static function initClassArray():Boolean
 		{
 			s_assetArray = new Array();
-			trace((getQualifiedClassName(DEFAULT_SEEDDISTRIBUTABLE_TNASSET)));
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_SEEDDISTRIBUTABLE_TNASSET))) as Class );
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SORGHUM_TNASSET))) as Class );
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_MAIZE_TNASSET))) as Class );

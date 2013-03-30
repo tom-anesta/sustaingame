@@ -1,7 +1,8 @@
 import Array;
+import components.itemClasses.trailerEquipmentItemObject;
 import mx.collections.ArrayCollection;
 import spark.layouts.TileLayout;
-import components.seedDistributableItemObject;
+import components.itemClasses.seedDistributableItemObject;
 /**
  * ...
  * @author thomas anesta
@@ -12,6 +13,7 @@ private function buypanelinit():void
 {
 	buyPanelDataProvider = new ArrayCollection();
 	buyPanelDataProvider.addItem(new seedDistributableItemObject(seedDistributableItemObject.SEED_SORGHUM));
+	buyPanelDataProvider.addItem(new trailerEquipmentItemObject(trailerEquipmentItemObject.TRAILER_WATERINGCAN));
 }
 //from http://blog.flexexamples.com/2008/03/26/converting-an-array-of-string-objects-to-an-array-of-object-objects-in-flex/
 //private function toObject(element:String, index:int, arr:Array):Object

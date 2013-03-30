@@ -49,7 +49,7 @@ package components.itemClasses
 		protected var m_eventDispatcher:EventDispatcher;
 		//protected embeds
 		//[Embed(source = DEFAULT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source = "../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
+		[Embed(source = "../../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
 		protected static var DEFAULT_TNASSET:Class;
 		
 		//functions
@@ -66,7 +66,6 @@ package components.itemClasses
 			this.m_days = days;
 			this.m_redeemability = Math.abs(redeemability);
 			this.m_name = DEFAULT_NAME;
-			this.m_tNSource = DEFAULT_TNSOURCE;
 			this.m_tNAsset = DEFAULT_TNASSET;
 			this.m_tNBitmap = ((Bitmap) (new this.m_tNAsset()));
 		}
@@ -103,10 +102,6 @@ package components.itemClasses
 		{
 			return this.m_cost;
 		}
-		public function get tNSource():String
-		{
-			return this.m_tNSource;
-		}
 		public function get tNAsset():Class
 		{
 			return this.m_tNAsset;
@@ -141,10 +136,6 @@ package components.itemClasses
 			return;//do nothing
 		}
 		public function set cost(value:uint):void
-		{
-			return;//do nothing
-		}
-		public function set tNSource(value:String):void
 		{
 			return;//do nothing
 		}
