@@ -1,4 +1,4 @@
-package components 
+package components.itemClasses
 {
 	import components.itemObject;
 	import components.cropItemObject;
@@ -22,7 +22,7 @@ package components
 		//---defaults
 		public static const DEFAULT_EQUIPMENT_SUBTYPE:uint = TOOL_TYPE;
 		public static const DEFAULT_EQUIPMENT_ITEMKEY:uint = DEFAULT_EQUIPMENT_SUBTYPE;
-		public static const DEFAULT_EQUIPMENT_TNSOURCE:String = "/../assets/images/WaterCanNWater.gif";
+		//public static const DEFAULT_EQUIPMENT_TNSOURCE:String = "/../assets/images/WaterCanNWater.gif";
 		//-protected
 		//cannot do this and it makes me sad//[Embed(source = equipmentItemObject.DEFAULT_EQUIPMENT_TNSOURCE)]
 		[Embed(source="../../assets/images/WaterCanNWater.gif")]
@@ -33,9 +33,9 @@ package components
 		public function equipmentItemObject(itemKey:uint=DEFAULT_EQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
 			super(itemKey, type, subtype, cost, days, redeemability);
-			this.m_tNSource = DEFAULT_EQUIPMENT_TNSOURCE;
+			//this.m_tNSource = DEFAULT_EQUIPMENT_TNSOURCE;
 			this.m_tNAsset = DEFAULT_EQUIPMENT_TNASSET;
-			this.m_tNBitmap = ((Bitmap) (new this.m_tNAsset()));
+			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
 

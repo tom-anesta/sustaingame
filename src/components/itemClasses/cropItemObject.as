@@ -1,4 +1,4 @@
-package components 
+package components.itemClasses 
 {
 	import components.itemObject;
 	import components.equipmentItemObject;
@@ -14,7 +14,6 @@ package components
 	[Bindable]
 	public class cropItemObject extends itemObject 
 	{
-		
 		//members
 		//-public
 		//--static const
@@ -24,7 +23,7 @@ package components
 		//defaults
 		public static const DEFAULT_CROP_SUBTYPE:uint = PLANT_TYPE;
 		public static const DEFAULT_CROP_ITEMKEY:uint = DEFAULT_CROP_SUBTYPE;
-		public static const DEFAULT_CROP_TNSOURCE:String = "/../assets/images/SorghumStage3.gif";
+		//public static const DEFAULT_CROP_TNSOURCE:String = "/../assets/images/SorghumStage3.gif";
 		//-protected
 		//cannot do this and that makes me sad//[Embed(source = cropItemObject.DEFAULT_CROP_TNSOURCE)]
 		[Embed(source="../../assets/images/SorghumStage3.gif")]
@@ -36,9 +35,9 @@ package components
 		public function cropItemObject(itemKey:uint=DEFAULT_CROP_ITEMKEY, type:uint=CROP_TYPE, subtype:uint=DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
 			super(itemKey, type, subtype, cost, days, redeemability);
-			this.m_tNSource = DEFAULT_CROP_TNSOURCE;
+			//this.m_tNSource = DEFAULT_CROP_TNSOURCE;
 			this.m_tNAsset = DEFAULT_CROP_TNASSET;
-			this.m_tNBitmap = ((Bitmap) (new this.m_tNAsset()));
+			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
 

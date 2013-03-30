@@ -1,4 +1,4 @@
-package components 
+package components.itemClasses 
 {
 	import components.distributableItemObject;
 	import components.equipmentItemObject;
@@ -36,6 +36,7 @@ package components
 		public static const SEED_SUGARCANE:String = "sugarcane";
 		public static const SEED_APRICOT:String = "apricot";
 		//---embed image paths
+		/*
 		public static const SEED_SORGHUM_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
 		public static const SEED_MAIZE_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
 		public static const SEED_PEANUT_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
@@ -44,9 +45,10 @@ package components
 		public static const SEED_TOBACCO_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
 		public static const SEED_SUGARCANE_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
 		public static const SEED_APRICOT_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
+		*/
 		//---defaults
 		public static const DEFAULT_SEEDDISTRIBUTABLE_ITEMKEY:uint = DEFAULT_SEED_TYPE;
-		public static const DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
+		//public static const DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
 		//-protected
 		//--embeds
 		//[Embed(source = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE, mimeType='image.gif')]//can't do this and it makes me sad
@@ -94,23 +96,18 @@ package components
 			{
 				case SEED_SORGHUM:
 					this.itemKey = SORGHUM_SEED_TYPE;
-					this.m_tNSource = SEED_SORGHUM_TNSOURCE;
 					break;
 				case SEED_MAIZE:
 					this.m_itemKey = MAIZE_SEED_TYPE;
-					this.m_tNSource = SEED_MAIZE_TNSOURCE;
 					break;
 				case SEED_PEANUT:
 					this.m_itemKey = PEANUT_SEED_TYPE;
-					this.m_tNSource = SEED_PEANUT_TNSOURCE;
 					break;
 				case SEED_SOYBEAN:
 					this.m_itemKey = SOYBEAN_SEED_TYPE;
-					this.m_tNSource = SEED_SOYBEAN_TNSOURCE;
 					break;
 				case SEED_GRAPE:
 					this.m_itemKey = GRAPE_SEED_TYPE;
-					this.m_tNSource = SEED_GRAPE_TNSOURCE;
 					break;
 				case SEED_TOBACCO:
 					this.m_itemKey = TOBACCO_SEED_TYPE;
@@ -118,25 +115,20 @@ package components
 					break;
 				case SEED_SUGARCANE:
 					this.m_itemKey = SUGARCANE_SEED_TYPE;
-					this.m_tNSource = SEED_SUGARCANE_TNSOURCE;
 					break;
 				case SEED_APRICOT:
 					this.m_itemKey = APRICOT_SEED_TYPE;
-					this.m_tNSource = SEED_APRICOT_TNSOURCE;
 					break;
 				default://default itemkey
-					this.m_tNSource = DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE;
 					break;
 			}
 			this.m_tNAsset = s_assetArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
-		//init function
+		//-private
+		//--init function
 		private static function initClassArray():Boolean
 		{
-			//trace("initing");
-			//s_assetArray = [ ( getQualifiedClassName("DEFAULT_SEEDDISTRIBUTABLE_TNASSET") as Class), ( getQualifiedClassName("SEED_SORGHUM_TNASSET") as Class), ( getQualifiedClassName("SEED_MAIZE_TNASSET") as Class), ( getQualifiedClassName ("SEED_PEANUT_TNASSET") as Class), ( getQualifiedClassName ("SEED_SOYBEAN_TNASSET") as Class), ( getQualifiedClassName ("SEED_GRAPE_TNASSET") as Class), ( getQualifiedClassName ("SEED_TOBACCO_TNASSET") as Class), ( getQualifiedClassName ("SEED_SUGARCANE_TNASSET") as Class), ( getQualifiedClassName ("SEED_APRICOT_TNASSET") as Class) ];
-			//trace(s_assetArray.length);
 			s_assetArray = new Array();
 			trace((getQualifiedClassName(DEFAULT_SEEDDISTRIBUTABLE_TNASSET)));
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_SEEDDISTRIBUTABLE_TNASSET))) as Class );
@@ -150,7 +142,6 @@ package components
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_APRICOT_TNASSET))) as Class );
 			return true;
 		}
-		
 		//--getters and setters
 		
 		

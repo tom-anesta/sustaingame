@@ -1,4 +1,4 @@
-package components 
+package components.itemClasses 
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -31,7 +31,7 @@ package components
 		public static const DEFAULT_REDEEMABILITY:Number = 0.000000000001;//represents sell values
 		public static const DEFAULT_NAME:String = "UNKNOWN";
 		//image defaults
-		public static const DEFAULT_TNSOURCE:String = "../../assets/images/SorghumStage1.gif"; 
+		//public static const DEFAULT_TNSOURCE:String = "../../assets/images/SorghumStage1.gif"; 
 		//public static const DEFAULT_//need something to describe the function for calculating redeemability
 		//-private
 		//-protected
@@ -42,7 +42,7 @@ package components
 		protected var m_days:uint;//the number of days that have gone by with the player owning it
 		protected var m_redeemability:Number;//how much you can sell for
 		protected var m_name:String;//the name of the item, tied to itemkey
-		protected var m_tNSource:String;//the string location of the asset
+		//protected var m_tNSource:String;//the string location of the asset
 		protected var m_tNAsset:Class;//the thumbnail asset
 		protected var m_tNBitmap:Bitmap;//the bitmap for the image
 		//for event dispatcher support
