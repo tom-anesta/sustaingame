@@ -16,6 +16,7 @@ package myEvents
 		//---typestrings
 		public static const BUY_REQUEST:String = "buyPopup";
 		public static const INFO_REQUEST:String = "infoPopup";
+		public static const SELL_REQUEST:String = "sellPopup";
 		public static const MONEY_REQUEST:String = "moneyPopup";
 		public static const ENVIRONMENT_REQUEST:String = "environmentPopup";
 		//-private

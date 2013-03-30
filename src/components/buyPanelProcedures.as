@@ -51,6 +51,11 @@ private function buyItemButtonClicked(ev:MouseEvent):void
 	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.BUY_REQUEST, buyPanelList.selectedItem as Object, true, false);
 	dispatchEvent(dEvent);
 }
+private function infoItemButtonClicked(ev:MouseEvent):void
+{
+	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.INFO_REQUEST, buyPanelList.selectedItem as Object, true, false);
+	dispatchEvent(dEvent);
+}
 //init and cc
 //fucks up sizing
 /*
@@ -73,4 +78,5 @@ private function ccBuyPanel():void
 	((buyPanelList.layout) as TileLayout).columnAlign = "justifyUsingWidth";
 	((buyPanelList.layout) as TileLayout).requestedRowCount = buyPanelDataProvider.length / 2 + (buyPanelDataProvider.length % 2);
 	buyItemButton.addEventListener(MouseEvent.CLICK, buyItemButtonClicked);
+	infoItemButton.addEventListener(MouseEvent.CLICK, infoItemButtonClicked);
 }

@@ -7,13 +7,15 @@ import mx.events.FlexEvent;
 import flash.events.MouseEvent;
 import myEvents.pauseEvent;
 import components.popups.buyItemPopup;
+import components.popups.infoOnItemPopup;
 import myEvents.popupRequestEvent;
 import mx.managers.PopUpManager;
 /**
  * ...
  * @author thomas anesta
  */
-public var gameVBuyPopup:components.popups.buyItemPopup=null;
+public var gameVBuyPopup:components.popups.buyItemPopup = null;
+public var gameVInfoPopup:components.popups.infoOnItemPopup = null;
 //public var buyPopupOnStage:Boolean;
 /*
 private function popupRequestReceived(ev:popupRequestEvent)
@@ -27,6 +29,16 @@ private function buyRequestEventReceived(ev:popupRequestEvent):void
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
 	PopUpManager.centerPopUp(gameVBuyPopup);
 	PopUpManager.bringToFront(gameVBuyPopup);
+}
+private function sellRequestEventReceived(ev:popupRequestEvent):void
+{
+	return;//not ready yet
+}
+private function infoRequestEventReceived(ev:popupRequestEvent):void
+{
+	gameVInfoPopup = PopUpManager.createPopUp(this, infoOnItemPopup, true) as infoOnItemPopup;
+	PopUpManager.centerPopUp(gameVInfoPopup);
+	PopUpManager.bringToFront(gameVInfoPopup);
 }
 private function pauseEventReceived(ev:pauseEvent):void
 {
@@ -61,5 +73,6 @@ private function ccGameV():void
 	initGameSprite();
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
+	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 }
 

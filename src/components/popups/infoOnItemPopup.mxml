@@ -2,8 +2,8 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
-			   initialize="initBuyItemPopup()"
-			   creationComplete="ccBuyItemPopup()"
+			   initialize="initInfoOnItemPopup()"
+			   creationComplete="ccInfoOnItemPopup()"
 			   close="handleClose()">
 	
 	<fx:Declarations>
@@ -12,10 +12,11 @@
 	
 	<fx:Script>
 		<![CDATA[
-			include "buyItemPopupProcedures.as";
+		include "infoOnItemPopupProcedures.as";
 		]]>
 	</fx:Script>
 	
-	<s:Label text = "this is the buy popup" />
+	<s:Label text="this is the info popup" />
+	
 	
 </s:TitleWindow>
