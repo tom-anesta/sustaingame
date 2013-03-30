@@ -1,20 +1,41 @@
 package myEvents 
 {
 	import flash.display.InteractiveObject;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
-	
+	import Object;
 	/**
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class popupRequestEvent extends MouseEvent 
+	public class popupRequestEvent extends Event
 	{
-		
-		
-		public function popupRequestEvent(type:String, bubbles:Boolean=true, cancelable:Boolean=false, localX:Number=null, localY:Number=null, relatedObject:InteractiveObject=null, ctrlKey:Boolean=false, altKey:Boolean=false, shiftKey:Boolean=false, buttonDown:Boolean=false, delta:int=0, commandKey:Boolean=false, controlKey:Boolean=false, clickCount:int=0) 
+		//member variables
+		//-public
+		//--static const
+		//---typestrings
+		public static const BUY_REQUEST:String = "buyPopup";
+		public static const INFO_REQUEST:String = "infoPopup";
+		public static const MONEY_REQUEST:String = "moneyPopup";
+		public static const ENVIRONMENT_REQUEST:String = "environmentPopup";
+		//-private
+		private var m_releventItem:Object;//the object that is the subject of the popup that we want to base things off of
+		//functions
+		//-public
+		//--constructor
+		public function popupRequestEvent(type:String, releventItem:Object, bubbles:Boolean=true, cancelable:Boolean=false) 
 		{
-			super(type, bubbles, cancelable, localX, localY, relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta, commandKey, controlKey, clickCount);
-			
+			this.m_releventItem = releventItem;
+			super(type, bubbles, cancelable);
+		}
+		//--getters and setters
+		public function get releventItem():Object
+		{
+			return this.m_releventItem;
+		}
+		public function set releventItem(value:Object):void
+		{
+			this.m_releventItem = value;
 		}
 		
 	}

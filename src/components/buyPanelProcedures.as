@@ -10,8 +10,8 @@ import spark.events.ListEvent;
 import flash.events.MouseEvent;
 import mx.managers.PopUpManager;
 import components.popups.buyItemPopup;
-//import 
 import spark.events.IndexChangeEvent;
+import myEvents.popupRequestEvent;
 /**
  * ...
  * @author thomas anesta
@@ -48,11 +48,8 @@ private function buyPanelListDoubleClicked(ev:ItemClickEvent):void
 */
 private function buyItemButtonClicked(ev:MouseEvent):void
 {
-	/*
-	PopUpManager.addPopUp(new buyItemPopup(), this as DisplayObject, true);
-	PopUpManager.centerPopUp(this);
-	PopUpManager.bringToFront(this);
-	*/
+	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.BUY_REQUEST, buyPanelList.selectedItem as Object, true, false);
+	dispatchEvent(dEvent);
 }
 //init and cc
 //fucks up sizing
