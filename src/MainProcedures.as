@@ -10,12 +10,16 @@ import mx.collections.ArrayCollection;
 import mx.collections.ArrayList;
 import mx.core.WindowedApplication;
 import mx.events.CloseEvent;
+import mx.events.IndexChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
+import myEvents.gameLayedOutEvent;
 import spark.events.*;
 import flash.desktop.NativeApplication
+import spark.events.IndexChangeEvent;
 //our classes
+import components.globalManagers.moneyManager;
 //views
 import myEvents.viewChangeEvent
 //import com.adobe.serialization.json.*;
@@ -36,12 +40,15 @@ public static const S_GAME_REQ:String="game";
 public static const S_REGISTRATION_REQ:String="registration";
 
 //PRIVATE VARIABLES
-
+//a user
 private var m_app_userID:uint;//what is the unique user id associated with the username and password?
 private var m_app_loggedIn:Boolean;//is a valid user logged in?
 private var m_app_userName:String;//the applicaton's storage of the username in use
 private var m_app_passWord:String;//we should figure out how to encrypt and decrypt this?  later.  the applications storage of the password associated with
-//a user
+
+//public variables
+public var user_moneyManager:moneyManager;
+
 
 //PUBLIC FUNCTIONS
 
@@ -73,8 +80,10 @@ private function initApp():void
 	m_app_passWord = "";//start out as empty password
 	m_app_userID = uint.MAX_VALUE;//start out at max for s&g
 	m_app_userName = "";//start out as empty username
+	user_moneyManager = new moneyManager();
+	//appViewStack.addEventListener(IndexChangeEvent.CHANGE, handleViewChange);
+	addEventListener(gameLayedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
 }
-
 private function ccApp():void
 {
 	//placing these in init may not have worked because only the immediate children would have been initialized?
@@ -82,9 +91,21 @@ private function ccApp():void
 	appViewStack.addEventListener(viewChangeEvent.VIEW_CHANGE, switchViewFunc);
 	this.addEventListener(Event.CLOSING, shutDownApp);
 }
-
 //private event handlers
-
+/*
+private function handleViewChange(e:IndexChangedEvent)
+{
+	if (appViewStack.selectedChild == gameScreenNavContent)
+	{
+		gameScreenNavContent
+	}
+	//not sure if we need this
+}
+*/
+private function gameLayedOutHandler(e:gameLayedOutEvent):void
+{
+	e.target.setMoneyManager(user_moneyManager);
+}
 //switch the view
 private function switchViewFunc(e:viewChangeEvent):void
 {

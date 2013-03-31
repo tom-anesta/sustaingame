@@ -1,3 +1,4 @@
+import components.globalManagers.moneyManager;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -5,6 +6,7 @@ import game.IsoApplication;
 import mx.core.Window;
 import mx.events.FlexEvent;
 import flash.events.MouseEvent;
+import myEvents.gameLayedOutEvent;
 import myEvents.pauseEvent;
 import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
@@ -14,15 +16,13 @@ import mx.managers.PopUpManager;
  * ...
  * @author thomas anesta
  */
+//public variables
 public var gameVBuyPopup:components.popups.buyItemPopup = null;
 public var gameVInfoPopup:components.popups.infoOnItemPopup = null;
+//private variables
+private var user_moneyManager:moneyManager;
 //public var buyPopupOnStage:Boolean;
-/*
-private function popupRequestReceived(ev:popupRequestEvent)
-{
-	
-}
-*/
+
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
 	//PopUpManager.addPopUp(gameVBuyPopup, this, true);
@@ -70,9 +70,18 @@ private function initGameV():void
 }
 private function ccGameV():void
 {
+	user_moneyManager = null;
 	initGameSprite();
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
+	var dEvent:gameLayedOutEvent = new gameLayedOutEvent(gameLayedOutEvent.GAMELAYEDOUT, true);
+	this.dispatchEvent(dEvent);
+}
+
+public function setMoneyManager(value:moneyManager):void
+{
+	trace("money manager received");
+	user_moneyManager = value;
 }
 
