@@ -47,6 +47,8 @@ package components.itemClasses
 			{
 				case TRAILER_WATERINGCAN:
 					this.m_itemKey = WATERINGCAN_TRAILER_TYPE;
+					this.m_name = TRAILER_WATERINGCAN;
+					this.m_cost = 50;
 					break;
 				default://default itemkey
 					break;

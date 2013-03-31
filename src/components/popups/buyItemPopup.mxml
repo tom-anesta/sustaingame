@@ -2,6 +2,7 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:sparkComp="spark.components.*"
 			   initialize="initBuyItemPopup()"
 			   creationComplete="ccBuyItemPopup()"
 			   close="handleClose()">
@@ -15,7 +16,40 @@
 			include "buyItemPopupProcedures.as";
 		]]>
 	</fx:Script>
+	<s:Group height="100%" width="100%">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center"/>
+		</s:layout>
+		<s:Label text = "{m_releventItem.name}" height="25%" width="100%" />
+		<s:Group height="25%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>
+			<s:Button id="itemPopupMinusButton" label="--" width="20%" height="100%"/>
+			<sparkComp:TextInput editable="false" text="{m_counter}" width ="60%" height="100%" selectable="false" />
+			<s:Button id="itemPopupPlusButton" label="++" width="20%" height="100%"/>
+		</s:Group>
+		<s:Group height="25%" width="100%" >
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>
+			<s:Label text="{ (m_moneyManager).capital}" width="30%" height="100%"/>
+			<s:Label text="-" height="100%" width="5%" />
+			<s:Label text="{(m_releventItem.cost*m_counter)}" width="30%" height="100%" />
+			<s:Label text="=" height="100%" width="5%" />
+			<s:Label text="{(m_moneyManager.capital - (m_releventItem.cost*m_counter))}" height="100%" width="30%" />
+		</s:Group>
+		<s:Group height="25%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle" />
+			</s:layout>
+			<s:Button id="itemPopupBuyButton" height="100%" width ="50%" label="buy" />
+			<s:Button id="itemPopupCancelButton" height="100%" width="50%" label="cancel" />
+		</s:Group>
+		
+	</s:Group>
 	
-	<s:Label text = "this is the buy popup" />
+	<s:Label text = "{m_releventItem.name}" />
+	
 	
 </s:TitleWindow>

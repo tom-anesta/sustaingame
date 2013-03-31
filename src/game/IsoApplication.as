@@ -59,17 +59,17 @@ package game
 		private function appOnStage(ev:Event):void
 		{
 			view.setSize(this.parent.width, this.parent.height);
-			if (!this.m_addedToStage)
-			{
-				this.addChild(view);
-				view.addScene(gridHolder);
-				view.addScene(scene);
-				gridHolder.addChild(grid);
-				scene.addChild(rect);
-				gridHolder.render();
-				createGroup();
-				scene.render()
-			}
+			//if (!this.m_addedToStage)
+			//{
+			this.addChild(view);
+			view.addScene(gridHolder);
+			view.addScene(scene);
+			gridHolder.addChild(grid);
+			scene.addChild(rect);
+			gridHolder.render();
+			createGroup();
+			scene.render()
+			//}
 			this.m_addedToStage = true;
 		}
 		

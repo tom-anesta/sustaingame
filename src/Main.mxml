@@ -30,7 +30,7 @@
 		]]>
 	</fx:Script>
 	<!-- http://forums.adobe.com/message/2803517 is relevent here -->
-	<mx:ViewStack selectedIndex = "-1" height="100%" width="100%" id="appViewStack" x="0" y="0" creationPolicy="all">
+	<mx:ViewStack selectedIndex = "-1" height="100%" width="100%" id="appViewStack" x="0" y="0">
 		<s:NavigatorContent height="100%" width="100%" id="loginScreenNavContent">
 			<views:loginv id="loginScreen" height="100%" width="100%" />
 		</s:NavigatorContent>

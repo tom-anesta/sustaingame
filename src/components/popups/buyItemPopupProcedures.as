@@ -4,20 +4,18 @@
  * @author thomas anesta
  */
 import flash.display.DisplayObject;
+import flash.events.MouseEvent;
 import mx.managers.PopUpManager;
 import spark.events.TitleWindowBoundsEvent;
-/*
-private var m_parentGroup:DisplayObject;
+import components.globalManagers.moneyManager;
+import components.itemClasses.itemObject;
+
 [Bindable]
-public function get parentGroup():DisplayObject
-{
-	return m_parentGroup;
-}
-public function set parentGroup(value:DisplayObject):void
-{
-	m_parentGroup = value;
-}
-*/
+public var m_moneyManager:moneyManager;
+[Bindable]
+private var m_releventItem:itemObject;
+[Bindable]
+private var m_counter:uint;
 
 //lifted from http://blog.flexexamples.com/2010/01/19/creating-a-non-draggable-spark-titlewindow-container-in-flex-4/
 protected function titleWin_windowMovingHandler(evt:TitleWindowBoundsEvent):void
@@ -30,16 +28,118 @@ protected function titleWin_windowMovingHandler(evt:TitleWindowBoundsEvent):void
 private function initBuyItemPopup():void
 {
 	this.addEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
+	m_moneyManager = new moneyManager();
+	m_releventItem = new itemObject();
+	m_counter = 0;
 	//trace("popup inited");
 }
 
 private function ccBuyItemPopup():void
 {
 	//trace("popup cced");
+	//add your event listeners
+	itemPopupBuyButton.addEventListener(MouseEvent.CLICK, handleBuyClicked);
+	itemPopupCancelButton.addEventListener(MouseEvent.CLICK, handleClose);
+	itemPopupMinusButton.addEventListener(MouseEvent.CLICK, handleMinusClicked);
+	itemPopupMinusButton.enabled = canSubtractItem;
+	itemPopupPlusButton.addEventListener(MouseEvent.CLICK, handlePlusClicked);
+	itemPopupPlusButton.enabled = canAddItem;
+}
+
+private function handleBuyClicked(ev:MouseEvent):void
+{
+	return;
+}
+/*
+private function handleCancelClicked(ev:MouseEvent):void
+{
+	
+	return;
+}
+*/
+
+private function handlePlusClicked(ev:MouseEvent):void
+{
+	//trace("plus clicked");
+	//trace(canAddItem);
+	//trace(canSubtractItem);
+	if (canAddItem)
+	{
+		m_counter = m_counter + 1;
+		itemPopupMinusButton.enabled = canSubtractItem;
+		itemPopupPlusButton.enabled = canAddItem;
+	}
+}
+private function handleMinusClicked(ev:MouseEvent):void
+{
+	if (canSubtractItem)
+	{
+		m_counter = m_counter - 1;
+		itemPopupMinusButton.enabled = canSubtractItem;
+		itemPopupPlusButton.enabled = canAddItem;
+	}
 }
 
 private function handleClose():void
 {
 	this.removeEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
 	PopUpManager.removePopUp(this);
+}
+
+public function get releventItem():itemObject
+{
+	return m_releventItem;
+}
+public function set releventItem(value:itemObject):void
+{
+	m_releventItem = value;
+	m_counter = 0;
+}
+
+public function get mManager():moneyManager
+{
+	return m_moneyManager;
+}
+public function set mManager(value:moneyManager):void
+{
+	m_moneyManager = value;
+}
+
+public function get rItem():itemObject
+{
+	return m_releventItem;
+}
+public function set rItem(value:itemObject):void
+{
+	m_releventItem = value;
+}
+
+public function get counter():uint
+{
+	return m_counter;
+}
+public function set counter(value:uint):void
+{
+	m_counter = value;
+}
+
+[Bindable]
+public function get canAddItem():Boolean
+{
+	//trace("asking for value");
+	//trace(  ( ( ((m_counter + 1) * m_releventItem.cost) < m_moneyManager.capital ) && ( m_counter < uint.MAX_VALUE) )   );
+	return ( ( ((m_counter + 1) * m_releventItem.cost) < m_moneyManager.capital ) && ( m_counter < uint.MAX_VALUE) );
+}
+public function set canAddItem(value:Boolean):void
+{
+	return;
+}
+[Bindable]
+public function get canSubtractItem():Boolean
+{
+	return (m_counter > 0);
+}
+public function set canSubtractItem(value:Boolean):void
+{
+	return;
 }

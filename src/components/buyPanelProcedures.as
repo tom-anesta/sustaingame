@@ -24,28 +24,6 @@ import myEvents.popupRequestEvent;
 private var m_parentGroup:DisplayObject;
 private var buyPanelDataProvider:ArrayCollection;
 
-//getters and setters
-/*
-[Bindable]
-public function set parentGroup(value:DisplayObject):void
-{
-	m_parentGroup = value;
-	if (buyPanelBuyBox != null)
-		buyPanelBuyBox.parentGroup = m_parentGroup;
-}
-public function get parentGroup():DisplayObject
-{
-	return m_parentGroup;
-}
-*/
-
-//event handlers
-/*
-private function buyPanelListDoubleClicked(ev:ItemClickEvent):void
-{
-	trace("item double clicked");
-}
-*/
 private function buyItemButtonClicked(ev:MouseEvent):void
 {
 	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.BUY_REQUEST, buyPanelList.selectedItem as Object, true, false);
@@ -57,13 +35,6 @@ private function infoItemButtonClicked(ev:MouseEvent):void
 	dispatchEvent(dEvent);
 }
 //init and cc
-//fucks up sizing
-/*
-private function preinitBuyPanel():void
-{
-	return;//do nothing
-}
-*/
 private function initBuyPanel():void
 {
 	buyPanelDataProvider = new ArrayCollection();

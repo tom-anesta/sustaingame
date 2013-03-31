@@ -31,11 +31,5 @@
 		<s:Label text="user info place holder" height="12.5%" width="100%" />
 	</s:Group>
 	
-	<!--
-	<s:BorderContainer width="75%" height="100%">
-		<s:Label text="game placeholder"/>
-	</s:BorderContainer>
-	-->
-	
 	
 </s:Group>

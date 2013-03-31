@@ -1,4 +1,5 @@
 import components.globalManagers.moneyManager;
+import components.itemClasses.itemObject;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -27,6 +28,8 @@ private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
 	//PopUpManager.addPopUp(gameVBuyPopup, this, true);
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
+	gameVBuyPopup.mManager = user_moneyManager;
+	gameVBuyPopup.releventItem = ev.releventItem as itemObject;
 	PopUpManager.centerPopUp(gameVBuyPopup);
 	PopUpManager.bringToFront(gameVBuyPopup);
 }
@@ -71,17 +74,16 @@ private function initGameV():void
 private function ccGameV():void
 {
 	user_moneyManager = null;
-	initGameSprite();
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 	var dEvent:gameLayedOutEvent = new gameLayedOutEvent(gameLayedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);
+	initGameSprite();
 }
 
 public function setMoneyManager(value:moneyManager):void
 {
-	trace("money manager received");
 	user_moneyManager = value;
 }
 

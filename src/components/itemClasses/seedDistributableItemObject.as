@@ -29,14 +29,14 @@ package components.itemClasses
 		public static const APRICOT_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 8;
 		public static const SEEDDISTRIBUTABLETYPES_LENGTH:uint = 9;
 		//---type identifiers
-		public static const SEED_SORGHUM:String = "sorghum";
-		public static const SEED_MAIZE:String = "maize";
-		public static const SEED_PEANUT:String = "peanut";
-		public static const SEED_SOYBEAN:String = "soybean";
-		public static const SEED_GRAPE:String = "grape";
-		public static const SEED_TOBACCO:String = "tobacco";
-		public static const SEED_SUGARCANE:String = "sugarcane";
-		public static const SEED_APRICOT:String = "apricot";
+		public static const SEED_SORGHUM:String = "sorghum_seeds";
+		public static const SEED_MAIZE:String = "maize_seeds";
+		public static const SEED_PEANUT:String = "peanut_seeds";
+		public static const SEED_SOYBEAN:String = "soybean_seeds";
+		public static const SEED_GRAPE:String = "grape_seeds";
+		public static const SEED_TOBACCO:String = "tobacco_seeds";
+		public static const SEED_SUGARCANE:String = "sugarcane_seeds";
+		public static const SEED_APRICOT:String = "apricot_seeds";
 		//---embed image paths
 		/*
 		public static const SEED_SORGHUM_TNSOURCE:String = "../../assets/images/SorghumSeedBag2.gif";
@@ -97,28 +97,37 @@ package components.itemClasses
 			switch(typeString)
 			{
 				case SEED_SORGHUM:
-					this.itemKey = SORGHUM_SEED_TYPE;
+					this.m_itemKey = SORGHUM_SEED_TYPE;
+					this.m_name = SEED_SORGHUM
+					this.m_cost = 114;
 					break;
 				case SEED_MAIZE:
 					this.m_itemKey = MAIZE_SEED_TYPE;
+					this.m_name = SEED_MAIZE;
 					break;
 				case SEED_PEANUT:
 					this.m_itemKey = PEANUT_SEED_TYPE;
+					this.m_name = SEED_PEANUT
 					break;
 				case SEED_SOYBEAN:
 					this.m_itemKey = SOYBEAN_SEED_TYPE;
+					this.m_name = SEED_SOYBEAN;
 					break;
 				case SEED_GRAPE:
 					this.m_itemKey = GRAPE_SEED_TYPE;
+					this.m_name = SEED_GRAPE;
 					break;
 				case SEED_TOBACCO:
 					this.m_itemKey = TOBACCO_SEED_TYPE;
+					this.m_name = SEED_TOBACCO;
 					break;
 				case SEED_SUGARCANE:
 					this.m_itemKey = SUGARCANE_SEED_TYPE;
+					this.m_name = SEED_SUGARCANE;
 					break;
 				case SEED_APRICOT:
 					this.m_itemKey = APRICOT_SEED_TYPE;
+					this.m_name = SEED_APRICOT;
 					break;
 				default://default itemkey
 					break;
