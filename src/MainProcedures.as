@@ -10,12 +10,17 @@ import mx.collections.ArrayCollection;
 import mx.collections.ArrayList;
 import mx.core.WindowedApplication;
 import mx.events.CloseEvent;
+import mx.events.IndexChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
+import myEvents.layedOutEvent;
 import spark.events.*;
 import flash.desktop.NativeApplication
+import spark.events.IndexChangeEvent;
+import myEvents.transactionEvent;
 //our classes
+import globalManagers.moneyManager;
 //views
 import myEvents.viewChangeEvent
 //import com.adobe.serialization.json.*;
@@ -36,12 +41,16 @@ public static const S_GAME_REQ:String="game";
 public static const S_REGISTRATION_REQ:String="registration";
 
 //PRIVATE VARIABLES
-
+//a user
 private var m_app_userID:uint;//what is the unique user id associated with the username and password?
 private var m_app_loggedIn:Boolean;//is a valid user logged in?
 private var m_app_userName:String;//the applicaton's storage of the username in use
 private var m_app_passWord:String;//we should figure out how to encrypt and decrypt this?  later.  the applications storage of the password associated with
-//a user
+
+//public variables
+public var user_moneyManager:moneyManager;
+public var user_inventory:ArrayCollection;
+
 
 //PUBLIC FUNCTIONS
 
@@ -73,18 +82,59 @@ private function initApp():void
 	m_app_passWord = "";//start out as empty password
 	m_app_userID = uint.MAX_VALUE;//start out at max for s&g
 	m_app_userName = "";//start out as empty username
+	user_moneyManager = new moneyManager();
+	user_inventory = new ArrayCollection();
+	//appViewStack.addEventListener(IndexChangeEvent.CHANGE, handleViewChange);
+	addEventListener(layedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
+	addEventListener(layedOutEvent.INVENTORYLAYEDOUT, inventoryLayedOutHandler);
+	addEventListener(layedOutEvent.SELLLAYEDOUT, sellLayedOutHandler);
 }
-
 private function ccApp():void
 {
 	//placing these in init may not have worked because only the immediate children would have been initialized?
 	//can't put event listener on the list's item renderer we have to do it in the item renderer, unnecessary because button for viewing
 	appViewStack.addEventListener(viewChangeEvent.VIEW_CHANGE, switchViewFunc);
 	this.addEventListener(Event.CLOSING, shutDownApp);
+	this.addEventListener(transactionEvent.COST, handleCost);
+	this.addEventListener(transactionEvent.INCOME, handleIncome);
 }
-
 //private event handlers
-
+/*
+private function handleViewChange(e:IndexChangedEvent)
+{
+	if (appViewStack.selectedChild == gameScreenNavContent)
+	{
+		gameScreenNavContent
+	}
+	//not sure if we need this
+}
+*/
+private function gameLayedOutHandler(e:layedOutEvent):void
+{
+	e.target.setMoneyManager(user_moneyManager);
+	e.stopImmediatePropagation();
+}
+private function inventoryLayedOutHandler(e:layedOutEvent):void
+{
+	e.target.setInventoryPanelDataProvider(user_inventory);
+	e.stopImmediatePropagation();
+}
+private function sellLayedOutHandler(e:layedOutEvent):void
+{
+	e.target.setSellPanelDataProvider(user_inventory);
+	e.stopImmediatePropagation();
+}
+//handle a transaction
+private function handleCost(ev:transactionEvent):void
+{
+	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
+	ev.stopPropagation();
+}
+private function handleIncome(ev:transactionEvent):void
+{
+	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
+	ev.stopPropagation();
+}
 //switch the view
 private function switchViewFunc(e:viewChangeEvent):void
 {

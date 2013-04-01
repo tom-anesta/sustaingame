@@ -1,32 +1,53 @@
 import Array;
+import components.itemClasses.trailerEquipmentItemObject;
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import mx.collections.ArrayCollection;
 import spark.layouts.TileLayout;
-import components.seedDistributableItemObject;
+import components.itemClasses.seedDistributableItemObject;
+import mx.events.ItemClickEvent;
+import spark.events.ListEvent;
+import flash.events.MouseEvent;
+import mx.managers.PopUpManager;
+import components.popups.buyItemPopup;
+import spark.events.IndexChangeEvent;
+import myEvents.popupRequestEvent;
 /**
  * ...
  * @author thomas anesta
  */
+//solutions for selecting items and deselecting things got help from
+//http://www.anujgakhar.com/2010/08/18/detecting-item-clicks-on-a-spark-list/
+
+//vars, private
+
+private var m_parentGroup:DisplayObject;
 private var buyPanelDataProvider:ArrayCollection;
 
-private function buypanelinit():void
+private function buyItemButtonClicked(ev:MouseEvent):void
+{
+	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.BUY_REQUEST, buyPanelList.selectedItem as Object, true, false);
+	dispatchEvent(dEvent);
+}
+private function infoItemButtonClicked(ev:MouseEvent):void
+{
+	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.INFO_REQUEST, buyPanelList.selectedItem as Object, true, false);
+	dispatchEvent(dEvent);
+}
+//init and cc
+private function initBuyPanel():void
 {
 	buyPanelDataProvider = new ArrayCollection();
-	//buyPanelDataProvider.source = buyPanelDataProvider.source.map(toObject);
-	//buyPanelDataProvider.addItem({label:'item1', number:57});
-	buyPanelDataProvider.addItem(new seedDistributableItemObject());
-	trace(buyPanelDataProvider);
+	buyPanelDataProvider.addItem(new seedDistributableItemObject(seedDistributableItemObject.SEED_SORGHUM));
+	buyPanelDataProvider.addItem(new trailerEquipmentItemObject(trailerEquipmentItemObject.TRAILER_WATERINGCAN));
 }
-//from http://blog.flexexamples.com/2008/03/26/converting-an-array-of-string-objects-to-an-array-of-object-objects-in-flex/
-private function toObject(element:String, index:int, arr:Array):Object
-{
-    return {label: element};
-}
-
-private function ccbuypanel():void
+private function ccBuyPanel():void
 {
 	buyPanelList.dataProvider = buyPanelDataProvider;
-	((buyPanelList.layout) as TileLayout).columnWidth = (this.width / 2) - 5;
-	((buyPanelList.layout) as TileLayout).rowHeight = this.height / 5;
+	((buyPanelList.layout) as TileLayout).columnWidth = (this.width / 2);
+	((buyPanelList.layout) as TileLayout).rowHeight = this.height / 4;
 	((buyPanelList.layout) as TileLayout).columnAlign = "justifyUsingWidth";
 	((buyPanelList.layout) as TileLayout).requestedRowCount = buyPanelDataProvider.length / 2 + (buyPanelDataProvider.length % 2);
+	buyItemButton.addEventListener(MouseEvent.CLICK, buyItemButtonClicked);
+	infoItemButton.addEventListener(MouseEvent.CLICK, infoItemButtonClicked);
 }

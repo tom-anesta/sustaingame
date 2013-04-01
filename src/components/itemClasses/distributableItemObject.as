@@ -1,14 +1,15 @@
-package components 
+package components.itemClasses 
 {
-	import components.itemObject;
-	import components.cropItemObject;
-	import components.equipmentItemObject;
+	import components.itemClasses.itemObject;
+	import components.itemClasses.cropItemObject;
+	import components.itemClasses.equipmentItemObject;
+	import flash.display.Bitmap;
 	/**
 	 * ...
 	 * @author thomas anesta
 	 */
 	[Bindable]
-	public class distributableItemObject extends itemObject 
+	public class distributableItemObject extends itemObject
 	{
 		//members
 		//-public
@@ -22,21 +23,23 @@ package components
 		//defaults
 		public static const DEFAULT_DISTRIBUTABLE_SUBTYPE:uint = SEED_TYPE;
 		public static const DEFAULT_DISTRIBUTABLE_ITEMKEY:uint = DEFAULT_DISTRIBUTABLE_SUBTYPE;
-		//-private
-		private var m_subtype:uint;
+		//public static const DEFAULT_DISTRIBUTABLE_TNSOURCE:String = "/../assets/images/SorghumSeedBag2.gif";
+		//-protected
+		//cannot do this and that makes me sad//[Embed(source = distributableItemObject.DEFAULT_DISTRIBUTABLE_TNSOURCE)]
+		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		protected var DEFAULT_DISTRIBUTABLE_TNASSET : Class;
 		//functions
 		//-public
 		//--constructor
 		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(itemKey, type, cost, days, redeemability);
-			this.m_subtype = subtype;
+			super(itemKey, type, subtype, cost, days, redeemability);
+			//this.m_tNSource = DEFAULT_DISTRIBUTABLE_TNSOURCE;
+			this.m_tNAsset = DEFAULT_DISTRIBUTABLE_TNASSET;
+			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
-		public function get subtype():uint
-		{
-			return this.m_subtype;
-		}
+
 		
 	}
 }

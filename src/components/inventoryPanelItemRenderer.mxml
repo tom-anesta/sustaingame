@@ -11,7 +11,7 @@
 	
 	<fx:Script>
 		<![CDATA[
-		include "buyPanelItemRendererProcedures.as";
+		include "inventoryPanelItemRendererProcedures.as";
 		]]>
 	</fx:Script>
 
@@ -28,7 +28,7 @@
 				<s:HorizontalLayout verticalAlign="middle" />
 			</s:layout>
 			<s:Label height="100%" width="65%" text="{data.name}" />
-			<s:Label height="100%" width="35%" text="{String(data.cost)}" />
+			<s:Label height="100%" width="35%" text="{String(data.length)}" />
 		</s:Group>
 	</s:Group>
 	

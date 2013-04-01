@@ -2,8 +2,11 @@
 <s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:components="components.*"
+			   height="100%" width="100%"
 			   top="0" right="0" left="0" bottom="0"
-			   creationComplete="ccinventorypanel()">
+			   initialize="initInventoryPanel()"
+			   creationComplete="ccInventoryPanel()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -15,14 +18,19 @@
 		]]>
 	</fx:Script>
 	
-	<s:BorderContainer width="100%" height="100%" top="0" right="0" left="0" bottom="0">
-		<s:Scroller width="100%" height="100%">
-			<s:Group width="100%" height="100%">
-				<s:VGroup left="20" right="20" top="20" bottom="20">
-				</s:VGroup>
-			</s:Group>
-		</s:Scroller>
-	</s:BorderContainer>
+	<s:Group height="100%" width="100%">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center"/>
+		</s:layout>
+		<components:customList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />
+		<s:Group height="5%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<!-- <s:Button id="buyItemButton" label="Buy" height="100%" width="50%" enabled="{(buyPanelList.selectedIndex >= 0)}" /> -->
+			<s:Button id="infoItemButton" label="Info" height="100%" width="50%" enabled="{(inventoryPanelList.selectedIndex >= 0)}" />
+		</s:Group>
+	</s:Group>
 	
 	
 </s:NavigatorContent>

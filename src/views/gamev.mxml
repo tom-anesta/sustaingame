@@ -3,7 +3,8 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
 			   xmlns:components="components.*"
-			   creationComplete="ccgamev()">
+			   initialize="initGameV()"
+			   creationComplete="ccGameV()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -12,6 +13,7 @@
 	<fx:Script>
 		<![CDATA[
 		include "gamevProcedures.as";
+		import flash.display.DisplayObject;
 		]]>
 	</fx:Script>
 	
@@ -19,15 +21,15 @@
 		<s:HorizontalLayout verticalAlign="middle"/>
 	</s:layout>
 	
-	<components:gameSideMenu width="25%" height="100%"/>
-	
-	<s:SpriteVisualElement id="gameSpriteContainer" width="75%" height="100%"/>
-	
-	<!--
-	<s:BorderContainer width="75%" height="100%">
-		<s:Label text="game placeholder"/>
-	</s:BorderContainer>
-	-->
+	<components:gameSideMenu id="sideMenu" width="25%" height="100%" /> <!-- parentGroup="{this as flash.display.DisplayObject}" /> -->
+	<s:Group height="100%" width="75%">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center" />
+		</s:layout>
+		<s:Label text="year time place holder" height="12.5%" width="100%" />
+		<s:SpriteVisualElement id="gameSpriteContainer" width="100%" height="75%"/>
+		<s:Label text="user info place holder" height="12.5%" width="100%" />
+	</s:Group>
 	
 	
 </s:Group>

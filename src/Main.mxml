@@ -29,21 +29,21 @@
 		include "MainProcedures.as";
 		]]>
 	</fx:Script>
-	
-	<mx:ViewStack selectedIndex = "0" height="100%" width="100%" id="appViewStack" x="0" y="0">
-		<s:NavigatorContent height="100%" width="100%">
+	<!-- http://forums.adobe.com/message/2803517 is relevent here -->
+	<mx:ViewStack selectedIndex = "-1" height="100%" width="100%" id="appViewStack" x="0" y="0">
+		<s:NavigatorContent height="100%" width="100%" id="loginScreenNavContent">
 			<views:loginv id="loginScreen" height="100%" width="100%" />
 		</s:NavigatorContent>
-		<s:NavigatorContent height="100%" width="100%">
+		<s:NavigatorContent height="100%" width="100%" id="gameSelectSceenNavContent">
 			<views:gameselectv id="gameSelectScreen" height="100%" width="100%" />
 		</s:NavigatorContent>
-		<s:NavigatorContent height="100%" width="100%">
+		<s:NavigatorContent height="100%" width="100%" id="levelSelectScreenNavContent">
 			<views:levelselectv id="levelSelectScreen" height="100%" width="100%" />
 		</s:NavigatorContent>
-		<s:NavigatorContent height="100%" width="100%">
+		<s:NavigatorContent height="100%" width="100%" id="gameScreenNavContent">
 			<views:gamev id="gameScreen" height="100%" width="100%"/>
 		</s:NavigatorContent>
-		<s:NavigatorContent height="100%" width="100%">
+		<s:NavigatorContent height="100%" width="100%" id="registrationScreenNavContent">
 			<views:registrationv id="registerScreen" height="100%" width="100%"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>

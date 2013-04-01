@@ -53,9 +53,14 @@ package game
 		private var eigthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
 		private var _map:Array = [firstRow, secondRow, thirdRow, fourthRow, fifthRow, sixthRow, seventhRow, eigthRow];
 		
+		//check for is on stage so no info error
+		private var m_addedToStage:Boolean = false;
+		
 		private function appOnStage(ev:Event):void
 		{
 			view.setSize(this.parent.width, this.parent.height);
+			//if (!this.m_addedToStage)
+			//{
 			this.addChild(view);
 			view.addScene(gridHolder);
 			view.addScene(scene);
@@ -64,12 +69,13 @@ package game
 			gridHolder.render();
 			createGroup();
 			scene.render()
-
+			//}
+			this.m_addedToStage = true;
 		}
 		
 		public function IsoApplication() 
 		{
-			
+			this.m_addedToStage = false;
 			view = new IsoView();
 			view.clipContent = true;
 			view.showBorder = false;
