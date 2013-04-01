@@ -1,7 +1,9 @@
 package game 
 {
+	import adobe.utils.ProductManager;
 	import as3isolib.core.IsoDisplayObject;
 	import as3isolib.display.IsoSprite;
+	import as3isolib.display.primitive.IsoPrimitive;
 	import as3isolib.graphics.SolidColorFill;
 	import eDpLib.events.ProxyEvent;
 	import flash.events.*;
@@ -18,6 +20,7 @@ package game
 	import flash.display.Loader;
 	import flash.net.URLRequest;
 	import as3isolib.graphics.BitmapFill;
+	import flash.geom.ColorTransform;
     
     public class Group extends IsoGroup
     {
@@ -26,6 +29,7 @@ package game
 		private var rect:IsoRectangle;
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
+		private var selected:IsoDisplayObject;
  
         public function Group(grid:IsoGrid)
         {
@@ -52,6 +56,7 @@ package game
 					rect.fill = new BitmapFill(imgSoil, IsoOrientation.XY);
 					rect.addEventListener(MouseEvent.ROLL_OVER, onRollOverHandler);
 					rect.addEventListener(MouseEvent.ROLL_OUT, onRollOutHandler);
+					rect.addEventListener(MouseEvent.CLICK, highlight);
 					addChild(rect);
 					_layout.set(col, row, rect);
 				}
@@ -66,6 +71,20 @@ package game
 		public function onRollOutHandler(e:ProxyEvent):void
 		{
 			(e.target as IsoDisplayObject).container.filters = [];
+		}
+		public function highlight(e:ProxyEvent):void
+		{
+			var highlightTransform:ColorTransform = new ColorTransform();
+			highlightTransform.blueOffset = 100;
+			(e.target as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
+			(e.target as IsoDisplayObject).container.alpha = 0.5;	
+		}
+		public function unhighlight(i:IsoDisplayObject):void
+		{
+			var unhighlightTransform:ColorTransform = new ColorTransform();
+			unhighlightTransform.redOffset = 0;
+			i.container.transform.colorTransform = unhighlightTransform;
+			i.container.alpha = 1.0;
 		}
 	}
 }
