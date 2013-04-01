@@ -14,7 +14,7 @@ import mx.events.IndexChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
-import myEvents.gameLayedOutEvent;
+import myEvents.layedOutEvent;
 import spark.events.*;
 import flash.desktop.NativeApplication
 import spark.events.IndexChangeEvent;
@@ -49,6 +49,7 @@ private var m_app_passWord:String;//we should figure out how to encrypt and decr
 
 //public variables
 public var user_moneyManager:moneyManager;
+public var user_inventory:ArrayCollection;
 
 
 //PUBLIC FUNCTIONS
@@ -82,8 +83,10 @@ private function initApp():void
 	m_app_userID = uint.MAX_VALUE;//start out at max for s&g
 	m_app_userName = "";//start out as empty username
 	user_moneyManager = new moneyManager();
+	user_inventory = new ArrayCollection();
 	//appViewStack.addEventListener(IndexChangeEvent.CHANGE, handleViewChange);
-	addEventListener(gameLayedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
+	addEventListener(layedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
+	addEventListener(layedOutEvent.INVENTORYLAYEDOUT, inventoryLayedOutHandler);
 }
 private function ccApp():void
 {
@@ -105,9 +108,16 @@ private function handleViewChange(e:IndexChangedEvent)
 	//not sure if we need this
 }
 */
-private function gameLayedOutHandler(e:gameLayedOutEvent):void
+private function gameLayedOutHandler(e:layedOutEvent):void
 {
 	e.target.setMoneyManager(user_moneyManager);
+	e.stopImmediatePropagation();
+}
+private function inventoryLayedOutHandler(e:layedOutEvent):void
+{
+	trace("inventory laid out received");
+	e.target.setInventoryPanelDataProvider(user_inventory);
+	e.stopImmediatePropagation();
 }
 //handle a transaction
 private function handleCost(ev:transactionEvent):void

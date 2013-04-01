@@ -6,16 +6,18 @@ package myEvents
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class gameLayedOutEvent extends Event 
+	public class layedOutEvent extends Event 
 	{
 		
 		//member variables
 		//-public
 		//--static const
 		public static const GAMELAYEDOUT:String = "gamelayedout";
+		public static const INVENTORYLAYEDOUT:String = "inventorylayedout";
+		public static const SELLLAYEDOUT:String = "selllayedout";
 		//-private
 		
-		public function gameLayedOutEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) 
+		public function layedOutEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{
 			super(type, bubbles, cancelable);
 		}

@@ -1,6 +1,7 @@
 import components.itemClasses.itemObject;
 import components.itemClasses.itemObjectCollection;
 import mx.collections.ArrayCollection;
+import myEvents.layedOutEvent;
 /**
  * ...
  * @author thomas anesta
@@ -15,7 +16,14 @@ private function initInventoryPanel():void
 private function ccInventoryPanel():void
 {
 	inventoryPanelList.dataProvider = inventoryPanelDataProvider;
-	//trace("cc complete");
+	//dispatch event to the main
+	var ev:layedOutEvent = new layedOutEvent(layedOutEvent.INVENTORYLAYEDOUT, true, true);
+	dispatchEvent(ev);
+}
+public function setInventoryPanelDataProvider(arr:ArrayCollection):void
+{
+	inventoryPanelDataProvider = arr;
+	inventoryPanelList.dataProvider = inventoryPanelDataProvider;
 }
 
 public function addOneItemToInventory(input:itemObject):void

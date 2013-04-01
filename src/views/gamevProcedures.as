@@ -9,7 +9,7 @@ import mx.core.Window;
 import mx.events.CloseEvent;
 import mx.events.FlexEvent;
 import flash.events.MouseEvent;
-import myEvents.gameLayedOutEvent;
+import myEvents.layedOutEvent;
 import myEvents.pauseEvent;
 import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
@@ -106,7 +106,7 @@ private function ccGameV():void
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
-	var dEvent:gameLayedOutEvent = new gameLayedOutEvent(gameLayedOutEvent.GAMELAYEDOUT, true);
+	var dEvent:layedOutEvent = new layedOutEvent(layedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);
 	initGameSprite();
 }
