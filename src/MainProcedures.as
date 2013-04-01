@@ -87,6 +87,7 @@ private function initApp():void
 	//appViewStack.addEventListener(IndexChangeEvent.CHANGE, handleViewChange);
 	addEventListener(layedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
 	addEventListener(layedOutEvent.INVENTORYLAYEDOUT, inventoryLayedOutHandler);
+	addEventListener(layedOutEvent.SELLLAYEDOUT, sellLayedOutHandler);
 }
 private function ccApp():void
 {
@@ -115,8 +116,13 @@ private function gameLayedOutHandler(e:layedOutEvent):void
 }
 private function inventoryLayedOutHandler(e:layedOutEvent):void
 {
-	trace("inventory laid out received");
 	e.target.setInventoryPanelDataProvider(user_inventory);
+	e.stopImmediatePropagation();
+}
+private function sellLayedOutHandler(e:layedOutEvent):void
+{
+	trace("sell laid out received");
+	e.target.setSellPanelDataProvider(user_inventory);
 	e.stopImmediatePropagation();
 }
 //handle a transaction
