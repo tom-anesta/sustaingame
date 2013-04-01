@@ -10,7 +10,7 @@ import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 import myEvents.transactionEvent;
 import spark.events.TitleWindowBoundsEvent;
-import components.globalManagers.moneyManager;
+import globalManagers.moneyManager;
 import components.itemClasses.itemObject;
 
 [Bindable]

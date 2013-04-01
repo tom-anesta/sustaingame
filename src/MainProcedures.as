@@ -20,7 +20,7 @@ import flash.desktop.NativeApplication
 import spark.events.IndexChangeEvent;
 import myEvents.transactionEvent;
 //our classes
-import components.globalManagers.moneyManager;
+import globalManagers.moneyManager;
 //views
 import myEvents.viewChangeEvent
 //import com.adobe.serialization.json.*;

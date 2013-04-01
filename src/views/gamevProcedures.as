@@ -1,4 +1,4 @@
-import components.globalManagers.moneyManager;
+import globalManagers.moneyManager;
 import components.itemClasses.itemObject;
 import flash.display.DisplayObject;
 import flash.display.Sprite;

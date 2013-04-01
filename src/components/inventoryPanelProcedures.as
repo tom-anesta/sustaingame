@@ -1,4 +1,5 @@
 import components.itemClasses.itemObject;
+import components.itemClasses.itemObjectCollection;
 import mx.collections.ArrayCollection;
 /**
  * ...
@@ -19,5 +20,28 @@ private function ccInventoryPanel():void
 
 public function addOneItemToInventory(input:itemObject):void
 {
-	inventoryPanelDataProvider.addItem(input);
+	if (inventoryPanelDataProvider.length == 0)
+	{
+		var firstItem:itemObjectCollection = new itemObjectCollection();
+		firstItem.addItem(input);
+		inventoryPanelDataProvider.addItem(firstItem);
+		return;
+	}
+	var i:uint = 0;
+	for (i = 0; i < inventoryPanelDataProvider.length; i++)
+	{
+		if (inventoryPanelDataProvider[i].canAdd(input))
+			break;
+	}
+	if (i != inventoryPanelDataProvider.length)
+	{
+		inventoryPanelDataProvider[i].addItem(input);
+	}
+	else
+	{
+		var nextItem:itemObjectCollection = new itemObjectCollection();
+		nextItem.addItem(input);
+		inventoryPanelDataProvider.addItem(nextItem);
+		return;
+	}
 }

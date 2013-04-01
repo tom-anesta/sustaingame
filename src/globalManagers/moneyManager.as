@@ -1,4 +1,4 @@
-package components.globalManagers 
+package globalManagers 
 {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
