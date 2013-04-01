@@ -3,8 +3,10 @@ import components.itemClasses.itemObject;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.TransformGestureEvent;
 import game.IsoApplication;
 import mx.core.Window;
+import mx.events.CloseEvent;
 import mx.events.FlexEvent;
 import flash.events.MouseEvent;
 import myEvents.gameLayedOutEvent;
@@ -13,6 +15,7 @@ import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
 import myEvents.popupRequestEvent;
 import mx.managers.PopUpManager;
+import myEvents.transactionEvent;
 /**
  * ...
  * @author thomas anesta
@@ -26,13 +29,41 @@ private var user_moneyManager:moneyManager;
 
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
-	//PopUpManager.addPopUp(gameVBuyPopup, this, true);
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
 	gameVBuyPopup.mManager = user_moneyManager;
-	gameVBuyPopup.releventItem = ev.releventItem as itemObject;
+	gameVBuyPopup.rItem = ev.releventItem as itemObject;
+	gameVBuyPopup.addEventListener(CloseEvent.CLOSE, buyPopupClosing);
+	gameVBuyPopup.addEventListener(transactionEvent.COST, handleItemBought);
+	gameVBuyPopup.addEventListener(transactionEvent.INCOME, handlePopupIncome);
 	PopUpManager.centerPopUp(gameVBuyPopup);
 	PopUpManager.bringToFront(gameVBuyPopup);
+	addEventListener(CloseEvent.CLOSE, buyPopupClosing);
 }
+private function buyPopupClosing(ev:CloseEvent):void
+{
+	trace("closing received");
+	if (ev.target == gameVBuyPopup)
+	{
+		gameVBuyPopup.removeEventListener(CloseEvent.CLOSE, buyPopupClosing);
+		gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
+		PopUpManager.removePopUp(gameVBuyPopup);
+	}
+	
+	ev.stopPropagation();//stop the event
+}
+//test function
+private function handlePopupIncome(ev:transactionEvent):void
+{
+	trace("plus transaction received");
+}
+private function handleItemBought(ev:transactionEvent):void
+{
+	trace("handle item bought received");
+	ev.stopImmediatePropagation();
+	var newEvent:transactionEvent = new (ev.transaction, ev.type, true, true);
+	dispatchEvent(newEvent);
+}
+
 private function sellRequestEventReceived(ev:popupRequestEvent):void
 {
 	return;//not ready yet

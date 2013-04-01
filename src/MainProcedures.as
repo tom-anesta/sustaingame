@@ -18,6 +18,7 @@ import myEvents.gameLayedOutEvent;
 import spark.events.*;
 import flash.desktop.NativeApplication
 import spark.events.IndexChangeEvent;
+import myEvents.transactionEvent;
 //our classes
 import components.globalManagers.moneyManager;
 //views
@@ -90,6 +91,8 @@ private function ccApp():void
 	//can't put event listener on the list's item renderer we have to do it in the item renderer, unnecessary because button for viewing
 	appViewStack.addEventListener(viewChangeEvent.VIEW_CHANGE, switchViewFunc);
 	this.addEventListener(Event.CLOSING, shutDownApp);
+	this.addEventListener(transactionEvent.COST, handleCost);
+	this.addEventListener(transactionEvent.INCOME, handleIncome);
 }
 //private event handlers
 /*
@@ -105,6 +108,19 @@ private function handleViewChange(e:IndexChangedEvent)
 private function gameLayedOutHandler(e:gameLayedOutEvent):void
 {
 	e.target.setMoneyManager(user_moneyManager);
+}
+//handle a transaction
+private function handleCost(ev:transactionEvent):void
+{
+	trace("cost received");
+	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
+	ev.stopPropagation();
+}
+private function handleIncome(ev:transactionEvent):void
+{
+	trace("Income received");
+	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
+	ev.stopPropagation();
 }
 //switch the view
 private function switchViewFunc(e:viewChangeEvent):void

@@ -4,8 +4,11 @@
  * @author thomas anesta
  */
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.events.MouseEvent;
+import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
+import myEvents.transactionEvent;
 import spark.events.TitleWindowBoundsEvent;
 import components.globalManagers.moneyManager;
 import components.itemClasses.itemObject;
@@ -27,11 +30,10 @@ protected function titleWin_windowMovingHandler(evt:TitleWindowBoundsEvent):void
 
 private function initBuyItemPopup():void
 {
-	this.addEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
+	
 	m_moneyManager = new moneyManager();
 	m_releventItem = new itemObject();
 	m_counter = 0;
-	//trace("popup inited");
 }
 
 private function ccBuyItemPopup():void
@@ -39,30 +41,38 @@ private function ccBuyItemPopup():void
 	//trace("popup cced");
 	//add your event listeners
 	itemPopupBuyButton.addEventListener(MouseEvent.CLICK, handleBuyClicked);
-	itemPopupCancelButton.addEventListener(MouseEvent.CLICK, handleClose);
+	itemPopupCancelButton.addEventListener(MouseEvent.CLICK, handleCancelClicked);
 	itemPopupMinusButton.addEventListener(MouseEvent.CLICK, handleMinusClicked);
 	itemPopupMinusButton.enabled = canSubtractItem;
 	itemPopupPlusButton.addEventListener(MouseEvent.CLICK, handlePlusClicked);
 	itemPopupPlusButton.enabled = canAddItem;
+	this.addEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
+	this.closeButton.addEventListener(MouseEvent.CLICK, handleCancelClicked);
 }
 
 private function handleBuyClicked(ev:MouseEvent):void
 {
+	if (m_counter > 0)
+	{
+		var ev2:transactionEvent = new transactionEvent( (m_releventItem.cost * m_counter * -1), transactionEvent.COST, true, true);
+		trace("dispatching transaction event");
+		dispatchEvent(ev2);
+	}
+	//close the window
+	handleCancelClicked(ev);
 	return;
 }
-/*
 private function handleCancelClicked(ev:MouseEvent):void
 {
-	
-	return;
+	//should be removing more event listeners
+	this.removeEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
+	var ev2:CloseEvent = new CloseEvent(CloseEvent.CLOSE, true, true);
+	trace("dispatching close event");
+	dispatchEvent(ev2);//handle it in closehandler
 }
-*/
 
 private function handlePlusClicked(ev:MouseEvent):void
 {
-	//trace("plus clicked");
-	//trace(canAddItem);
-	//trace(canSubtractItem);
 	if (canAddItem)
 	{
 		m_counter = m_counter + 1;
@@ -79,12 +89,16 @@ private function handleMinusClicked(ev:MouseEvent):void
 		itemPopupPlusButton.enabled = canAddItem;
 	}
 }
-
+/*
 private function handleClose():void
 {
+	//should be removing more event listeners
 	this.removeEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
-	PopUpManager.removePopUp(this);
+	var ev:CloseEvent = new CloseEvent(CloseEvent.CLOSE, true, true);
+	dispatchEvent(ev);
 }
+*/
+
 
 public function get releventItem():itemObject
 {
@@ -112,6 +126,8 @@ public function get rItem():itemObject
 public function set rItem(value:itemObject):void
 {
 	m_releventItem = value;
+	releventItemNameLabel.text = (m_releventItem.name + ":") as String;
+	releventItemCostLabel.text = ("$" + m_releventItem.cost.toString()) as String;
 }
 
 public function get counter():uint
@@ -126,8 +142,6 @@ public function set counter(value:uint):void
 [Bindable]
 public function get canAddItem():Boolean
 {
-	//trace("asking for value");
-	//trace(  ( ( ((m_counter + 1) * m_releventItem.cost) < m_moneyManager.capital ) && ( m_counter < uint.MAX_VALUE) )   );
 	return ( ( ((m_counter + 1) * m_releventItem.cost) < m_moneyManager.capital ) && ( m_counter < uint.MAX_VALUE) );
 }
 public function set canAddItem(value:Boolean):void
