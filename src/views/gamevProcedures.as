@@ -34,33 +34,24 @@ private function buyRequestEventReceived(ev:popupRequestEvent):void
 	gameVBuyPopup.rItem = ev.releventItem as itemObject;
 	gameVBuyPopup.addEventListener(CloseEvent.CLOSE, buyPopupClosing);
 	gameVBuyPopup.addEventListener(transactionEvent.COST, handleItemBought);
-	gameVBuyPopup.addEventListener(transactionEvent.INCOME, handlePopupIncome);
 	PopUpManager.centerPopUp(gameVBuyPopup);
 	PopUpManager.bringToFront(gameVBuyPopup);
 	addEventListener(CloseEvent.CLOSE, buyPopupClosing);
 }
 private function buyPopupClosing(ev:CloseEvent):void
 {
-	trace("closing received");
 	if (ev.target == gameVBuyPopup)
 	{
 		gameVBuyPopup.removeEventListener(CloseEvent.CLOSE, buyPopupClosing);
 		gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
 		PopUpManager.removePopUp(gameVBuyPopup);
 	}
-	
 	ev.stopPropagation();//stop the event
-}
-//test function
-private function handlePopupIncome(ev:transactionEvent):void
-{
-	trace("plus transaction received");
 }
 private function handleItemBought(ev:transactionEvent):void
 {
-	trace("handle item bought received");
 	ev.stopImmediatePropagation();
-	var newEvent:transactionEvent = new (ev.transaction, ev.type, true, true);
+	var newEvent:transactionEvent = new transactionEvent(ev.transaction, ev.type, true, true);
 	dispatchEvent(newEvent);
 }
 

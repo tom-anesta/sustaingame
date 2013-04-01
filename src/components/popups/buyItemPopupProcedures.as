@@ -55,7 +55,6 @@ private function handleBuyClicked(ev:MouseEvent):void
 	if (m_counter > 0)
 	{
 		var ev2:transactionEvent = new transactionEvent( (m_releventItem.cost * m_counter * -1), transactionEvent.COST, true, true);
-		trace("dispatching transaction event");
 		dispatchEvent(ev2);
 	}
 	//close the window
@@ -67,7 +66,6 @@ private function handleCancelClicked(ev:MouseEvent):void
 	//should be removing more event listeners
 	this.removeEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
 	var ev2:CloseEvent = new CloseEvent(CloseEvent.CLOSE, true, true);
-	trace("dispatching close event");
 	dispatchEvent(ev2);//handle it in closehandler
 }
 

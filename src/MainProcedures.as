@@ -112,13 +112,11 @@ private function gameLayedOutHandler(e:gameLayedOutEvent):void
 //handle a transaction
 private function handleCost(ev:transactionEvent):void
 {
-	trace("cost received");
 	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
 	ev.stopPropagation();
 }
 private function handleIncome(ev:transactionEvent):void
 {
-	trace("Income received");
 	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
 	ev.stopPropagation();
 }

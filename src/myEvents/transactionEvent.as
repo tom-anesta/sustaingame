@@ -21,12 +21,12 @@ package myEvents
 		public function transactionEvent(transaction:int, type:String, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{
 			var tempType:String;
+			this.m_transaction = transaction;
 			if (this.m_transaction < 0)
 				tempType = transactionEvent.COST;
 			else
 				tempType = transactionEvent.INCOME;
 			super(tempType, bubbles, cancelable);
-			this.m_transaction = transaction;
 		}
 		//--getters and setters
 		public function get transaction():int
