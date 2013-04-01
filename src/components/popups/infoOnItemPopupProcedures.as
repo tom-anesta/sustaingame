@@ -1,4 +1,4 @@
-
+import mx.events.CloseEvent;
 /**
  * ...
  * @author thomas anesta
@@ -26,10 +26,11 @@ private function ccInfoOnItemPopup():void
 {
 	//trace("popup cced");
 }
-
 private function handleClose():void
 {
+	trace("closing from info");
 	this.removeEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
-	PopUpManager.removePopUp(this);
+	var ev2:CloseEvent = new CloseEvent(CloseEvent.CLOSE, true, true);
+	dispatchEvent(ev2);
 }
  

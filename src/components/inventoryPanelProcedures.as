@@ -2,6 +2,8 @@ import components.itemClasses.itemObject;
 import components.itemClasses.itemObjectCollection;
 import mx.collections.ArrayCollection;
 import myEvents.layedOutEvent;
+import flash.events.MouseEvent;
+import myEvents.popupRequestEvent;
 /**
  * ...
  * @author thomas anesta
@@ -16,9 +18,15 @@ private function initInventoryPanel():void
 private function ccInventoryPanel():void
 {
 	inventoryPanelList.dataProvider = inventoryPanelDataProvider;
+	infoItemButton.addEventListener(MouseEvent.CLICK, infoItemButtonClicked);
 	//dispatch event to the main
 	var ev:layedOutEvent = new layedOutEvent(layedOutEvent.INVENTORYLAYEDOUT, true, true);
 	dispatchEvent(ev);
+}
+private function infoItemButtonClicked(ev:MouseEvent):void
+{
+	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.INFO_REQUEST, inventoryPanelList.selectedItem as Object, true, false);
+	dispatchEvent(dEvent);
 }
 public function setInventoryPanelDataProvider(arr:ArrayCollection):void
 {

@@ -3,8 +3,7 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
 			   initialize="initInfoOnItemPopup()"
-			   creationComplete="ccInfoOnItemPopup()"
-			   close="handleClose()">
+			   creationComplete="ccInfoOnItemPopup()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->

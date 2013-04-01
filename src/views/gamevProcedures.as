@@ -1,3 +1,4 @@
+import components.itemClasses.itemObjectCollection;
 import globalManagers.moneyManager;
 import components.itemClasses.itemObject;
 import flash.display.DisplayObject;
@@ -17,6 +18,7 @@ import myEvents.popupRequestEvent;
 import mx.managers.PopUpManager;
 import myEvents.transactionEvent;
 import components.itemClasses.itemObject;
+import components.popups.sellItemPopup;
 import flash.utils.*;
 /**
  * ...
@@ -25,11 +27,36 @@ import flash.utils.*;
 //public variables
 public var gameVBuyPopup:components.popups.buyItemPopup = null;
 public var gameVInfoPopup:components.popups.infoOnItemPopup = null;
+public var gameVSellPopup:components.popups.sellItemPopup = null;
 //private variables
 private var user_moneyManager:moneyManager;
 private var lastItemSelectedForBuy:itemObject;
+private var lastItemSelectedForSell:itemObjectCollection;
 //public var buyPopupOnStage:Boolean;
 
+
+private function sellRequestEventReceived(ev:popupRequestEvent):void
+{
+	gameVSellPopup = PopUpManager.createPopUp(this, sellItemPopup, true) as components.popups.sellItemPopup;
+	lastItemSelectedForSell = ev.releventItem as itemObjectCollection;
+	gameVSellPopup.addEventListener(CloseEvent.CLOSE, sellPopupClosing);
+	PopUpManager.centerPopUp(gameVSellPopup);
+	PopUpManager.bringToFront(gameVSellPopup);
+	//addEventListener(CloseEvent.CLOSE, buyPopupClosing);//don't think we need this
+}
+private function sellPopupClosing(ev:CloseEvent):void
+{
+	if (ev.target == gameVSellPopup)
+	{
+		//trace("sell popup closing");
+		gameVSellPopup.removeEventListener(CloseEvent.CLOSE, sellPopupClosing);
+		//gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
+		PopUpManager.removePopUp(gameVSellPopup);
+	}
+	//else
+	//	trace("was not sell popup");
+	ev.stopPropagation();//stop the event
+}
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
@@ -40,17 +67,7 @@ private function buyRequestEventReceived(ev:popupRequestEvent):void
 	gameVBuyPopup.addEventListener(transactionEvent.COST, handleItemBought);
 	PopUpManager.centerPopUp(gameVBuyPopup);
 	PopUpManager.bringToFront(gameVBuyPopup);
-	addEventListener(CloseEvent.CLOSE, buyPopupClosing);
-}
-private function buyPopupClosing(ev:CloseEvent):void
-{
-	if (ev.target == gameVBuyPopup)
-	{
-		gameVBuyPopup.removeEventListener(CloseEvent.CLOSE, buyPopupClosing);
-		gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
-		PopUpManager.removePopUp(gameVBuyPopup);
-	}
-	ev.stopPropagation();//stop the event
+	//addEventListener(CloseEvent.CLOSE, buyPopupClosing);//don't think we need this
 }
 private function handleItemBought(ev:transactionEvent):void
 {
@@ -66,18 +83,29 @@ private function handleItemBought(ev:transactionEvent):void
 	}
 	sideMenu.itemsToInventory(itemVect);
 }
-private function itemsToInventory(toAdd:Vector.<itemObject>):void
+private function buyPopupClosing(ev:CloseEvent):void
 {
-	
+	if (ev.target == gameVBuyPopup)
+	{
+		gameVBuyPopup.removeEventListener(CloseEvent.CLOSE, buyPopupClosing);
+		gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
+		PopUpManager.removePopUp(gameVBuyPopup);
+	}
+	ev.stopPropagation();//stop the event
 }
-
-private function sellRequestEventReceived(ev:popupRequestEvent):void
+private function infoPopupClosing(ev:CloseEvent):void
 {
-	return;//not ready yet
+	if (ev.target == gameVInfoPopup)
+	{
+		gameVInfoPopup.removeEventListener(CloseEvent.CLOSE, infoPopupClosing);
+		PopUpManager.removePopUp(gameVInfoPopup);
+	}
+	ev.stopPropagation();//stop the event
 }
 private function infoRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVInfoPopup = PopUpManager.createPopUp(this, infoOnItemPopup, true) as infoOnItemPopup;
+	gameVInfoPopup.addEventListener(CloseEvent.CLOSE, infoPopupClosing);
 	PopUpManager.centerPopUp(gameVInfoPopup);
 	PopUpManager.bringToFront(gameVInfoPopup);
 }
@@ -106,6 +134,7 @@ private function ccGameV():void
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
+	this.addEventListener(popupRequestEvent.SELL_REQUEST, sellRequestEventReceived);
 	var dEvent:layedOutEvent = new layedOutEvent(layedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);
 	initGameSprite();

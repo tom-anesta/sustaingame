@@ -121,7 +121,6 @@ private function inventoryLayedOutHandler(e:layedOutEvent):void
 }
 private function sellLayedOutHandler(e:layedOutEvent):void
 {
-	trace("sell laid out received");
 	e.target.setSellPanelDataProvider(user_inventory);
 	e.stopImmediatePropagation();
 }
