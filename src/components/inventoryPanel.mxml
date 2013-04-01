@@ -22,7 +22,7 @@
 		<s:layout>
 			<s:VerticalLayout horizontalAlign="center"/>
 		</s:layout>
-		<components:tomsCustomList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />
+		<components:customList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />
 		<s:Group height="5%" width="100%">
 			<s:layout>
 				<s:HorizontalLayout/>

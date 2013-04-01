@@ -8,9 +8,9 @@ package components
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class tomsCustomList extends List 
+	public class customList extends List 
 	{	
-		public function tomsCustomList() 
+		public function customList() 
 		{
 			super();
 			var tLayout:TileLayout = new TileLayout();
@@ -20,7 +20,7 @@ package components
 			tLayout.requestedColumnCount = 2;
 			this.layout = tLayout;
 		}
-		
+		//lifted from http://flexponential.com/2009/12/13/multiple-selection-in-a-spark-list-without-the-control-key/
 		override protected function item_mouseDownHandler(event:MouseEvent):void
 		{
 			event.ctrlKey=true;

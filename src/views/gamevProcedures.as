@@ -38,7 +38,8 @@ private var lastItemSelectedForSell:itemObjectCollection;
 private function sellRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVSellPopup = PopUpManager.createPopUp(this, sellItemPopup, true) as components.popups.sellItemPopup;
-	lastItemSelectedForSell = ev.releventItem as itemObjectCollection;
+	lastItemSelectedForSell = (ev.releventItem as itemObjectCollection);
+	gameVSellPopup.setDataProvider(ev.releventItem as itemObjectCollection);
 	gameVSellPopup.addEventListener(CloseEvent.CLOSE, sellPopupClosing);
 	PopUpManager.centerPopUp(gameVSellPopup);
 	PopUpManager.bringToFront(gameVSellPopup);

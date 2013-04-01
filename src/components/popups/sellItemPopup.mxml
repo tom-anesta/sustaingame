@@ -2,8 +2,10 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:components="components.*"
 			   initialize="initSellItemPopup()"
-			   creationComplete="ccSellItemPopup()">
+			   creationComplete="ccSellItemPopup()"
+			   height="500" width="500">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -14,8 +16,35 @@
 			include "sellItemPopupProcedures.as";
 		]]>
 	</fx:Script>
-	
-	<s:Label text="this is the sell item popup" />
+	<s:Group height="100%" width="100%">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center"/>
+		</s:layout>
+		<components:customDataGrid width="100%" height="80%" id="sellPopupDataGrid" />
+		<!--
+			<s:columns> 
+				<s:ArrayList>
+					<s:GridColumn dataField="name" headerText="item name" />
+					<s:GridColumn dataField="days" headerText="days owned" />
+					<s:GridColumn dataField="sellPrice" headerText="value" />
+				</s:ArrayList>
+			</s:columns> 
+		</components:customDataGrid> -->
+		<s:Group height="10%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>
+			<s:Label text="sell data section"/>
+		</s:Group>
+		<s:Group height="10%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>
+			<s:Button height="100%" width="50%" id="sellItemsButton" label="sell" />
+			<s:Button height="100%" width="50%" id="cancelButton" label="cancel" />
+		</s:Group>
+		
+	</s:Group>
 	
 	
 </s:TitleWindow>
