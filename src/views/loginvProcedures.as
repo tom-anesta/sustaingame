@@ -10,7 +10,7 @@ import flash.display.Sprite;
  * @author thomas anesta
  */
 
-[Embed(source="/../assets/images/SustainGameTitle2A.gif")]
+[Embed(source="/../assets/images/SustainGameTitleFINAL.jpg")]
 private static var titleImage:Class;
 private static var titleImageData:BitmapData;
 
@@ -66,5 +66,6 @@ private function ccloginv():void
 	var im:Bitmap = new titleImage();
 	titleSprite = new Sprite();
 	titleSprite.addChild(im);
-	titleGraphic.addChild(titleSprite);
+	//titleGraphic.addChild(titleSprite);
+	titleGraphic.source = titleSprite;
 }

@@ -70,6 +70,7 @@
 		
 	</s:Group>
 	
-	<s:SpriteVisualElement id="titleGraphic" y="0" width="75%" />
+	<!-- <s:SpriteVisualElement id="titleGraphic" y="0" width="75%" height="100%" /> -->
+	<s:Image id="titleGraphic" y="0" width="75%" height="75%"/> 
 	
 </s:Group>
