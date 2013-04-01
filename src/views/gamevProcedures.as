@@ -16,6 +16,8 @@ import components.popups.infoOnItemPopup;
 import myEvents.popupRequestEvent;
 import mx.managers.PopUpManager;
 import myEvents.transactionEvent;
+import components.itemClasses.itemObject;
+import flash.utils.*;
 /**
  * ...
  * @author thomas anesta
@@ -25,6 +27,7 @@ public var gameVBuyPopup:components.popups.buyItemPopup = null;
 public var gameVInfoPopup:components.popups.infoOnItemPopup = null;
 //private variables
 private var user_moneyManager:moneyManager;
+private var lastItemSelectedForBuy:itemObject;
 //public var buyPopupOnStage:Boolean;
 
 private function buyRequestEventReceived(ev:popupRequestEvent):void
@@ -32,6 +35,7 @@ private function buyRequestEventReceived(ev:popupRequestEvent):void
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
 	gameVBuyPopup.mManager = user_moneyManager;
 	gameVBuyPopup.rItem = ev.releventItem as itemObject;
+	lastItemSelectedForBuy = ev.releventItem as itemObject;//need to set this for when we buy
 	gameVBuyPopup.addEventListener(CloseEvent.CLOSE, buyPopupClosing);
 	gameVBuyPopup.addEventListener(transactionEvent.COST, handleItemBought);
 	PopUpManager.centerPopUp(gameVBuyPopup);
@@ -53,6 +57,18 @@ private function handleItemBought(ev:transactionEvent):void
 	ev.stopImmediatePropagation();
 	var newEvent:transactionEvent = new transactionEvent(ev.transaction, ev.type, true, true);
 	dispatchEvent(newEvent);
+	//since we knew it was okay to buy that, let's go ahead and add it to inventory
+	var numItems:int = Math.abs(ev.transaction / lastItemSelectedForBuy.cost);
+	var itemVect:Vector.<itemObject> = new Vector.<itemObject>();
+	for (var i:int = 0; i < numItems; i++)
+	{
+		itemVect.push(new ( getDefinitionByName(getQualifiedClassName(lastItemSelectedForBuy)) )(lastItemSelectedForBuy.name) );
+	}
+	sideMenu.itemsToInventory(itemVect);
+}
+private function itemsToInventory(toAdd:Vector.<itemObject>):void
+{
+	
 }
 
 private function sellRequestEventReceived(ev:popupRequestEvent):void
@@ -80,15 +96,6 @@ private function initGameSprite():void
 	gameSpriteContainer.addChild(gameApp);
 	//start the app?
 }
-//fucks up the sizing
-/*
-private function preinitGameV():void
-{
-	trace("the parent group for game v is itself as" + this);
-	sideMenu.parentGroup = this as DisplayObject;
-}
-*/
-
 private function initGameV():void
 {
 	return;//do nothing
@@ -103,7 +110,6 @@ private function ccGameV():void
 	this.dispatchEvent(dEvent);
 	initGameSprite();
 }
-
 public function setMoneyManager(value:moneyManager):void
 {
 	user_moneyManager = value;

@@ -65,6 +65,12 @@ private function handleCancelClicked(ev:MouseEvent):void
 {
 	//should be removing more event listeners
 	this.removeEventListener(TitleWindowBoundsEvent.WINDOW_MOVING, titleWin_windowMovingHandler);
+	this.closeButton.removeEventListener(MouseEvent.CLICK, handleCancelClicked);
+	itemPopupBuyButton.removeEventListener(MouseEvent.CLICK, handleBuyClicked);
+	itemPopupCancelButton.removeEventListener(MouseEvent.CLICK, handleCancelClicked);
+	itemPopupMinusButton.removeEventListener(MouseEvent.CLICK, handleMinusClicked);
+	itemPopupMinusButton.enabled = canSubtractItem;
+	itemPopupPlusButton.removeEventListener(MouseEvent.CLICK, handlePlusClicked);
 	var ev2:CloseEvent = new CloseEvent(CloseEvent.CLOSE, true, true);
 	dispatchEvent(ev2);//handle it in closehandler
 }

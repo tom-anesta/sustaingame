@@ -1,22 +1,12 @@
 import flash.display.DisplayObject;
+import components.itemClasses.itemObject;
+import components.itemClasses.itemObjectCollection;
 
 /**
  * ...
  * @author thomas anesta
  */
 
-private var m_parentGroup:DisplayObject;
-[Bindable]
-public function get parentGroup():DisplayObject
-{
-	return m_parentGroup;
-}
-public function set parentGroup(value:DisplayObject):void
-{
-	m_parentGroup = value;
-	if(menuPanel != null)
-		menuPanel.parentGroup = m_parentGroup;
-}
 //fucks up sizing
 /*
 private function preinitGameSideMenu():void
@@ -33,3 +23,13 @@ private function ccGameSideMenu():void
 {
 	return;//do nothing
 }
+public function itemsToInventory(inputs:Vector.<itemObject>):void
+{
+	menuPanel.addItemsToInventory(inputs);
+}
+/*
+public function toInventory():void
+{
+	menuPanel.toInventory();
+}
+*/
