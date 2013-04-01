@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+			   height="100%" width="100%"
+			   creationComplete = "ccbuypanelitemrenderer()">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+		include "inventoryPanelItemRendererProcedures.as";
+		]]>
+	</fx:Script>
+
+	<s:Group height="100%" width="100%">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign = "center"/>
+		</s:layout>
+		<s:BitmapImage id="rendererThumbNail" height="80%" width="80%" source = "{data.tNBitmap}" /> <!-- source="@Embed(mimeType=image/gif, source={data.tNSource})"/> -->
+		
+		<!-- <s:Label height="80%" width="100%" text="{data.tNAsset}" /> -->
+		
+		<s:Group height="15%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle" />
+			</s:layout>
+			<s:Label height="100%" width="65%" text="{data.name}" />
+			<s:Label height="100%" width="35%" text="{String(data.cost)}" />
+		</s:Group>
+	</s:Group>
+	
+	
+</s:ItemRenderer>

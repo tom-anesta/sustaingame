@@ -19,6 +19,7 @@ private function ccItemMultiPanel():void
 
 public function toInventory():void
 {
+	//trace("moving to inventory");
 	multiPanelTabs.selectedIndex = 2;
 }
 public function addItemsToInventory(inputs:Vector.<itemObject>):void
@@ -37,6 +38,5 @@ private function calledLaterItemsToInventory(inputs:Vector.<components.itemClass
 }
 public function addOneItemToInventory(input:components.itemClasses.itemObject):void
 {
-	//trace("adding one item");
-	//trace("item title is " + input.name);
+	theInventoryView.addOneItemToInventory(input);
 }
