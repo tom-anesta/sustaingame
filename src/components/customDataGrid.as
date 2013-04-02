@@ -38,8 +38,7 @@ package components
 			cols.addItem(col2);
 			cols.addItem(col3);
 			this.columns = cols;
-			this.resizableColumns = false;
-			
+			this.resizableColumns = false;	
 		}
 		
 		//lifted from http://flexponential.com/2009/12/13/multiple-selection-in-a-spark-list-without-the-control-key/

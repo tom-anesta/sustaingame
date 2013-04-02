@@ -49,6 +49,7 @@ package components.itemClasses
 					this.m_itemKey = WATERINGCAN_TRAILER_TYPE;
 					this.m_name = TRAILER_WATERINGCAN;
 					this.m_cost = 50;
+					this.m_redeemability = 0.9;
 					break;
 				default://default itemkey
 					break;

@@ -21,20 +21,15 @@
 			<s:VerticalLayout horizontalAlign="center"/>
 		</s:layout>
 		<components:customDataGrid width="100%" height="80%" id="sellPopupDataGrid" />
-		<!--
-			<s:columns> 
-				<s:ArrayList>
-					<s:GridColumn dataField="name" headerText="item name" />
-					<s:GridColumn dataField="days" headerText="days owned" />
-					<s:GridColumn dataField="sellPrice" headerText="value" />
-				</s:ArrayList>
-			</s:columns> 
-		</components:customDataGrid> -->
 		<s:Group height="10%" width="100%">
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle"/>
 			</s:layout>
-			<s:Label text="sell data section"/>
+			<s:Label text="0" height="100%" width="30%" id="capitalStartLabel"/>
+			<s:Label text="+" height="100%" width="5%" />
+			<s:Label text="0" height="100%" width="30%" id="valueLabel" />
+			<s:Label text="=" height="100%" width="5%" />
+			<s:Label text="0" id="resultLabel" height="100%" width="30%" />
 		</s:Group>
 		<s:Group height="10%" width="100%">
 			<s:layout>

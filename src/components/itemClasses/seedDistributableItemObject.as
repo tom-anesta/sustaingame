@@ -100,6 +100,7 @@ package components.itemClasses
 					this.m_itemKey = SORGHUM_SEED_TYPE;
 					this.m_name = SEED_SORGHUM
 					this.m_cost = 114;
+					this.m_redeemability = 0.8;
 					break;
 				case SEED_MAIZE:
 					this.m_itemKey = MAIZE_SEED_TYPE;
