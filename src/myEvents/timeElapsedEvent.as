@@ -37,7 +37,14 @@ package myEvents
 			super(type, bubbles, cancelable);
 		}
 		//getters and setters
-		
+		public function get theDate():Date
+		{
+			return this.m_theDate;
+		}
+		public function set theDate(value:Date):void
+		{
+			return;//do nothing
+		}
 	}
 
 }

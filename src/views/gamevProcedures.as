@@ -18,6 +18,7 @@ import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
 import myEvents.popupRequestEvent;
 import mx.managers.PopUpManager;
+import myEvents.timeElapsedEvent;
 import myEvents.transactionEvent;
 import components.itemClasses.itemObject;
 import components.popups.sellItemPopup;
@@ -41,7 +42,7 @@ private var lastItemSelectedForSell:itemObjectCollection;
 private var mainTimeLine:timeLine;
 //public var buyPopupOnStage:Boolean;
 
-
+//private event listeners
 private function sellRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVSellPopup = PopUpManager.createPopUp(this, sellItemPopup, true) as components.popups.sellItemPopup;
@@ -142,7 +143,11 @@ private function pauseEventReceived(ev:pauseEvent):void
 	//pause the game
 	//gameSpriteContainer.children[0].pause(ev.paused);
 }
-
+private function handleDayElapsed(ev:timeElapsedEvent):void//advance the date of all items in inventory
+{
+	trace("game has caught day elapsed");
+}
+//init functions
 private function initGameSprite():void
 {
 	var gameApp:Sprite = new IsoApplication();
@@ -160,6 +165,7 @@ private function ccGameV():void
 	user_moneyManager = new moneyManager();
 	user_inventory = new ArrayCollection();
 	mainTimeLine = new timeLine();
+	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
@@ -168,6 +174,7 @@ private function ccGameV():void
 	var dEvent:layedOutEvent = new layedOutEvent(layedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);
 }
+//setting functions
 public function setMoneyManager(value:moneyManager):void
 {
 	user_moneyManager = value;
@@ -178,18 +185,10 @@ public function setInventory(value:ArrayCollection):void
 }
 public function setTimeLine(value:timeLine):void
 {
-	mainTimeLine = value;
+	//remove the eventlisteneter on the current 
+	mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
 	//set timeline on the game screen now
+	mainTimeLine = value;
+	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
 }
-/*
-public function startGame():void
-{
-	mainTimeLine.start();
-}
-
-public function pauseGame():void
-{
-	return;//waiting for timeline pause functions
-}
-*/
 

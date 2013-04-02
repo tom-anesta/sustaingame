@@ -32,9 +32,6 @@ package globalManagers
 		//-private
 		private var m_theDate:Date;
 		private var m_hourTimer:Timer;
-		//private var m_dayTimer:Timer;
-		//private var m_monthTimer:Timer;
-		//private var m_yearTimer:Timer;
 		private var m_speed:uint;
 		private var m_started:Boolean;
 		private var m_hour:uint;//the current hour of the day
@@ -46,7 +43,7 @@ package globalManagers
 		//functions
 		//-public
 		//--constructor
-		public function timeLine(speed:uint = DEFAULT_SPEED, year:uint = STARTING_YEAR, month:uint = 1, date:uint = 1, hour:uint = 0)//can construct so that we match a saved game
+		public function timeLine(speed:uint = DEFAULT_SPEED, year:uint = STARTING_YEAR, month:uint = 0, date:uint = 1, hour:uint = 0)//can construct so that we match a saved game
 		{
 			super();//object constructor
 			this.m_dispatcher = new EventDispatcher(this);
@@ -60,7 +57,7 @@ package globalManagers
 				month++;
 				date -= 30;
 			}
-			while (month > 12)
+			while (month > 11)
 			{
 				year++;
 				month -= 12;
@@ -72,18 +69,16 @@ package globalManagers
 			this.m_started = false;
 			this.m_speed = DEFAULT_SPEED;
 			this.m_theDate = new Date(year, month, date, hour, 0, 0);
-			this.m_hourTimer = new Timer( ( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0), 0);
+			this.m_hourTimer = new Timer( ( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0));
 			this.m_date = date;
 			this.m_hour = hour;
 			this.m_month = month;
 			this.m_year = year;
 			//set your event listeners
-			this.addEventListener(TimerEvent.TIMER, hearTimer);
-			
+			this.m_hourTimer.addEventListener(TimerEvent.TIMER, hearTimer);
 			//this.m_dayTimer = new Timer( (60 * 24 * 1000), 0);
 			//this.m_monthTimer = new Timer( (60 * 24 * 30 * 1000), 0);//not bothering with 31st day or february
 			//this.m_yearTimer = new Timer( (60 * 24 * 30 * 360 * 1000), 0);//not bothering with leap years, 30*12=360.  oh well.
-			
 			
 		}
 		//--getters and setters
@@ -96,18 +91,6 @@ package globalManagers
 		{
 			return this.m_hourTimer;
 		}
-		//public function get dayTimer():Timer
-		//{
-		//	return this.m_dayTimer;
-		//}
-		//public function get monthTimer():Timer
-		//{
-		//	return this.m_monthTimer;
-		//}
-		//public function get yearTimer():Timer
-		//{
-		//	return this.m_yearTimer;
-		//}
 		public function get hour():uint
 		{
 			return this.m_hour;
@@ -181,6 +164,7 @@ package globalManagers
 			//this.m_monthTimer.start();
 			//this.m_yearTimer.start();
 			//this.m_paused = false;
+			this.m_started = true;
 			return;
 		}
 		public function speedUp():void
@@ -213,7 +197,6 @@ package globalManagers
 		//--event listeners
 		private function hearTimer(ev:TimerEvent):void
 		{
-			trace("hearing timer");
 			if (ev.target == this.m_hourTimer)
 			{
 				//get your booleans ready
@@ -227,6 +210,7 @@ package globalManagers
 					timeBoolArray[1] = true;
 					this.m_date++;//also set days
 					this.m_days++;
+					this.m_hour = 0;
 				}
 				//set your month
 				if (this.m_date >= 31)
@@ -247,21 +231,25 @@ package globalManagers
 				//dispatch the hour timer
 				if (timeBoolArray[0])
 				{
+					//trace("hour elapsed");
 					var timeEV0:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.HOURCOMPLETE, this.m_theDate, true, true);
 					dispatchEvent(timeEV0);
 				}
 				if (timeBoolArray[1])
 				{
+					//trace("day elapsed");
 					var timeEV1:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.DAYCOMPLETE, this.m_theDate, true, true);
 					dispatchEvent(timeEV1);
 				}
 				if (timeBoolArray[2])
 				{
+					//trace("month elapsed");
 					var timeEV2:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.MONTHCOMPLETE, this.m_theDate, true, true);
 					dispatchEvent(timeEV2);
 				}
 				if (timeBoolArray[3])
 				{
+					//trace("year elapsed");
 					var timeEV3:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.YEARCOMPLETE, this.m_theDate, true, true);
 					dispatchEvent(timeEV3);
 				}

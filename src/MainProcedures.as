@@ -5,7 +5,6 @@
 //flash objects
 import flash.display.DisplayObject;
 import flash.desktop.NativeApplication
-
 //flashevents
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -33,6 +32,7 @@ import myEvents.transactionEvent;
 import myEvents.inventoryEvent;
 import myEvents.layedOutEvent;
 import myEvents.viewChangeEvent
+import myEvents.timeElapsedEvent;
 //import com.adobe.serialization.json.*;
 
 //PUBLIC VARIABLES
@@ -83,7 +83,6 @@ public function get UserName():String
 
 //OTHER PUBLIC FUNCTIONS
 
-
 //PRIVATE FUNCTIONS
 
 //PRIVATE APPLICATION INITIALIZING FUNCTIONS
@@ -119,8 +118,17 @@ private function gameLayedOutHandler(e:layedOutEvent):void
 	e.target.setInventory(user_inventory);
 	e.target.setTimeLine(mainTimeLine);
 	e.stopImmediatePropagation();
-	trace("main says game all layed out");
+	//since we already switched to we can start now
+	//mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourComplete);
+	mainTimeLine.start();
 }
+//test function
+/*
+public function handleHourComplete(ev:timeElapsedEvent):void
+{
+	return;//do nothing for now
+}
+*/
 private function inventoryLayedOutHandler(e:layedOutEvent):void
 {
 	e.target.setInventoryPanelDataProvider(user_inventory);
@@ -177,7 +185,6 @@ private function switchViewFunc(e:viewChangeEvent):void
 					appViewStack.selectedIndex = LEVELSELECT_INDEX;
 					break;
 				case S_GAME_REQ:
-					trace("moving to game index");
 					appViewStack.selectedIndex = GAME_INDEX;
 					break;
 				case S_REGISTRATION_REQ:
