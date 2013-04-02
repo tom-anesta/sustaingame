@@ -42,6 +42,7 @@ private function sellRequestEventReceived(ev:popupRequestEvent):void
 	gameVSellPopup.setDataProvider(ev.releventItem as itemObjectCollection);
 	gameVSellPopup.setMoneyManager(user_moneyManager);
 	gameVSellPopup.addEventListener(CloseEvent.CLOSE, sellPopupClosing);
+	gameVSellPopup.addEventListener(transactionEvent.INCOME, incomeFromSell);
 	PopUpManager.centerPopUp(gameVSellPopup);
 	PopUpManager.bringToFront(gameVSellPopup);
 	//addEventListener(CloseEvent.CLOSE, buyPopupClosing);//don't think we need this
@@ -52,12 +53,18 @@ private function sellPopupClosing(ev:CloseEvent):void
 	{
 		//trace("sell popup closing");
 		gameVSellPopup.removeEventListener(CloseEvent.CLOSE, sellPopupClosing);
+		gameVSellPopup.removeEventListener(transactionEvent.INCOME, incomeFromSell);
 		//gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
 		PopUpManager.removePopUp(gameVSellPopup);
 	}
 	//else
 	//	trace("was not sell popup");
 	ev.stopPropagation();//stop the event
+}
+private function incomeFromSell(ev:transactionEvent):void
+{
+	var ev2:transactionEvent = new transactionEvent(ev.transaction, ev.type, true, true);
+	dispatchEvent(ev2);
 }
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {

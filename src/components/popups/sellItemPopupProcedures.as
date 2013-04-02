@@ -8,6 +8,7 @@ import components.itemClasses.itemObject;
 import flash.display.DisplayObject;
 import mx.collections.ArrayCollection;
 import mx.managers.PopUpManager;
+import myEvents.transactionEvent;
 import spark.events.TitleWindowBoundsEvent;
 import flash.events.MouseEvent;
 import mx.events.CloseEvent;
@@ -53,7 +54,6 @@ private function ccSellItemPopup():void
 }
 private function recognizeItemClicked(ev:GridSelectionEvent):void
 {
-	trace("item clicked");
 	sellItemsButton.enabled = (sellPopupDataGrid.selectedIndices.length > 0);
 	//var tempInt:int = 0;
 	transaction = 0;
@@ -74,6 +74,12 @@ private function handleCancelClicked(ev:MouseEvent):void
 }
 private function handleSellClicked(ev:MouseEvent):void
 {
+	if (transaction > 0)
+	{
+		var ev2:transactionEvent = new transactionEvent(transaction, transactionEvent.INCOME, false, true);
+		dispatchEvent(ev2);
+	}
+	handleCancelClicked(ev);
 	trace("sell clicked");
 }
 public function setDataProvider(value:ArrayCollection):void
