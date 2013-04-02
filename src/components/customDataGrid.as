@@ -31,7 +31,7 @@ package components
 			col2.headerText = "days owned";
 			//col2.width = (this.width * 0.6);
 			var col3:GridColumn = new GridColumn("sellPrice");
-			col2.dataField = "sellPrice";
+			col3.dataField = "sellPrice";
 			col3.headerText = "value";
 			//col3.width = (this.width * 0.6);
 			cols.addItem(col1);
@@ -40,7 +40,6 @@ package components
 			this.columns = cols;
 			this.resizableColumns = false;	
 		}
-		
 		//lifted from http://flexponential.com/2009/12/13/multiple-selection-in-a-spark-list-without-the-control-key/
 		override protected function grid_mouseDownHandler(event:GridEvent):void
 		{
