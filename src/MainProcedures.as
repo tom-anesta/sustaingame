@@ -5,6 +5,7 @@
 //flash objects
 import flash.display.DisplayObject;
 import flash.desktop.NativeApplication
+
 //flashevents
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -24,6 +25,7 @@ import spark.events.IndexChangeEvent;
 //our classes
 //objects
 import globalManagers.moneyManager;
+import globalManagers.timeLine;
 import components.itemClasses.itemObject;
 import components.itemClasses.itemObjectCollection;
 //events
@@ -58,6 +60,7 @@ private var m_app_passWord:String;//we should figure out how to encrypt and decr
 //public variables
 public var user_moneyManager:moneyManager;
 public var user_inventory:ArrayCollection;
+public var mainTimeLine:timeLine;
 
 
 //PUBLIC FUNCTIONS
@@ -92,6 +95,7 @@ private function initApp():void
 	m_app_userName = "";//start out as empty username
 	user_moneyManager = new moneyManager();
 	user_inventory = new ArrayCollection();
+	mainTimeLine = new timeLine();
 	addEventListener(layedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
 	addEventListener(layedOutEvent.INVENTORYLAYEDOUT, inventoryLayedOutHandler);
 	addEventListener(layedOutEvent.SELLLAYEDOUT, sellLayedOutHandler);
@@ -112,7 +116,10 @@ private function ccApp():void
 private function gameLayedOutHandler(e:layedOutEvent):void
 {
 	e.target.setMoneyManager(user_moneyManager);
+	e.target.setInventory(user_inventory);
+	e.target.setTimeLine(mainTimeLine);
 	e.stopImmediatePropagation();
+	trace("main says game all layed out");
 }
 private function inventoryLayedOutHandler(e:layedOutEvent):void
 {
@@ -170,6 +177,7 @@ private function switchViewFunc(e:viewChangeEvent):void
 					appViewStack.selectedIndex = LEVELSELECT_INDEX;
 					break;
 				case S_GAME_REQ:
+					trace("moving to game index");
 					appViewStack.selectedIndex = GAME_INDEX;
 					break;
 				case S_REGISTRATION_REQ:

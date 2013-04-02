@@ -3,7 +3,7 @@ package globalManagers
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.EventDispatcher;
-	import myEvents.dayCompleteEvent;
+	import myEvents.timeElapsedEvent;
 	import myEvents.transactionEvent;
 	/**
 	 * ...
@@ -27,7 +27,7 @@ package globalManagers
 		//functions
 		//-private
 		//--event handlers
-		private function dayCompleteHandler(ev:dayCompleteEvent):void
+		private function dayCompleteHandler(ev:timeElapsedEvent):void
 		{
 			if (this.m_capital >= 0)
 			{
@@ -61,7 +61,6 @@ package globalManagers
 		public function moneyManager(capital:int=DEFAULT_STARTING_CAPITAL, debtDays:uint=0, debtDaysLimit:uint=DEFAULT_DEBTDAYSLIMIT)
 		{
 			super();
-			
 			this.m_capital = capital;
 			if (debtDays >= DEFAULT_DEBTDAYSLIMIT)
 				debtDays = DEFAULT_DEBTDAYSLIMIT;
@@ -69,10 +68,8 @@ package globalManagers
 			if (debtDaysLimit >= DEFAULT_DEBTDAYSLIMIT)
 				debtDaysLimit = DEFAULT_DEBTDAYSLIMIT;
 			this.m_debtDaysLimit = debtDaysLimit;
-			
 			this.m_dispatcher = new EventDispatcher();
-			
-			this.addEventListener(dayCompleteEvent.DAYCOMPLETE, dayCompleteHandler);
+			this.addEventListener(timeElapsedEvent.DAYCOMPLETE, dayCompleteHandler);
 			this.addEventListener(transactionEvent.COST, costHandler);
 			this.addEventListener(transactionEvent.INCOME, incomeHandler);
 		}

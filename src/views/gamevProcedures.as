@@ -6,6 +6,8 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.TransformGestureEvent;
 import game.IsoApplication;
+import globalManagers.timeLine;
+import mx.collections.ArrayCollection;
 import mx.core.Window;
 import mx.events.CloseEvent;
 import mx.events.FlexEvent;
@@ -30,9 +32,13 @@ public var gameVBuyPopup:components.popups.buyItemPopup = null;
 public var gameVInfoPopup:components.popups.infoOnItemPopup = null;
 public var gameVSellPopup:components.popups.sellItemPopup = null;
 //private variables
+//just keep these here use events to update from main
 private var user_moneyManager:moneyManager;
+private var user_inventory:ArrayCollection;
+
 private var lastItemSelectedForBuy:itemObject;
 private var lastItemSelectedForSell:itemObjectCollection;
+private var mainTimeLine:timeLine;
 //public var buyPopupOnStage:Boolean;
 
 
@@ -146,22 +152,44 @@ private function initGameSprite():void
 	//start the app?
 }
 private function initGameV():void
-{
+{	
 	return;//do nothing
 }
 private function ccGameV():void
 {
-	user_moneyManager = null;
+	user_moneyManager = new moneyManager();
+	user_inventory = new ArrayCollection();
+	mainTimeLine = new timeLine();
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 	this.addEventListener(popupRequestEvent.SELL_REQUEST, sellRequestEventReceived);
+	initGameSprite();
 	var dEvent:layedOutEvent = new layedOutEvent(layedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);
-	initGameSprite();
 }
 public function setMoneyManager(value:moneyManager):void
 {
 	user_moneyManager = value;
 }
+public function setInventory(value:ArrayCollection):void
+{
+	user_inventory = value;
+}
+public function setTimeLine(value:timeLine):void
+{
+	mainTimeLine = value;
+	//set timeline on the game screen now
+}
+/*
+public function startGame():void
+{
+	mainTimeLine.start();
+}
+
+public function pauseGame():void
+{
+	return;//waiting for timeline pause functions
+}
+*/
 
