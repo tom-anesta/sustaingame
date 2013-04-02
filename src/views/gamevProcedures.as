@@ -20,6 +20,7 @@ import myEvents.transactionEvent;
 import components.itemClasses.itemObject;
 import components.popups.sellItemPopup;
 import flash.utils.*;
+import myEvents.inventoryEvent;
 /**
  * ...
  * @author thomas anesta
@@ -43,6 +44,7 @@ private function sellRequestEventReceived(ev:popupRequestEvent):void
 	gameVSellPopup.setMoneyManager(user_moneyManager);
 	gameVSellPopup.addEventListener(CloseEvent.CLOSE, sellPopupClosing);
 	gameVSellPopup.addEventListener(transactionEvent.INCOME, incomeFromSell);
+	gameVSellPopup.addEventListener(inventoryEvent.REMOVE, sellRemoveFromInventory)
 	PopUpManager.centerPopUp(gameVSellPopup);
 	PopUpManager.bringToFront(gameVSellPopup);
 	//addEventListener(CloseEvent.CLOSE, buyPopupClosing);//don't think we need this
@@ -54,6 +56,7 @@ private function sellPopupClosing(ev:CloseEvent):void
 		//trace("sell popup closing");
 		gameVSellPopup.removeEventListener(CloseEvent.CLOSE, sellPopupClosing);
 		gameVSellPopup.removeEventListener(transactionEvent.INCOME, incomeFromSell);
+		gameVSellPopup.removeEventListener(inventoryEvent.REMOVE, sellRemoveFromInventory);
 		//gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
 		PopUpManager.removePopUp(gameVSellPopup);
 	}
@@ -64,6 +67,11 @@ private function sellPopupClosing(ev:CloseEvent):void
 private function incomeFromSell(ev:transactionEvent):void
 {
 	var ev2:transactionEvent = new transactionEvent(ev.transaction, ev.type, true, true);
+	dispatchEvent(ev2);
+}
+private function sellRemoveFromInventory(ev:inventoryEvent):void
+{
+	var ev2:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, ev.items, true, true);
 	dispatchEvent(ev2);
 }
 private function buyRequestEventReceived(ev:popupRequestEvent):void
@@ -81,8 +89,8 @@ private function buyRequestEventReceived(ev:popupRequestEvent):void
 private function handleItemBought(ev:transactionEvent):void
 {
 	ev.stopImmediatePropagation();
-	var newEvent:transactionEvent = new transactionEvent(ev.transaction, ev.type, true, true);
-	dispatchEvent(newEvent);
+	var ev2:transactionEvent = new transactionEvent(ev.transaction, ev.type, true, true);
+	dispatchEvent(ev2);
 	//since we knew it was okay to buy that, let's go ahead and add it to inventory
 	var numItems:int = Math.abs(ev.transaction / lastItemSelectedForBuy.cost);
 	var itemVect:Vector.<itemObject> = new Vector.<itemObject>();
@@ -90,7 +98,11 @@ private function handleItemBought(ev:transactionEvent):void
 	{
 		itemVect.push(new ( getDefinitionByName(getQualifiedClassName(lastItemSelectedForBuy)) )(lastItemSelectedForBuy.name) );
 	}
-	sideMenu.itemsToInventory(itemVect);
+	//sideMenu.itemsToInventory(itemVect);
+	var ev3:inventoryEvent = new inventoryEvent(inventoryEvent.ADD, itemVect, true, true);
+	dispatchEvent(ev3);
+	//now go to inventory
+	sideMenu.toInventory();
 }
 private function buyPopupClosing(ev:CloseEvent):void
 {

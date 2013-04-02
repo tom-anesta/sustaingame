@@ -2,33 +2,41 @@
 //these are procedures associated with the main application.  custom classes actionscript may be handles in separate files or in their own mxml files.
 
 //IMPORTS
-
+//flash objects
 import flash.display.DisplayObject;
+import flash.desktop.NativeApplication
+//flashevents
 import flash.events.Event;
 import flash.events.MouseEvent;
+//mx objects
 import mx.collections.ArrayCollection;
 import mx.collections.ArrayList;
 import mx.core.WindowedApplication;
+//mx events
 import mx.events.CloseEvent;
 import mx.events.IndexChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
-import myEvents.layedOutEvent;
+//spark events
 import spark.events.*;
-import flash.desktop.NativeApplication
 import spark.events.IndexChangeEvent;
-import myEvents.transactionEvent;
 //our classes
+//objects
 import globalManagers.moneyManager;
-//views
+import components.itemClasses.itemObject;
+import components.itemClasses.itemObjectCollection;
+//events
+import myEvents.transactionEvent;
+import myEvents.inventoryEvent;
+import myEvents.layedOutEvent;
 import myEvents.viewChangeEvent
 //import com.adobe.serialization.json.*;
 
 //PUBLIC VARIABLES
 
 public static const LOGIN_INDEX:uint = 0;//the viewstack index of the login screen
-public static const GAMESELECT_INDEX:uint = 1;//the viewstack index of the saved game selection screen 
+public static const GAMESELECT_INDEX:uint = 1;//the viewstack index of the saved game selection screen
 public static const LEVELSELECT_INDEX:uint = 2;//the viewstack index of the region selection screen
 public static const GAME_INDEX:uint = 3;//the viewstack index of the game screen
 public static const REGISTRATION_INDEX:uint = 4;//the viewstack index of the registration screen
@@ -84,7 +92,6 @@ private function initApp():void
 	m_app_userName = "";//start out as empty username
 	user_moneyManager = new moneyManager();
 	user_inventory = new ArrayCollection();
-	//appViewStack.addEventListener(IndexChangeEvent.CHANGE, handleViewChange);
 	addEventListener(layedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
 	addEventListener(layedOutEvent.INVENTORYLAYEDOUT, inventoryLayedOutHandler);
 	addEventListener(layedOutEvent.SELLLAYEDOUT, sellLayedOutHandler);
@@ -97,18 +104,11 @@ private function ccApp():void
 	this.addEventListener(Event.CLOSING, shutDownApp);
 	this.addEventListener(transactionEvent.COST, handleCost);
 	this.addEventListener(transactionEvent.INCOME, handleIncome);
+	this.addEventListener(inventoryEvent.REMOVE, handleInventoryRemove);
+	this.addEventListener(inventoryEvent.ADD, handleInventoryAdd);
 }
 //private event handlers
-/*
-private function handleViewChange(e:IndexChangedEvent)
-{
-	if (appViewStack.selectedChild == gameScreenNavContent)
-	{
-		gameScreenNavContent
-	}
-	//not sure if we need this
-}
-*/
+//views
 private function gameLayedOutHandler(e:layedOutEvent):void
 {
 	e.target.setMoneyManager(user_moneyManager);
@@ -134,6 +134,21 @@ private function handleIncome(ev:transactionEvent):void
 {
 	user_moneyManager.capital = (user_moneyManager.capital + ev.transaction);
 	ev.stopPropagation();
+}
+//handle inventory stuff
+private function handleInventoryRemove(ev:inventoryEvent):void
+{
+	for (var i:int = 0; i < ev.items.length; i++)
+	{
+		removeOneItemFromInventory(ev.items[i]);
+	}
+}
+private function handleInventoryAdd(ev:inventoryEvent):void
+{
+	for (var i:int = 0; i < ev.items.length; i++)
+	{
+		addOneItemToInventory(ev.items[i]);
+	}
 }
 //switch the view
 private function switchViewFunc(e:viewChangeEvent):void
@@ -182,6 +197,62 @@ private function switchViewFunc(e:viewChangeEvent):void
 		default:
 			appViewStack.selectedIndex = LOGIN_INDEX;
 	}
+}
+//handle adding and removing a single item from inventory
+public function addOneItemToInventory(item:itemObject):void
+{
+	if (user_inventory.length == 0)
+	{
+		var firstItem:itemObjectCollection = new itemObjectCollection();
+		firstItem.addItem(item);
+		user_inventory.addItem(firstItem);
+		return;
+	}
+	var i:uint = 0;
+	for (i = 0; i < user_inventory.length; i++)
+	{
+		if (user_inventory[i].canAdd(item))
+			break;
+	}
+	if (i != user_inventory.length)
+	{
+		user_inventory[i].addItem(item);
+	}
+	else
+	{
+		var nextItem:itemObjectCollection = new itemObjectCollection();
+		nextItem.addItem(item);
+		user_inventory.addItem(nextItem);
+		return;
+	}
+}
+public function removeOneItemFromInventory(item:itemObject):void
+{
+	if (user_inventory.length == 0)
+	{
+		return;//can't remove something that can't be there
+	}
+	var i:uint = 0;
+	for (i = 0; i < user_inventory.length; i++)
+	{
+		if (user_inventory[i].canAdd(item))//if we can add it then we can also remove it
+			break;
+	}
+	if (i == user_inventory.length)
+	{
+		return;//can't remove something we can't add
+	}
+	for (var k:uint = 0; k < (user_inventory[i] as itemObjectCollection).length; k++)
+	{
+		if ( (user_inventory[i] as itemObjectCollection)[k] == item)
+		{
+			(user_inventory[i] as itemObjectCollection).removeItemAt(k);
+			break;
+		}
+	}
+	if ( (user_inventory[i] as itemObjectCollection).length == 0)//if there's no more of them get rid of it
+		user_inventory.removeItemAt(i);
+	return;
 }
 
 //exit the application

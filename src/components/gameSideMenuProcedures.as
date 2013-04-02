@@ -23,13 +23,13 @@ private function ccGameSideMenu():void
 {
 	return;//do nothing
 }
+/*
 public function itemsToInventory(inputs:Vector.<itemObject>):void
 {
 	menuPanel.addItemsToInventory(inputs);
 }
-/*
+*/
 public function toInventory():void
 {
 	menuPanel.toInventory();
 }
-*/

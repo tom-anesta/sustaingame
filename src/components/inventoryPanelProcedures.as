@@ -33,7 +33,7 @@ public function setInventoryPanelDataProvider(arr:ArrayCollection):void
 	inventoryPanelDataProvider = arr;
 	inventoryPanelList.dataProvider = inventoryPanelDataProvider;
 }
-
+/*
 public function addOneItemToInventory(input:itemObject):void
 {
 	if (inventoryPanelDataProvider.length == 0)
@@ -61,3 +61,4 @@ public function addOneItemToInventory(input:itemObject):void
 		return;
 	}
 }
+*/

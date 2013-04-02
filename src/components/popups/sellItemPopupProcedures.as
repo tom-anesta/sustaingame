@@ -8,6 +8,7 @@ import components.itemClasses.itemObject;
 import flash.display.DisplayObject;
 import mx.collections.ArrayCollection;
 import mx.managers.PopUpManager;
+import myEvents.inventoryEvent;
 import myEvents.transactionEvent;
 import spark.events.TitleWindowBoundsEvent;
 import flash.events.MouseEvent;
@@ -79,8 +80,18 @@ private function handleSellClicked(ev:MouseEvent):void
 		var ev2:transactionEvent = new transactionEvent(transaction, transactionEvent.INCOME, false, true);
 		dispatchEvent(ev2);
 	}
+	//even if came out to zero we could be trying to get rid of items
+	var itemVect:Vector.<itemObject> = new Vector.<itemObject>();
+	for (var i:int = 0; i < sellPopupDataGrid.selectedIndices.length; i++)
+	{
+		itemVect.push(sellPopupDataGridDataProvider[sellPopupDataGrid.selectedIndices[i]]);
+	}
+	if (itemVect.length > 0)
+	{
+		var ev3:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, itemVect, true, true);
+		dispatchEvent(ev3);
+	}
 	handleCancelClicked(ev);
-	trace("sell clicked");
 }
 public function setDataProvider(value:ArrayCollection):void
 {
@@ -91,13 +102,19 @@ public function setMoneyManager(value:moneyManager):void
 {
 	sellPopupMoneyManager = value;
 	if(capitalStartLabel != null && capitalStartLabel.text != null)
+	{
 		capitalStartLabel.text = sellPopupMoneyManager.capital.toString();
-	if (resultLabel != null && resultLabel.text != null)
+	}
+	if(resultLabel != null && resultLabel.text != null)
 	{
 		if (valueLabel != null && valueLabel.text != null)
-			resultLabel.text = ( int(capitalStartLabel.text) + int(valueLabel.text)).toString();
+		{
+			resultLabel.text = (int(capitalStartLabel.text) + int(valueLabel.text)).toString();
+		}
 		else
+		{
 			resultLabel.text = capitalStartLabel.text
+		}
 	}
 	//that should be it
 }
