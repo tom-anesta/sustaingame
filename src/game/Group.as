@@ -75,19 +75,21 @@ package game
 		}
 		public function highlight(e:ProxyEvent):void
 		{
-			for each (var x:IsoRectangle in _layout)
+			trace(e.target.name);
+			for (var i:int = 0; i < _layout.getH(); i++)
 			{
-				if (e.target.name == x.name)
+				for (var j:int = 0; j < _layout.getW(); j++)
+					if (e.target.name == _layout[i][j].name)
 				{
 					var highlightTransform:ColorTransform = new ColorTransform();
 					highlightTransform.blueOffset = 100;
 					var unhighlightTransform:ColorTransform = new ColorTransform();
 					(e.target as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
 					(e.target as IsoDisplayObject).container.alpha = 0.5;
-					trace(e);
 				}
-				(x as IsoDisplayObject).container.transform.colorTransform = unhighlightTransform;
-				(x as IsoDisplayObject).container.alpha = 1.0;
+				(_layout[i][j] as IsoDisplayObject).container.transform.colorTransform = unhighlightTransform;
+				(_layout[i][j] as IsoDisplayObject).container.alpha = 1.0;
+			}
 		}
 	}
 }
