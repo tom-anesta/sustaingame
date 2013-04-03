@@ -30,7 +30,6 @@ package game
 		private var _layout:Array2;
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
-		
  
         public function Group(grid:IsoGrid)
         {
@@ -41,7 +40,7 @@ package game
 		{
 			//make NxN array that represents the group’s layout
 			var w:Number = Math.max(map[0].length, map.length);
-			_layout = new Array2(w,w);
+			_layout = new Array2(w, w);
 			_layout.fill(0);
 		 
 			for (var row:int = 0; row < map.length; row++)
@@ -50,16 +49,16 @@ package game
 		 
 				for (var col:int = 0; col < r.length; col++)
 				{
-					var rect:IsoRectangle = new IsoRectangle();
-					rect.setSize(_grid.cellSize, _grid.cellSize, 0);
-					rect.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
-					rect.name = map[row][col];
-					rect.fill = new BitmapFill(imgSoil, IsoOrientation.XY);
-					rect.addEventListener(MouseEvent.ROLL_OVER, onRollOverHandler);
-					rect.addEventListener(MouseEvent.ROLL_OUT, onRollOutHandler);
-					rect.addEventListener(MouseEvent.CLICK, highlight);
-					addChild(rect);
-					_layout.set(col, row, rect);
+					var tile:Tile = new Tile();
+					tile.setSize(_grid.cellSize, _grid.cellSize, 0);
+					tile.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
+					tile.name = map[row][col];
+					//rect.fill = new BitmapFill(imgSoil, IsoOrientation.XY);
+					tile.addEventListener(MouseEvent.ROLL_OVER, onRollOverHandler);
+					tile.addEventListener(MouseEvent.ROLL_OUT, onRollOutHandler);
+					tile.addEventListener(MouseEvent.CLICK, select);
+					addChild(tile);
+					_layout.set(col, row, tile);
 				}
 			}
 		}
@@ -73,23 +72,27 @@ package game
 		{
 			(e.target as IsoDisplayObject).container.filters = [];
 		}
-		public function highlight(e:ProxyEvent):void
+		public function select(e:ProxyEvent):void
 		{
-			trace(e.target.name);
-			for (var i:int = 0; i < _layout.getH(); i++)
+			var highlightTransform:ColorTransform = new ColorTransform();
+			highlightTransform.blueOffset = 100;
+			var unHighlightTransform:ColorTransform = new ColorTransform();
+			for (var i:int = 0; i < _layout.size(); i++)
 			{
-				for (var j:int = 0; j < _layout.getW(); j++)
-					if (e.target.name == _layout[i][j].name)
+				if (i == _layout.indexOf(e.target))
 				{
-					var highlightTransform:ColorTransform = new ColorTransform();
-					highlightTransform.blueOffset = 100;
-					var unhighlightTransform:ColorTransform = new ColorTransform();
-					(e.target as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
-					(e.target as IsoDisplayObject).container.alpha = 0.5;
+					(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
+					(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 0.5
+					_layout.getAtIndex(i).selected();
 				}
-				(_layout[i][j] as IsoDisplayObject).container.transform.colorTransform = unhighlightTransform;
-				(_layout[i][j] as IsoDisplayObject).container.alpha = 1.0;
+				else
+				{
+					(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
+					(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0
+					_layout.getAtIndex(i).unSelected();
+				}
 			}
 		}
+		
 	}
 }
