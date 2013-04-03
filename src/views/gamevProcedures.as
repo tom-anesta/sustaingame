@@ -172,7 +172,7 @@ private function recognizeInternalGameLayedOut(ev:layedOutEvent):void
 }
 private function recognizeSellPanelLayedOut(ev:layedOutEvent):void
 {
-	ev.target.setListWidth();
+	//ev.target.setListWidth();
 	//ev.target.height = ev.target.parent.height;
 }
 private function ccGameV():void

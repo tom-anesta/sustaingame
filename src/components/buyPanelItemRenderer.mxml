@@ -24,8 +24,8 @@
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle" />
 			</s:layout>
-			<s:Label height="100%" width="65%" text="{data.name}" />
-			<s:Label height="100%" width="35%" text="{String(data.cost)}" />
+			<s:Label height="100%" width="73%" text="{data.name}" />
+			<s:Label height="100%" width="27%" text="{String(data.cost)}" />
 		</s:Group>
 	</s:Group>
 	
