@@ -11,7 +11,8 @@ package game
 	import as3isolib.display.IsoGroup;
     import as3isolib.display.scene.IsoGrid;
 	import as3isolib.display.primitive.IsoRectangle;
-	import de.polygonal.ds.Array2
+	import de.polygonal.ds.Array2;
+	import de.polygonal.ds.Array2Iterator;
 	import flash.events.Event;
 	import flash.filesystem.File;
 	import as3isolib.enum.IsoOrientation;
@@ -21,15 +22,15 @@ package game
 	import flash.net.URLRequest;
 	import as3isolib.graphics.BitmapFill;
 	import flash.geom.ColorTransform;
+	import mx.events.ListEvent;
     
     public class Group extends IsoGroup
     {
         private var _grid:IsoGrid;
 		private var _layout:Array2;
-		private var rect:IsoRectangle;
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
-		private var selected:IsoDisplayObject;
+		
  
         public function Group(grid:IsoGrid)
         {
@@ -49,7 +50,7 @@ package game
 		 
 				for (var col:int = 0; col < r.length; col++)
 				{
-					rect = new IsoRectangle();
+					var rect:IsoRectangle = new IsoRectangle();
 					rect.setSize(_grid.cellSize, _grid.cellSize, 0);
 					rect.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
 					rect.name = map[row][col];
@@ -74,17 +75,19 @@ package game
 		}
 		public function highlight(e:ProxyEvent):void
 		{
-			var highlightTransform:ColorTransform = new ColorTransform();
-			highlightTransform.blueOffset = 100;
-			(e.target as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
-			(e.target as IsoDisplayObject).container.alpha = 0.5;	
-		}
-		public function unhighlight(i:IsoDisplayObject):void
-		{
-			var unhighlightTransform:ColorTransform = new ColorTransform();
-			unhighlightTransform.redOffset = 0;
-			i.container.transform.colorTransform = unhighlightTransform;
-			i.container.alpha = 1.0;
+			for each (var x:IsoRectangle in _layout)
+			{
+				if (e.target.name == x.name)
+				{
+					var highlightTransform:ColorTransform = new ColorTransform();
+					highlightTransform.blueOffset = 100;
+					var unhighlightTransform:ColorTransform = new ColorTransform();
+					(e.target as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
+					(e.target as IsoDisplayObject).container.alpha = 0.5;
+					trace(e);
+				}
+				(x as IsoDisplayObject).container.transform.colorTransform = unhighlightTransform;
+				(x as IsoDisplayObject).container.alpha = 1.0;
 		}
 	}
 }
