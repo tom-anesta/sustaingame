@@ -28,6 +28,9 @@ package game
 		import as3isolib.geom.Pt;
 		import flash.geom.Point;
 		import de.polygonal.ds.Array2
+		import globalManagers.timeLine;
+		import myEvents.layedOutEvent;
+		import myEvents.timeElapsedEvent;
 		
         
         public class IsoApplication extends Sprite
@@ -43,15 +46,16 @@ package game
 		
 		private var panPt:Point;
 		private var zoom:Number = .09;
-		private var firstRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var secondRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var thirdRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var fourthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var fifthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var sixthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var seventhRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
-		private var eigthRow:Array = ["soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil", "soil"];
+		private var firstRow:Array = ["soil-1", "soil-2", "soil-3", "soil-4", "soil-5", "soil-6", "soil-7", "soil-8", "soil-9"];
+		private var secondRow:Array = ["soil-10", "soil-11", "soil-12", "soil-13", "soil-14", "soil-15", "soil-16", "soil-17", "soil-18"];
+		private var thirdRow:Array = ["soil-19", "soil-20", "soil-21", "soil-22", "soil-23", "soil-24", "soil-25", "soil-26", "soil-27"];
+		private var fourthRow:Array = ["soil-28", "soil-29", "soil-30", "soil-31", "soil-32", "soil-33", "soil-34", "soil-35", "soil-36"];
+		private var fifthRow:Array = ["soil-37", "soil-38", "soil-39", "soil-40", "soil-41", "soil-42", "soil-43", "soil-44", "soil-45"];
+		private var sixthRow:Array = ["soil-46", "soil-47", "soil-48", "soil-49", "soil-50", "soil-51", "soil-52", "soil-53", "soil-54"];
+		private var seventhRow:Array = ["soil-55", "soil-56", "soil-57", "soil-58", "soil-59", "soil-60", "soil-61", "soil-62", "soil-63"];
+		private var eigthRow:Array = ["soil-64", "soil-65", "soil-66", "soil-67", "soil-68", "soil-69", "soil-70", "soil-71", "soil-72"];
 		private var _map:Array = [firstRow, secondRow, thirdRow, fourthRow, fifthRow, sixthRow, seventhRow, eigthRow];
+		private var m_timeline:timeLine;
 		
 		//check for is on stage so no info error
 		private var m_addedToStage:Boolean = false;
@@ -70,6 +74,10 @@ package game
 			createGroup();
 			scene.render()
 			//}
+			
+			var ev:layedOutEvent = new layedOutEvent();
+			(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
+			dispatchEvent(ev);
 			this.m_addedToStage = true;
 		}
 		
@@ -97,6 +105,13 @@ package game
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
 		}
+		
+		public function setTimeLine(value:timeLine):void
+		{
+			m_timeline = value;
+			m_timeline.addEventListener(timeElapsedEvent.HOURCOMPLETE, hourhandler);
+		}
+		
 		private function viewMouseDown(e:Event):void
 		{
 			panPt = new Point(stage.mouseX, stage.mouseY);
@@ -133,6 +148,11 @@ package game
 			_group.setMap(_map);
 			_group.moveTo(0, 0, 0);
 			scene.addChild(_group);
+		}
+		
+		private function hourhandler(ev:timeElapsedEvent):void
+		{
+			trace("hour in game");
 		}
 	}
 }
