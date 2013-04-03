@@ -81,6 +81,13 @@ private function sellRemoveFromInventory(ev:inventoryEvent):void
 	var ev2:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, ev.items, true, true);
 	dispatchEvent(ev2);
 }
+private function advanceInventoryDays():void
+{
+	for (var i:uint = 0; i < user_inventory.length; i++)
+	{
+		(user_inventory[i] as itemObjectCollection).advanceDay();
+	}
+}
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
@@ -150,6 +157,11 @@ private function slowerEventReceived(ev:timeElapsedEvent):void
 	mainTimeLine.speedDown();
 	ev.stopPropagation();
 }
+private function dayElapsedHandler(ev:timeElapsedEvent):void
+{
+	trace("day elapsed");
+	advanceInventoryDays();
+}
 //init functions
 private function initGameSprite():void
 {
@@ -206,8 +218,13 @@ public function setInventory(value:ArrayCollection):void
 }
 public function setTimeLine(value:timeLine):void
 {
+	if (mainTimeLine != null)
+	{
+		mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, dayElapsedHandler);
+	}
 	//trace("main game screen is setting its timeline");
 	mainTimeLine = value;
+	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, dayElapsedHandler);
 	//set the timeline on the internal game now
 	internalGame.setTimeLine(mainTimeLine);
 	

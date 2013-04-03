@@ -288,7 +288,6 @@ package components.itemClasses
 			}
 			return;
 		}
-		
 		override public function addItemAt(item:Object, index:int):void
 		{
 			if (!(item is itemObject) && !(item is Vector.<itemObject>) && !(item is itemObjectCollection))
@@ -330,6 +329,14 @@ package components.itemClasses
 				return;
 			}
 			return;
+		}
+		
+		public function advanceDay():void
+		{
+			for (var i:uint = 0; i < this.length; i++)
+			{
+				(source[i] as itemObject).advanceDay();
+			}
 		}
 		
 		
