@@ -1,6 +1,6 @@
 import mx.collections.ArrayCollection;
 import flash.events.MouseEvent;
-import myEvents.pauseEvent;
+import myEvents.timeElapsedEvent;
 /**
  * ...
  * @author thomas anesta
@@ -16,7 +16,9 @@ private function plusClicked(ev:MouseEvent):void
 	{
 		currSpeed++;
 		mainTimeButton.label = stringsArrayCollection[currSpeed];
-		//mainTimeButton.setSize(mainTimeButton.width, mainTimeButton.height);
+		//dispatch the event
+		var ev2:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.FASTERREQUEST, new Date(), true, true);
+		dispatchEvent(ev2);
 	}
 }
 private function minusClicked(ev:MouseEvent):void
@@ -25,7 +27,9 @@ private function minusClicked(ev:MouseEvent):void
 	{
 		currSpeed--;
 		mainTimeButton.label = stringsArrayCollection[currSpeed];
-		//mainTimeButton.setSize(mainTimeButton.width, mainTimeButton.height);
+		//dispatch the event
+		var ev2:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.SLOWERREQUEST, new Date(), true, true);
+		dispatchEvent(ev2);
 	}
 }
 private function mainTimeClicked(ev:MouseEvent):void
@@ -35,14 +39,14 @@ private function mainTimeClicked(ev:MouseEvent):void
 		//mainTimeButton.skin.setCurrentState("over", true);
 		ev.target.skin.setCurrentState("over", true);
 		ev.target.label = stringsArrayCollection[currSpeed];
-		ev.target.dispatchEvent(new pauseEvent(ev.type, false, true, ev.cancelable, ev.localX, ev.localY, ev.relatedObject, ev.ctrlKey, ev.altKey, ev.shiftKey, ev.buttonDown, ev.delta, ev.commandKey, ev.controlKey, ev.clickCount));
+		ev.target.dispatchEvent(new timeElapsedEvent(timeElapsedEvent.PAUSEREQUEST, new Date(), true));
 	}
 	else
 	{
 		//mainTimeButton.skin.setCurrentState("down", true);
 		ev.target.skin.setCurrentState("down", true);
 		ev.target.label = stringsArrayCollection[numSpeeds];
-		ev.target.dispatchEvent(new pauseEvent(ev.type, true, true, ev.cancelable, ev.localX, ev.localY, ev.relatedObject, ev.ctrlKey, ev.altKey, ev.shiftKey, ev.buttonDown, ev.delta, ev.commandKey, ev.controlKey, ev.clickCount));
+		ev.target.dispatchEvent(new timeElapsedEvent(timeElapsedEvent.PAUSEREQUEST, new Date(), true));
 	}
 	isPaused = !isPaused;
 	//dispatch pause event here, also notify the game screen

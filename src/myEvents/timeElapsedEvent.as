@@ -20,6 +20,9 @@ package myEvents
 		public static const SLOWERREQUEST:String = "slowerpls";
 		public static const SPEEDUP:String = "hasspedup";
 		public static const SPEEDDOWN:String = "hassloweddown";
+		public static const PAUSEREQUEST:String = "pausepls"
+		public static const PAUSE:String = "pause";
+		public static const UNPAUSE:String = "unpause";
 		//-private
 		private var m_theDate:Date;
 		//functions

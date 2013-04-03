@@ -179,30 +179,91 @@ package globalManagers
 		{
 			if (this.m_speed < MAX_SPEED)
 			{
-				trace("increasing time");
+				//stop the time first
+				this.m_hourTimer.stop();
+				//find out how far we have gone already
+				var currentInterval:Number = this.m_interval;
+				this.m_lapTime = (getTimer() - this.m_currentTimer);//find how far we have gone already
+				//now what fraction has passed?
+				var fract:Number = this.m_lapTime / currentInterval;//how far we were to the next hour tick
+				//now we can handle the speed variables
 				this.m_speed++;
-				//resolve timers her
+				var tempInterval:Number = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );//the default
+				if (this.m_speed > DEFAULT_SPEED)//IT WORKS DON'T JUDGE ME
+				{
+					for (var i:uint = DEFAULT_SPEED; i < this.m_speed; i++)
+					{
+						tempInterval = Math.floor(tempInterval / 5);
+					}
+				}
+				else if (this.m_speed < DEFAULT_SPEED)
+				{
+					for (var j:uint = DEFAULT_SPEED; j > this.m_speed; j--)
+					{
+						tempInterval = Math.floor(tempInterval * 5);
+					}
+				}
+				this.m_interval = tempInterval;
+				trace("new interval is " + this.m_interval);
+				//now the unpause code to reset the interval
+				this.m_hourTimer.delay=Math.floor( this.m_interval - fract*this.m_interval);
+				// saving the current time for referencing in pause to find difference
+				this.m_currentTimer = getTimer();
+				//restart the timer
+				this.m_hourTimer.start();
+				//dispatch the event
+				var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.SPEEDUP, this.m_theDate, true);
+				dispatchEvent(ev);
 			}
 		}
-		public function slowDown():void
+		public function speedDown():void
 		{
 			if (this.m_speed > 0)
 			{
-				trace("increasing time");
+				//stop the time first
+				this.m_hourTimer.stop();
+				//find out how far we have gone already
+				var currentInterval:Number = this.m_interval;
+				this.m_lapTime = (getTimer() - this.m_currentTimer);//find how far we have gone already
+				//now what fraction has passed?
+				var fract:Number = this.m_lapTime / currentInterval;//how far we were to the next hour tick
+				//now we can handle the speed variables
 				this.m_speed--;
-				//resolve timers here
+				var tempInterval:Number = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );//the default
+				if (this.m_speed > DEFAULT_SPEED)//IT WORKS DON'T JUDGE ME
+				{
+					for (var i:uint = DEFAULT_SPEED; i < this.m_speed; i++)
+					{
+						tempInterval = Math.floor(tempInterval / 5);
+					}
+				}
+				else if (this.m_speed < DEFAULT_SPEED)
+				{
+					for (var j:uint = DEFAULT_SPEED; j > this.m_speed; j--)
+					{
+						tempInterval = Math.floor(tempInterval * 5);
+					}
+				}
+				this.m_interval = tempInterval;
+				//now the unpause code to reset the interval
+				this.m_hourTimer.delay=Math.floor( this.m_interval - fract*this.m_interval);
+				// saving the current time for referencing in pause to find difference
+				this.m_currentTimer = getTimer();
+				//restart the timer
+				this.m_hourTimer.start();
+				//dispatch the event
+				var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.SPEEDDOWN, this.m_theDate, true);
+				dispatchEvent(ev);
 			}
 		}
 		public function pause():void
 		{
 			if (this.running)
 			{
-				//trace("pausing");
 				pause2();
 			}
 			else
 			{
-				//trace("unpausing");
 				unpause();
 			}
 		}
@@ -212,7 +273,8 @@ package globalManagers
 			this.m_hourTimer.stop();
 			// determining how much time has passed since the last tick
 			this.m_lapTime=(getTimer()-this.m_currentTimer);
-			return;//need smart timer code for this
+			var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.PAUSE, this.m_theDate, true);
+			dispatchEvent(ev);
 		}
 		private function unpause():void
 		{//just basically the same as start but without the setting to true
@@ -224,7 +286,8 @@ package globalManagers
 			this.m_currentTimer=getTimer();
 			// starting the timers
 			this.m_hourTimer.start();
-			return;//need smart timer code for this
+			var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.UNPAUSE, this.m_theDate, true);
+			dispatchEvent(ev);
 		}
 		//-private
 		//--event listeners
