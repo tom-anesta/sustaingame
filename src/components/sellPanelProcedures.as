@@ -12,7 +12,7 @@ private var sellPanelDataProvider:ArrayCollection;
 
 private function initSellPanel():void
 {
-	sellPanelDataProvider = new ArrayCollection();	
+	sellPanelDataProvider = new ArrayCollection();
 }
 private function ccSellPanel():void
 {
@@ -37,4 +37,8 @@ public function setSellPanelDataProvider(value:mx.collections.ArrayCollection):v
 {
 	sellPanelDataProvider = value;
 	sellPanelList.dataProvider = sellPanelDataProvider;
+}
+public function setListWidth():void
+{
+	sellPanelList.width = sellPanelList.parent.width;
 }

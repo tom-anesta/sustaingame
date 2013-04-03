@@ -22,14 +22,8 @@
 		<s:layout>
 			<s:VerticalLayout horizontalAlign="center"/>
 		</s:layout>
-		<components:customList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />
-		<s:Group height="5%" width="100%">
-			<s:layout>
-				<s:HorizontalLayout/>
-			</s:layout>
-			<!-- <s:Button id="buyItemButton" label="Buy" height="100%" width="50%" enabled="{(buyPanelList.selectedIndex >= 0)}" /> -->
-			<s:Button id="infoItemButton" label="Info" height="100%" width="50%" enabled="{(inventoryPanelList.selectedIndex >= 0)}" />
-		</s:Group>
+		<components:customList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />		
+		<s:Button id="infoItemButton" label="Info" height="5%" width="50%" enabled="{(inventoryPanelList.selectedIndex >= 0)}" />
 	</s:Group>
 	
 	
