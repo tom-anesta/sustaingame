@@ -6,6 +6,8 @@ package components.itemClasses
 	import components.itemClasses.itemObject;
 	import components.itemClasses.seedDistributableItemObject;
 	import components.itemClasses.plantCropItemObject;
+	import components.itemClasses.toolEquipmentItemObject;
+	import components.itemClasses.vehicleEquipmentItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	/**
@@ -17,7 +19,7 @@ package components.itemClasses
 		//members
 		//-public
 		//--static const
-		public static const TYPE_CONSTRUCTOR:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH;//modify for all classes
+		public static const TYPE_CONSTRUCTOR:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH + toolEquipmentItemObject.TOOLEQUIPMENT_TYPES_LENGTH + vehicleEquipmentItemObject.VEHICLEEQUIPMENT_TYPES_LENGTH;//modify for all classes
 		public static const DEFAULT_TRAILER_TYPE:uint = TYPE_CONSTRUCTOR + 0;
 		public static const WATERINGCAN_TRAILER_TYPE:uint = TYPE_CONSTRUCTOR + 1;
 		public static const PLANTCROPTYPES_LENGTH:uint = 2;

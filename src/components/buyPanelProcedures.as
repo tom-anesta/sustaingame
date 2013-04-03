@@ -1,5 +1,7 @@
 import Array;
+import components.itemClasses.toolEquipmentItemObject;
 import components.itemClasses.trailerEquipmentItemObject;
+import components.itemClasses.vehicleEquipmentItemObject;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import mx.collections.ArrayCollection;
@@ -40,6 +42,8 @@ private function initBuyPanel():void
 	buyPanelDataProvider = new ArrayCollection();
 	buyPanelDataProvider.addItem(new seedDistributableItemObject(seedDistributableItemObject.SEED_SORGHUM));
 	buyPanelDataProvider.addItem(new trailerEquipmentItemObject(trailerEquipmentItemObject.TRAILER_WATERINGCAN));
+	buyPanelDataProvider.addItem(new toolEquipmentItemObject(toolEquipmentItemObject.TOOL_HOE));
+	buyPanelDataProvider.addItem(new vehicleEquipmentItemObject(vehicleEquipmentItemObject.VEHICLE_TRACTOR));
 }
 private function ccBuyPanel():void
 {

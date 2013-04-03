@@ -19,16 +19,13 @@
 		<s:layout>
 			<s:VerticalLayout horizontalAlign = "center"/>
 		</s:layout>
-		<s:BitmapImage id="rendererThumbNail" height="80%" width="80%" source = "{data.tNBitmap}" /> <!-- source="@Embed(mimeType=image/gif, source={data.tNSource})"/> -->
-		
-		<!-- <s:Label height="80%" width="100%" text="{data.tNAsset}" /> -->
-		
+		<s:BitmapImage id="rendererThumbNail" height="80%" width="80%" source = "{data.tNBitmap}" />
 		<s:Group height="15%" width="100%">
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle" />
 			</s:layout>
-			<s:Label height="100%" width="65%" text="{data.name}" />
-			<s:Label height="100%" width="35%" text="{String(data.length)}" />
+			<s:Label height="100%" width="73%" text="{data.name}" />
+			<s:Label height="100%" width="27%" text="{String(data.length)}" />
 		</s:Group>
 	</s:Group>
 	

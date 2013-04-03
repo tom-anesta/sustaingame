@@ -162,12 +162,18 @@ private function initGameSprite():void
 private function initGameV():void
 {
 	internalGame = null;//start with null
+	this.addEventListener(layedOutEvent.SELLLAYEDOUT, recognizeSellPanelLayedOut);
 }
 private function recognizeInternalGameLayedOut(ev:layedOutEvent):void
 {
 	//trace("recognizing game layed out");
 	internalGame = ev.target as IsoApplication;
 	ev.target.setTimeLine(mainTimeLine);
+}
+private function recognizeSellPanelLayedOut(ev:layedOutEvent):void
+{
+	//ev.target.setListWidth();
+	//ev.target.height = ev.target.parent.height;
 }
 private function ccGameV():void
 {
