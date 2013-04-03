@@ -139,13 +139,20 @@ private function infoRequestEventReceived(ev:popupRequestEvent):void
 }
 private function pauseEventReceived(ev:pauseEvent):void
 {
-	//trace("gamev has received pause event " + ev.paused);
-	//pause the game
-	//gameSpriteContainer.children[0].pause(ev.paused);
+	//trace("game receied pause event");
+	mainTimeLine.pause();//pause the timeline
 }
+//test function
+private function handleHourElapsed(ev:timeElapsedEvent):void
+{
+	//trace("game has caught hour elapsed");
+	return;
+}
+//test function
 private function handleDayElapsed(ev:timeElapsedEvent):void//advance the date of all items in inventory
 {
-	trace("game has caught day elapsed");
+	//trace("game has caught day elapsed");
+	return;
 }
 //init functions
 private function initGameSprite():void
@@ -166,6 +173,7 @@ private function ccGameV():void
 	user_inventory = new ArrayCollection();
 	mainTimeLine = new timeLine();
 	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
 	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
@@ -187,8 +195,10 @@ public function setTimeLine(value:timeLine):void
 {
 	//remove the eventlisteneter on the current 
 	mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	mainTimeLine.removeEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
 	//set timeline on the game screen now
 	mainTimeLine = value;
 	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
 }
 
