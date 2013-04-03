@@ -21,7 +21,7 @@
 		<s:HorizontalLayout verticalAlign="middle"/>
 	</s:layout>
 	
-	<components:gameSideMenu id="sideMenu" width="25%" height="100%" /> <!-- parentGroup="{this as flash.display.DisplayObject}" /> -->
+	<components:gameSideMenu id="sideMenu" width="25%" height="100%" />
 	<s:Group height="100%" width="75%">
 		<s:layout>
 			<s:VerticalLayout horizontalAlign="center" />

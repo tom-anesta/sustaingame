@@ -13,6 +13,7 @@ package myEvents
 		//-public
 		//--static const
 		public static const GAMELAYEDOUT:String = "gamelayedout";
+		public static const INTERNALGAMELAYEDOUT:String = "internalgamelayedout";
 		public static const INVENTORYLAYEDOUT:String = "inventorylayedout";
 		public static const SELLLAYEDOUT:String = "selllayedout";
 		//-private

@@ -2,7 +2,7 @@ package globalManagers
 {
 	import adobe.utils.CustomActions;
 	import flash.events.IEventDispatcher;
-	import flash.utils.Timer;
+	import flash.utils.*;
 	import flash.events.TimerEvent;
 	import mx.core.UITextField;
 	import myEvents.timeElapsedEvent;
@@ -40,6 +40,9 @@ package globalManagers
 		private var m_month:uint;//the current month
 		private var m_year:uint;//the current year
 		private var m_dispatcher:EventDispatcher;
+		private var m_interval:Number;//the intended interval for the hour timer.  not necessarily what the interval is
+		private var m_currentTimer:Number;//
+		private var m_lapTime:Number;//the milliseconds that have elapsed in the timer
 		//functions
 		//-public
 		//--constructor
@@ -69,17 +72,15 @@ package globalManagers
 			this.m_started = false;
 			this.m_speed = DEFAULT_SPEED;
 			this.m_theDate = new Date(year, month, date, hour, 0, 0);
-			this.m_hourTimer = new Timer( ( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0));
+			this.m_interval = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );
+			this.m_lapTime = this.m_interval;
+			this.m_hourTimer = new Timer( this.m_interval );
 			this.m_date = date;
 			this.m_hour = hour;
 			this.m_month = month;
 			this.m_year = year;
 			//set your event listeners
 			this.m_hourTimer.addEventListener(TimerEvent.TIMER, hearTimer);
-			//this.m_dayTimer = new Timer( (60 * 24 * 1000), 0);
-			//this.m_monthTimer = new Timer( (60 * 24 * 30 * 1000), 0);//not bothering with 31st day or february
-			//this.m_yearTimer = new Timer( (60 * 24 * 30 * 360 * 1000), 0);//not bothering with leap years, 30*12=360.  oh well.
-			
 		}
 		//--getters and setters
 		//---getters
@@ -159,6 +160,13 @@ package globalManagers
 		//--time related functions
 		public function start():void
 		{
+			if (this.m_hourTimer.delay - this.m_lapTime > 0 )
+			{
+				this.m_hourTimer.delay=this.m_hourTimer.delay - this.m_lapTime;
+			}
+			// saving the current time for referencing in pause to find difference
+			this.m_currentTimer=getTimer();
+			// starting the timers
 			this.m_hourTimer.start();
 			//this.m_dayTimer.start();
 			//this.m_monthTimer.start();
@@ -171,34 +179,131 @@ package globalManagers
 		{
 			if (this.m_speed < MAX_SPEED)
 			{
-				trace("increasing time");
+				//stop the time first
+				this.m_hourTimer.stop();
+				//find out how far we have gone already
+				var currentInterval:Number = this.m_interval;
+				this.m_lapTime = (getTimer() - this.m_currentTimer);//find how far we have gone already
+				//now what fraction has passed?
+				var fract:Number = this.m_lapTime / currentInterval;//how far we were to the next hour tick
+				//now we can handle the speed variables
 				this.m_speed++;
-				//resolve timers her
+				var tempInterval:Number = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );//the default
+				if (this.m_speed > DEFAULT_SPEED)//IT WORKS DON'T JUDGE ME
+				{
+					for (var i:uint = DEFAULT_SPEED; i < this.m_speed; i++)
+					{
+						tempInterval = Math.floor(tempInterval / 5);
+					}
+				}
+				else if (this.m_speed < DEFAULT_SPEED)
+				{
+					for (var j:uint = DEFAULT_SPEED; j > this.m_speed; j--)
+					{
+						tempInterval = Math.floor(tempInterval * 5);
+					}
+				}
+				this.m_interval = tempInterval;
+				trace("new interval is " + this.m_interval);
+				//now the unpause code to reset the interval
+				this.m_hourTimer.delay=Math.floor( this.m_interval - fract*this.m_interval);
+				// saving the current time for referencing in pause to find difference
+				this.m_currentTimer = getTimer();
+				//restart the timer
+				this.m_hourTimer.start();
+				//dispatch the event
+				var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.SPEEDUP, this.m_theDate, true);
+				dispatchEvent(ev);
 			}
 		}
-		public function slowDown():void
+		public function speedDown():void
 		{
 			if (this.m_speed > 0)
 			{
-				trace("increasing time");
+				//stop the time first
+				this.m_hourTimer.stop();
+				//find out how far we have gone already
+				var currentInterval:Number = this.m_interval;
+				this.m_lapTime = (getTimer() - this.m_currentTimer);//find how far we have gone already
+				//now what fraction has passed?
+				var fract:Number = this.m_lapTime / currentInterval;//how far we were to the next hour tick
+				//now we can handle the speed variables
 				this.m_speed--;
-				//resolve timers here
+				var tempInterval:Number = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );//the default
+				if (this.m_speed > DEFAULT_SPEED)//IT WORKS DON'T JUDGE ME
+				{
+					for (var i:uint = DEFAULT_SPEED; i < this.m_speed; i++)
+					{
+						tempInterval = Math.floor(tempInterval / 5);
+					}
+				}
+				else if (this.m_speed < DEFAULT_SPEED)
+				{
+					for (var j:uint = DEFAULT_SPEED; j > this.m_speed; j--)
+					{
+						tempInterval = Math.floor(tempInterval * 5);
+					}
+				}
+				this.m_interval = tempInterval;
+				//now the unpause code to reset the interval
+				this.m_hourTimer.delay=Math.floor( this.m_interval - fract*this.m_interval);
+				// saving the current time for referencing in pause to find difference
+				this.m_currentTimer = getTimer();
+				//restart the timer
+				this.m_hourTimer.start();
+				//dispatch the event
+				var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.SPEEDDOWN, this.m_theDate, true);
+				dispatchEvent(ev);
 			}
 		}
 		public function pause():void
 		{
-			return;//need smart timer code for this
+			if (this.running)
+			{
+				pause2();
+			}
+			else
+			{
+				unpause();
+			}
 		}
-		public function unpause():void
+		private function pause2():void
 		{
-			return;//need smart timer code for this
+			// stopping the timers
+			this.m_hourTimer.stop();
+			// determining how much time has passed since the last tick
+			this.m_lapTime=(getTimer()-this.m_currentTimer);
+			var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.PAUSE, this.m_theDate, true);
+			dispatchEvent(ev);
+		}
+		private function unpause():void
+		{//just basically the same as start but without the setting to true
+			if (this.m_hourTimer.delay - this.m_lapTime > 0 )
+			{
+				this.m_hourTimer.delay=this.m_hourTimer.delay - this.m_lapTime;
+			}
+			// saving the current time for referencing in pause to find difference
+			this.m_currentTimer=getTimer();
+			// starting the timers
+			this.m_hourTimer.start();
+			var ev:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.UNPAUSE, this.m_theDate, true);
+			dispatchEvent(ev);
 		}
 		//-private
 		//--event listeners
 		private function hearTimer(ev:TimerEvent):void
 		{
+			
 			if (ev.target == this.m_hourTimer)
 			{
+				//this is KEY, it resets the timer to the interval if the timer had been paused and its 
+				if (this.m_hourTimer.delay != this.m_interval)
+				{
+					this.m_hourTimer.delay=this.m_interval;
+				}
+				// saving the current timer for the next pause
+				this.m_currentTimer = getTimer();
+				//now we handle the events and advancement of time
 				//get your booleans ready
 				var timeBoolArray:Array = [ false, false, false, false ];//hour, day, month, year
 				//set your hour

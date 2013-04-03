@@ -13,7 +13,6 @@ import mx.events.CloseEvent;
 import mx.events.FlexEvent;
 import flash.events.MouseEvent;
 import myEvents.layedOutEvent;
-import myEvents.pauseEvent;
 import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
 import myEvents.popupRequestEvent;
@@ -137,16 +136,34 @@ private function infoRequestEventReceived(ev:popupRequestEvent):void
 	PopUpManager.centerPopUp(gameVInfoPopup);
 	PopUpManager.bringToFront(gameVInfoPopup);
 }
-private function pauseEventReceived(ev:pauseEvent):void
+private function pauseEventReceived(ev:timeElapsedEvent):void
 {
-	//trace("gamev has received pause event " + ev.paused);
-	//pause the game
-	//gameSpriteContainer.children[0].pause(ev.paused);
+	mainTimeLine.pause();//pause the timeline
 }
+private function fasterEventReceived(ev:timeElapsedEvent):void
+{
+	mainTimeLine.speedUp();
+	ev.stopPropagation();
+}
+private function slowerEventReceived(ev:timeElapsedEvent):void
+{
+	mainTimeLine.speedDown();
+	ev.stopPropagation();
+}
+/*
+//test function
+private function handleHourElapsed(ev:timeElapsedEvent):void
+{
+	//trace("game has caught hour elapsed");
+	return;
+}
+//test function
 private function handleDayElapsed(ev:timeElapsedEvent):void//advance the date of all items in inventory
 {
-	trace("game has caught day elapsed");
+	//trace("game has caught day elapsed");
+	return;
 }
+*/
 //init functions
 private function initGameSprite():void
 {
@@ -157,7 +174,7 @@ private function initGameSprite():void
 	//start the app?
 }
 private function initGameV():void
-{	
+{
 	return;//do nothing
 }
 private function ccGameV():void
@@ -165,8 +182,13 @@ private function ccGameV():void
 	user_moneyManager = new moneyManager();
 	user_inventory = new ArrayCollection();
 	mainTimeLine = new timeLine();
-	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
-	this.addEventListener(pauseEvent.PAUSE, pauseEventReceived);
+	//mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	//mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
+	//pause and speed up
+	this.addEventListener(timeElapsedEvent.PAUSEREQUEST, pauseEventReceived);
+	this.addEventListener(timeElapsedEvent.FASTERREQUEST, fasterEventReceived);
+	this.addEventListener(timeElapsedEvent.SLOWERREQUEST, slowerEventReceived);
+	//buy sell and inventory
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 	this.addEventListener(popupRequestEvent.SELL_REQUEST, sellRequestEventReceived);
@@ -186,9 +208,12 @@ public function setInventory(value:ArrayCollection):void
 public function setTimeLine(value:timeLine):void
 {
 	//remove the eventlisteneter on the current 
-	mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	//mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	//mainTimeLine.removeEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
 	//set timeline on the game screen now
 	mainTimeLine = value;
-	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	//mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
+	//mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
+	//this component keeps the pause event listener and faster and slower listeners
 }
 
