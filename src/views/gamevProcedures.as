@@ -39,6 +39,7 @@ private var user_inventory:ArrayCollection;
 private var lastItemSelectedForBuy:itemObject;
 private var lastItemSelectedForSell:itemObjectCollection;
 private var mainTimeLine:timeLine;
+private var internalGame:IsoApplication;
 //public var buyPopupOnStage:Boolean;
 
 //private event listeners
@@ -104,7 +105,6 @@ private function handleItemBought(ev:transactionEvent):void
 	{
 		itemVect.push(new ( getDefinitionByName(getQualifiedClassName(lastItemSelectedForBuy)) )(lastItemSelectedForBuy.name) );
 	}
-	//sideMenu.itemsToInventory(itemVect);
 	var ev3:inventoryEvent = new inventoryEvent(inventoryEvent.ADD, itemVect, true, true);
 	dispatchEvent(ev3);
 	//now go to inventory
@@ -150,20 +150,6 @@ private function slowerEventReceived(ev:timeElapsedEvent):void
 	mainTimeLine.speedDown();
 	ev.stopPropagation();
 }
-/*
-//test function
-private function handleHourElapsed(ev:timeElapsedEvent):void
-{
-	//trace("game has caught hour elapsed");
-	return;
-}
-//test function
-private function handleDayElapsed(ev:timeElapsedEvent):void//advance the date of all items in inventory
-{
-	//trace("game has caught day elapsed");
-	return;
-}
-*/
 //init functions
 private function initGameSprite():void
 {
@@ -175,15 +161,21 @@ private function initGameSprite():void
 }
 private function initGameV():void
 {
-	return;//do nothing
+	internalGame = null;//start with null
+}
+private function recognizeInternalGameLayedOut(ev:layedOutEvent):void
+{
+	//trace("recognizing game layed out");
+	internalGame = ev.target as IsoApplication;
+	ev.target.setTimeLine(mainTimeLine);
 }
 private function ccGameV():void
 {
 	user_moneyManager = new moneyManager();
 	user_inventory = new ArrayCollection();
 	mainTimeLine = new timeLine();
-	//mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
-	//mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
+	//inits
+	this.addEventListener(layedOutEvent.INTERNALGAMELAYEDOUT, recognizeInternalGameLayedOut);
 	//pause and speed up
 	this.addEventListener(timeElapsedEvent.PAUSEREQUEST, pauseEventReceived);
 	this.addEventListener(timeElapsedEvent.FASTERREQUEST, fasterEventReceived);
@@ -193,6 +185,7 @@ private function ccGameV():void
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 	this.addEventListener(popupRequestEvent.SELL_REQUEST, sellRequestEventReceived);
 	initGameSprite();
+	//race("dispatching game view layed out event");
 	var dEvent:layedOutEvent = new layedOutEvent(layedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);
 }
@@ -207,13 +200,10 @@ public function setInventory(value:ArrayCollection):void
 }
 public function setTimeLine(value:timeLine):void
 {
-	//remove the eventlisteneter on the current 
-	//mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
-	//mainTimeLine.removeEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
-	//set timeline on the game screen now
+	//trace("main game screen is setting its timeline");
 	mainTimeLine = value;
-	//mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, handleDayElapsed);
-	//mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourElapsed);
-	//this component keeps the pause event listener and faster and slower listeners
+	//set the timeline on the internal game now
+	internalGame.setTimeLine(mainTimeLine);
+	
 }
 

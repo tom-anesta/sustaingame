@@ -74,11 +74,11 @@ package game
 			createGroup();
 			scene.render()
 			//}
-			
-			var ev:layedOutEvent = new layedOutEvent();
-			(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
-			dispatchEvent(ev);
 			this.m_addedToStage = true;
+			//trace("dispatching internal game layed out event");
+			var ev2:layedOutEvent = new layedOutEvent(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
+			dispatchEvent(ev2);
+			
 		}
 		
 		public function IsoApplication() 
@@ -108,6 +108,10 @@ package game
 		
 		public function setTimeLine(value:timeLine):void
 		{
+			if (m_timeline != null)
+			{
+				m_timeline.removeEventListener(timeElapsedEvent.HOURCOMPLETE, hourhandler);
+			}
 			m_timeline = value;
 			m_timeline.addEventListener(timeElapsedEvent.HOURCOMPLETE, hourhandler);
 		}
@@ -152,7 +156,7 @@ package game
 		
 		private function hourhandler(ev:timeElapsedEvent):void
 		{
-			trace("hour in game");
+			return;//do whatever you want here
 		}
 	}
 }

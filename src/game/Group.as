@@ -30,7 +30,6 @@ package game
 		private var _layout:Array2;
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
-		
  
         public function Group(grid:IsoGrid)
         {
@@ -88,6 +87,7 @@ package game
 				}
 				(x as IsoDisplayObject).container.transform.colorTransform = unhighlightTransform;
 				(x as IsoDisplayObject).container.alpha = 1.0;
+			}
 		}
 	}
 }
