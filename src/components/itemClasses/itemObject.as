@@ -123,6 +123,10 @@ package components.itemClasses
 		{
 			return;//do nothing
 		}
+		public function set days(value:uint):void
+		{
+			return;//do nothing
+		}
 		public function set redeemability(value:Number):void
 		{
 			return;//do nothing
@@ -146,6 +150,11 @@ package components.itemClasses
 		public function set tNBitmap(value:Bitmap):void
 		{
 			return;//do nothing
+		}
+		//outer functions
+		public function advanceDay():void
+		{
+			this.m_days++;
 		}
 		//--update functions
 		
