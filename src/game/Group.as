@@ -22,7 +22,6 @@ package game
 	import flash.net.URLRequest;
 	import as3isolib.graphics.BitmapFill;
 	import flash.geom.ColorTransform;
-	import mx.events.ListEvent;
     
     public class Group extends IsoGroup
     {
@@ -53,7 +52,6 @@ package game
 					tile.setSize(_grid.cellSize, _grid.cellSize, 0);
 					tile.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
 					tile.name = map[row][col];
-					//rect.fill = new BitmapFill(imgSoil, IsoOrientation.XY);
 					tile.addEventListener(MouseEvent.ROLL_OVER, onRollOverHandler);
 					tile.addEventListener(MouseEvent.ROLL_OUT, onRollOutHandler);
 					tile.addEventListener(MouseEvent.CLICK, select);
@@ -92,6 +90,11 @@ package game
 					_layout.getAtIndex(i).unSelected();
 				}
 			}
+		}
+		
+		public function getSize():int
+		{
+			return _layout.size();
 		}
 		
 	}
