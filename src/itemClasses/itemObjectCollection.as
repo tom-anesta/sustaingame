@@ -1,9 +1,9 @@
-package components.itemClasses 
+package itemClasses 
 {
 	import air.net.SecureSocketMonitor;
 	import flash.display.Bitmap;
 	import mx.collections.ArrayCollection;
-	import components.itemClasses.itemObject;
+	import itemClasses.itemObject;
 	/**
 	 * ...
 	 * @author thomas anesta

@@ -1,12 +1,12 @@
 import Array;
-import components.itemClasses.toolEquipmentItemObject;
-import components.itemClasses.trailerEquipmentItemObject;
-import components.itemClasses.vehicleEquipmentItemObject;
+import itemClasses.toolEquipmentItemObject;
+import itemClasses.trailerEquipmentItemObject;
+import itemClasses.vehicleEquipmentItemObject;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import mx.collections.ArrayCollection;
 import spark.layouts.TileLayout;
-import components.itemClasses.seedDistributableItemObject;
+import itemClasses.seedDistributableItemObject;
 import mx.events.ItemClickEvent;
 import spark.events.ListEvent;
 import flash.events.MouseEvent;

@@ -4,7 +4,7 @@
  * @author thomas anesta
  */
 
-import components.itemClasses.itemObject;
+import itemClasses.itemObject;
 import flash.display.DisplayObject;
 import mx.collections.ArrayCollection;
 import mx.managers.PopUpManager;

@@ -1,10 +1,10 @@
-package components.itemClasses 
+package itemClasses 
 {
-	import components.itemClasses.distributableItemObject;
-	import components.itemClasses.equipmentItemObject;
-	import components.itemClasses.cropItemObject;
-	import components.itemClasses.plantCropItemObject;
-	import components.itemClasses.trailerEquipmentItemObject;
+	import itemClasses.distributableItemObject;
+	import itemClasses.equipmentItemObject;
+	import itemClasses.cropItemObject;
+	import itemClasses.plantCropItemObject;
+	import itemClasses.trailerEquipmentItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	/**
@@ -54,31 +54,31 @@ package components.itemClasses
 		//-protected
 		//--embeds
 		//[Embed(source = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE, mimeType='image.gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var DEFAULT_SEEDDISTRIBUTABLE_TNASSET:Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SORGHUM_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_SORGHUM_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_MAIZE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_MAIZE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_PEANUT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_PEANUT_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SOYBEAN_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_SOYBEAN_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_GRAPE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source = "../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source = "../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_GRAPE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_TOBACCO_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_TOBACCO_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SUGARCANE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_SUGARCANE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_APRICOT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var SEED_APRICOT_TNASSET : Class;
 		//private
 		private static var s_inited:Boolean = false;

@@ -1,6 +1,6 @@
-import components.itemClasses.itemObjectCollection;
+import itemClasses.itemObjectCollection;
 import globalManagers.moneyManager;
-import components.itemClasses.itemObject;
+import itemClasses.itemObject;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -19,7 +19,7 @@ import myEvents.popupRequestEvent;
 import mx.managers.PopUpManager;
 import myEvents.timeElapsedEvent;
 import myEvents.transactionEvent;
-import components.itemClasses.itemObject;
+import itemClasses.itemObject;
 import components.popups.sellItemPopup;
 import flash.utils.*;
 import myEvents.inventoryEvent;

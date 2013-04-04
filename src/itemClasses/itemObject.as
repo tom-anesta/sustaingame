@@ -1,4 +1,4 @@
-package components.itemClasses 
+package itemClasses 
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -49,7 +49,7 @@ package components.itemClasses
 		protected var m_eventDispatcher:EventDispatcher;
 		//protected embeds
 		//[Embed(source = DEFAULT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source = "../../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
+		[Embed(source = "../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
 		protected static var DEFAULT_TNASSET:Class;
 		
 		//functions

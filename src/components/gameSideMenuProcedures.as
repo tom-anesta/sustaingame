@@ -1,6 +1,6 @@
 import flash.display.DisplayObject;
-import components.itemClasses.itemObject;
-import components.itemClasses.itemObjectCollection;
+import itemClasses.itemObject;
+import itemClasses.itemObjectCollection;
 
 /**
  * ...

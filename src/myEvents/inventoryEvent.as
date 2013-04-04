@@ -1,7 +1,8 @@
 package myEvents 
 {
-	import components.itemClasses.itemObject;
+	import itemClasses.itemObject;
 	import flash.events.Event;
+	
 	/**
 	 * ...
 	 * @author thomas anesta

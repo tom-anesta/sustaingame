@@ -1,13 +1,13 @@
-package components.itemClasses 
+package itemClasses 
 {
-	import components.itemClasses.cropItemObject;
-	import components.itemClasses.distributableItemObject;
-	import components.itemClasses.equipmentItemObject;
-	import components.itemClasses.itemObject;
-	import components.itemClasses.seedDistributableItemObject;
-	import components.itemClasses.plantCropItemObject;
-	import components.itemClasses.trailerEquipmentItemObject;
-	import components.itemClasses.toolEquipmentItemObject;
+	import itemClasses.cropItemObject;
+	import itemClasses.distributableItemObject;
+	import itemClasses.equipmentItemObject;
+	import itemClasses.itemObject;
+	import itemClasses.seedDistributableItemObject;
+	import itemClasses.plantCropItemObject;
+	import itemClasses.trailerEquipmentItemObject;
+	import itemClasses.toolEquipmentItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	/**
@@ -28,9 +28,9 @@ package components.itemClasses
 		//---defaults
 		public static const DEFAULT_VEHICLEEQUIPMENT_ITEMKEY:uint = DEFAULT_VEHICLE_TYPE;
 		//--embeds
-		[Embed(source="../../../assets/images/Tractor_clip_art_small.png")]
+		[Embed(source="../../assets/images/Tractor_clip_art_small.png")]
 		protected static var DEFAULT_VEHICLEEQUIPMENT_TNASSET:Class;
-		[Embed(source="../../../assets/images/Tractor_clip_art_small.png")]
+		[Embed(source="../../assets/images/Tractor_clip_art_small.png")]
 		protected static var VEHICLE_TRACTOR_TNASSET:Class;
 		//private
 		private static var s_inited:Boolean = false;

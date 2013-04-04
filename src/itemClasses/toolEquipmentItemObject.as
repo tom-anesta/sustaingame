@@ -1,13 +1,13 @@
-package components.itemClasses 
+package itemClasses 
 {
-	import components.itemClasses.cropItemObject;
-	import components.itemClasses.distributableItemObject;
-	import components.itemClasses.equipmentItemObject;
-	import components.itemClasses.itemObject;
-	import components.itemClasses.seedDistributableItemObject;
-	import components.itemClasses.plantCropItemObject;
-	import components.itemClasses.trailerEquipmentItemObject;
-	import components.itemClasses.vehicleEquipmentItemObject;
+	import itemClasses.cropItemObject;
+	import itemClasses.distributableItemObject;
+	import itemClasses.equipmentItemObject;
+	import itemClasses.itemObject;
+	import itemClasses.seedDistributableItemObject;
+	import itemClasses.plantCropItemObject;
+	import itemClasses.trailerEquipmentItemObject;
+	import itemClasses.vehicleEquipmentItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	/**
@@ -28,9 +28,9 @@ package components.itemClasses
 		//---defaults
 		public static const DEFAULT_TOOLEQUIPMENT_ITEMKEY:uint = DEFAULT_TOOL_TYPE;
 		//--embeds
-		[Embed(source="../../../assets/images/Hoe.gif")]
+		[Embed(source="../../assets/images/Hoe.gif")]
 		protected static var DEFAULT_TOOLEQUIPMENT_TNASSET:Class;
-		[Embed(source="../../../assets/images/Hoe.gif")]
+		[Embed(source="../../assets/images/Hoe.gif")]
 		protected static var TOOL_HOE_TNASSET:Class;
 		//private
 		private static var s_inited:Boolean = false;
