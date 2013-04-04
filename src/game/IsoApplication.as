@@ -40,22 +40,23 @@ package game
 		public var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
-		private var rect:IsoRectangle;
 		private var _group:Group;
-		[Embed(source = "../../assets/images/Grass.gif")]
-		private var PlayUpImg : Class;
 		
 		private var panPt:Point;
 		private var zoom:Number = .09;
-		private var firstRow:Array = ["soil-1", "soil-2", "soil-3", "soil-4", "soil-5", "soil-6", "soil-7", "soil-8"];
-		private var secondRow:Array = ["soil-10", "soil-11", "soil-12", "soil-13", "soil-14", "soil-15", "soil-16", "soil-17"];
-		private var thirdRow:Array = ["soil-19", "soil-20", "soil-21", "soil-22", "soil-23", "soil-24", "soil-25", "soil-26"];
-		private var fourthRow:Array = ["soil-28", "soil-29", "soil-30", "soil-31", "soil-32", "soil-33", "soil-34", "soil-35"];
-		private var fifthRow:Array = ["soil-37", "soil-38", "soil-39", "soil-40", "soil-41", "soil-42", "soil-43", "soil-44"];
-		private var sixthRow:Array = ["soil-46", "soil-47", "soil-48", "soil-49", "soil-50", "soil-51", "soil-52", "soil-53"];
-		private var seventhRow:Array = ["soil-55", "soil-56", "soil-57", "soil-58", "soil-59", "soil-60", "soil-61", "soil-62"];
-		private var eigthRow:Array = ["soil-64", "soil-65", "soil-66", "soil-67", "soil-68", "soil-69", "soil-70", "soil-71"];
-		private var _map:Array = [firstRow, secondRow, thirdRow, fourthRow, fifthRow, sixthRow, seventhRow, eigthRow];
+		private var _map:Array;
+		private var gridWidth:int  = 8;
+		private var gridLength:int = 8;
+		
+		private var bgHolder:IsoScene;
+		private var bgGrid:IsoGrid;
+		private var bgMap:Array;
+		private var bgWidth:int = 30;
+		private var bgLength:int = 30;
+		private var bGroup:bgGroup;
+		
+		
+		//time line var
 		private var m_timeline:timeLine;
 		
 		//check for is on stage so no info error
@@ -64,17 +65,17 @@ package game
 		private function appOnStage(ev:Event):void
 		{
 			view.setSize(this.parent.width, this.parent.height);
-			//if (!this.m_addedToStage)
-			//{
 			this.addChild(view);
 			view.addScene(gridHolder);
+			view.addScene(bgHolder);
 			view.addScene(scene);
 			gridHolder.addChild(grid);
-			scene.addChild(rect);
+			bgHolder.addChild(bgGrid);
 			gridHolder.render();
+			createBackground();
 			createGroup();
 			scene.render()
-			//}
+			
 			this.m_addedToStage = true;
 			//trace("dispatching internal game layed out event");
 			var ev2:layedOutEvent = new layedOutEvent(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
@@ -93,12 +94,12 @@ package game
 			scene = new IsoScene();
 			grid = new IsoGrid();
 			grid.cellSize = 500;
-			grid.setGridSize(8, 8, 1);
+			grid.setGridSize(gridWidth, gridLength, 1);
 			
-			rect = new IsoRectangle();
-			rect.setSize(10000, 10000, 0);
-			rect.moveTo(-2500, -2500, 0);
-			rect.fill = (new BitmapFill(PlayUpImg, IsoOrientation.XY));
+			bgHolder = new IsoScene();
+			bgGrid = new IsoGrid();
+			bgGrid.cellSize = 500;
+			bgGrid.setGridSize(bgWidth, bgLength, 0);
 			
 			view.currentZoom = .06;
 			
@@ -149,10 +150,51 @@ package game
 		
 		private function createGroup():void
 		{
+			_map = new Array();
+			var temp:Array;
+			//initialize
+			for (var i:int = 0; i < gridLength; i++)
+			{
+				temp = new Array();
+				for (var j:int = 0; j < gridWidth; j++)
+				{
+					temp.push("soil");
+				}
+				_map.push(temp);
+			}
+			
 			_group = new Group(grid);
 			_group.setMap(_map);
 			_group.moveTo(0, 0, 0);
 			scene.addChild(_group);
+		}
+		
+		private function createBackground():void
+		{
+			bgMap = new Array();
+			var temp:Array;
+			//initialize
+			for (var i:int = 0; i < bgLength; i++)
+			{
+				temp = new Array();
+				for (var j:int = 0; j < bgWidth; j++)
+				{
+					var randInt:int = Math.floor(Math.random()*(1+10-1))+1
+					if (randInt > 3)
+					{
+						temp.push("grass");
+					}
+					else
+					{
+						temp.push("desert");
+					}	
+				}
+				bgMap.push(temp);
+			}
+			bGroup = new bgGroup(bgGrid);
+			bGroup._setMap(bgMap);
+			bGroup.moveTo(-4500, -4500, 0);
+			scene.addChild(bGroup);
 		}
 		
 		private function hourhandler(ev:timeElapsedEvent):void
