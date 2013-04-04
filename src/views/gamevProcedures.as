@@ -159,7 +159,6 @@ private function slowerEventReceived(ev:timeElapsedEvent):void
 }
 private function dayElapsedHandler(ev:timeElapsedEvent):void
 {
-	trace("day elapsed");
 	advanceInventoryDays();
 }
 //init functions
