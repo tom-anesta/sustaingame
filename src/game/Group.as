@@ -29,6 +29,8 @@ package game
 		private var _layout:Array2;
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
+		[Embed(source = "../../assets/images/DrySoil.gif")]
+		private var imgDrySoil:Class;
  
         public function Group(grid:IsoGrid)
         {
@@ -48,10 +50,10 @@ package game
 		 
 				for (var col:int = 0; col < r.length; col++)
 				{
-					var tile:Tile = new Tile();
+					var tile:Tile = new Tile(map[row][col]);
 					tile.setSize(_grid.cellSize, _grid.cellSize, 0);
 					tile.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
-					tile.name = map[row][col];
+					//tile.name = map[row][col];
 					tile.addEventListener(MouseEvent.ROLL_OVER, onRollOverHandler);
 					tile.addEventListener(MouseEvent.ROLL_OUT, onRollOutHandler);
 					tile.addEventListener(MouseEvent.CLICK, select);

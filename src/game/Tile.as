@@ -15,11 +15,11 @@ package game
 		private var mid:MidLayer;
 		private var bot:BotLayer;
 		
-		public function Tile() 
+		public function Tile(cname:String = "soil") 
 		{
 			isActive = false;
-			var randInt:int = Math.floor(Math.random() * (1 + 10 - 1)) + 1
-			if (randInt > 4)
+			this.name = cname;
+			if ( this.name == "soil")
 			{
 				fill = new BitmapFill(soilImg, IsoOrientation.XY);
 			}

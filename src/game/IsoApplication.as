@@ -33,7 +33,6 @@ package game
 		import myEvents.layedOutEvent;
 		import myEvents.timeElapsedEvent;
 		
-        
         public class IsoApplication extends Sprite
         {
 		private var view:IsoView;
@@ -158,8 +157,23 @@ package game
 				temp = new Array();
 				for (var j:int = 0; j < gridWidth; j++)
 				{
+					//if (j >= gridWidth/2)
+					//{	
+					//	var randInt:int = Math.floor(Math.random()*(1+10-1))+1
+					//	if (randInt > 4)
+					//	{
+					//		temp.push("soil");
+					//	}
+					//	else
+					//	{
+					//		temp.push("drysoil");
+					//	}
+					//}
+					//else
 					temp.push("soil");
+						
 				}
+				
 				_map.push(temp);
 			}
 			
@@ -179,6 +193,9 @@ package game
 				temp = new Array();
 				for (var j:int = 0; j < bgWidth; j++)
 				{
+					//for temp screenshot take into account width
+					//if (j >= bgWidth / 2)//if on the bad side
+					//{
 					var randInt:int = Math.floor(Math.random()*(1+10-1))+1
 					if (randInt > 3)
 					{
@@ -187,7 +204,10 @@ package game
 					else
 					{
 						temp.push("desert");
-					}	
+					}
+					//}
+					//else//on the good side
+					//	temp.push("grass");
 				}
 				bgMap.push(temp);
 			}
