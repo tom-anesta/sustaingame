@@ -1,8 +1,8 @@
 package game 
 {
-	import components.itemClasses.cropItemObject;
-	import components.itemClasses.plantCropItemObject;
-	import components.itemClasses.seedDistributableItemObject;
+	import itemClasses.cropItemObject;
+	import itemClasses.plantCropItemObject;
+	import itemClasses.seedDistributableItemObject;
 
 	public class MidLayer 
 	{
@@ -13,7 +13,7 @@ package game
 			
 		}
 		
-		public function addCrop(_crop:cropItemObject):void
+		public function addCrop(_crop:itemClasses.cropItemObject):void
 		{
 			crops.push(_crop);
 		}

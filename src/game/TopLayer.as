@@ -1,7 +1,7 @@
 package game 
 {
-	import components.itemClasses.distributableItemObject;
-	import components.itemClasses.equipmentItemObject;
+	import itemClasses.distributableItemObject;
+	import itemClasses.equipmentItemObject;
 
 	public class TopLayer 
 	{

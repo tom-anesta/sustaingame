@@ -1,6 +1,6 @@
 package game 
 {
-	import components.itemClasses.distributableItemObject;
+	import itemClasses.distributableItemObject;
 
 	public class BotLayer 
 	{
