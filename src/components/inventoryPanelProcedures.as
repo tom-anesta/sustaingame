@@ -1,5 +1,5 @@
-import components.itemClasses.itemObject;
-import components.itemClasses.itemObjectCollection;
+import itemClasses.itemObject;
+import itemClasses.itemObjectCollection;
 import mx.collections.ArrayCollection;
 import myEvents.layedOutEvent;
 import flash.events.MouseEvent;

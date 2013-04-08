@@ -1,11 +1,11 @@
-package components.itemClasses 
+package itemClasses 
 {
-	import components.itemClasses.cropItemObject;
-	import components.itemClasses.distributableItemObject;
-	import components.itemClasses.equipmentItemObject;
-	import components.itemClasses.itemObject;
-	import components.itemClasses.trailerEquipmentItemObject;
-	import components.itemClasses.seedDistributableItemObject;
+	import itemClasses.cropItemObject;
+	import itemClasses.distributableItemObject;
+	import itemClasses.equipmentItemObject;
+	import itemClasses.itemObject;
+	import itemClasses.trailerEquipmentItemObject;
+	import itemClasses.seedDistributableItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	/**
@@ -40,23 +40,23 @@ package components.itemClasses
 		//---defaults
 		public static const DEFAULT_PLANTCROP_ITEMKEY:uint = DEFAULT_PLANT_TYPE;
 		//--embeds
-		[Embed(source="../../../assets/images/SorghumStage1.gif")]
+		[Embed(source="../../assets/images/SorghumStage1.gif")]
 		protected static var DEFAULT_PLANTCROP_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_SORGHUM_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_MAIZE_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_PEANUT_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_SOYBEAN_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_GRAPE_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_TOBACCO_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_SUGARCANE_TNASSET:Class;
-		[Embed(source="../../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
 		protected static var PLANT_APRICOT_TNASSET:Class;
 		//private
 		private static var s_inited:Boolean = false;

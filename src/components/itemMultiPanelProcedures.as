@@ -1,4 +1,4 @@
-import components.itemClasses.itemObject;
+import itemClasses.itemObject;
 import flash.display.DisplayObject;
 import mx.events.FlexEvent;
 /**

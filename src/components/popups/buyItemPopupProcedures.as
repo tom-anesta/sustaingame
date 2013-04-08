@@ -11,7 +11,7 @@ import mx.managers.PopUpManager;
 import myEvents.transactionEvent;
 import spark.events.TitleWindowBoundsEvent;
 import globalManagers.moneyManager;
-import components.itemClasses.itemObject;
+import itemClasses.itemObject;
 
 [Bindable]
 public var m_moneyManager:moneyManager;

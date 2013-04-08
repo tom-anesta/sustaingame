@@ -25,8 +25,8 @@ import spark.events.IndexChangeEvent;
 //objects
 import globalManagers.moneyManager;
 import globalManagers.timeLine;
-import components.itemClasses.itemObject;
-import components.itemClasses.itemObjectCollection;
+import itemClasses.itemObject;
+import itemClasses.itemObjectCollection;
 //events
 import myEvents.transactionEvent;
 import myEvents.inventoryEvent;
