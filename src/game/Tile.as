@@ -6,14 +6,27 @@ package game
 
 	public class Tile extends IsoRectangle
 	{
-		private var isActive:Boolean;
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var soilImg:Class;
+		[Embed(source = "../../assets/images/DrySoil.gif")]
+		private var drySoilImg:Class;
+		private var isActive:Boolean;
+		private var top:TopLayer;
+		private var mid:MidLayer;
+		private var bot:BotLayer;
 		
 		public function Tile() 
 		{
 			isActive = false;
-			fill = new BitmapFill(soilImg, IsoOrientation.XY);
+			var randInt:int = Math.floor(Math.random() * (1 + 10 - 1)) + 1
+			if (randInt > 4)
+			{
+				fill = new BitmapFill(soilImg, IsoOrientation.XY);
+			}
+			else
+			{
+				fill = new BitmapFill(drySoilImg, IsoOrientation.XY);
+			}
 		}
 		
 		public function selected():Boolean
