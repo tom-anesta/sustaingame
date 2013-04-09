@@ -32,6 +32,7 @@ package game
 		import globalManagers.timeLine;
 		import myEvents.layedOutEvent;
 		import myEvents.timeElapsedEvent;
+		import myEvents.landSelectEvent;
 		
         public class IsoApplication extends Sprite
         {
@@ -107,6 +108,8 @@ package game
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
+			this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
+			this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 		}
 		
 		public function setTimeLine(value:timeLine):void
@@ -238,6 +241,15 @@ package game
 		private function hourhandler(ev:timeElapsedEvent):void
 		{
 			return;//do whatever you want here
+		}
+		
+		private function selectHandler(ev:landSelectEvent):void
+		{
+			trace("select found");
+		}
+		private function deselectHandler(ev:landSelectEvent):void
+		{
+			trace("deselect found");
 		}
 	}
 }

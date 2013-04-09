@@ -29,14 +29,19 @@ package game
 			}
 		}
 		
-		public function selected():Boolean
+		public function select():Boolean
 		{
 			return isActive = true;
 		}
 		
-		public function unSelected():Boolean
+		public function unSelect():Boolean
 		{
 			return isActive = false;
+		}
+		
+		public function get selected():Boolean
+		{
+			return this.isActive;
 		}
 		
 	}

@@ -22,11 +22,14 @@ package game
 	import flash.net.URLRequest;
 	import as3isolib.graphics.BitmapFill;
 	import flash.geom.ColorTransform;
+	import myEvents.landSelectEvent;
+	import flash.events.Event;
     
     public class Group extends IsoGroup
     {
         private var _grid:IsoGrid;
 		private var _layout:Array2;
+		private var m_standardDispatcher:EventDispatcher;//this class uses a proxyeventdispatcher, this needs to use a standard dispatcher
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
 		[Embed(source = "../../assets/images/DrySoil.gif")]
@@ -34,6 +37,7 @@ package game
  
         public function Group(grid:IsoGrid)
         {
+			this.m_standardDispatcher = new EventDispatcher(this);
             _grid = grid;
         }
 		
@@ -74,16 +78,22 @@ package game
 		}
 		public function select(e:ProxyEvent):void
 		{
+			//trace("select event called in tile");
 			var highlightTransform:ColorTransform = new ColorTransform();
 			highlightTransform.blueOffset = 100;
 			var unHighlightTransform:ColorTransform = new ColorTransform();
+			//var to handle if we get to the newly selected item before we deselect the old one
+			var newlySelected:Boolean = false;
 			for (var i:int = 0; i < _layout.size(); i++)
 			{
+				//earlier code
+				/*
 				if (i == _layout.indexOf(e.target))
 				{
 					(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
 					(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 0.5
 					_layout.getAtIndex(i).selected();
+					
 				}
 				else
 				{
@@ -91,6 +101,56 @@ package game
 					(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0
 					_layout.getAtIndex(i).unSelected();
 				}
+				*/
+				
+				if (i == _layout.indexOf(e.target))
+				{
+					//trace("found target at " + i);
+					if ( (_layout.getAtIndex(i) as Tile).selected)//if it was selected all we need to do is deselect it
+					{
+						//trace("deselecting old");
+						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
+						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0;
+						_layout.getAtIndex(i).unSelect();
+						//send deselection event
+						var ev2:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_DESELECT, _layout.getAtIndex(i) as Tile, true);
+						this.m_standardDispatcher.dispatchEvent(ev2);
+						break;//we have deselected the thing we can leave the for loop
+					}
+					else//if it was not selected we now need to select it
+					{
+						//trace("making a new selection");
+						newlySelected = true;//in case we select a new thing before deselecting the old thing
+						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
+						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 0.5;
+						_layout.getAtIndex(i).select();
+						var ev3:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true);
+						this.m_standardDispatcher.dispatchEvent(ev3);
+					}
+				}
+				else//otherwise if it was selected we need to remove that selection
+				{
+					if ( (_layout.getAtIndex(i) as Tile).selected)
+					{
+						//trace("deselecting a thing");
+						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
+						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0;
+						_layout.getAtIndex(i).unSelect();
+						//if we haven't done the selection for new, then we need to dispatch an event, else we can break out of the loop
+						if (newlySelected)
+						{
+							break;
+						}
+						else
+						{
+							var ev4:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_DESELECT, _layout.getAtIndex(i) as Tile, true);
+							this.m_standardDispatcher.dispatchEvent(ev4);
+						}
+					}
+				}
+				
+				
+				
 			}
 		}
 		
