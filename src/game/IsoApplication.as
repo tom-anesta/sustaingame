@@ -72,6 +72,8 @@ package game
 			bgHolder.addChild(bgGrid);
 			gridHolder.render();
 			createBackground();
+			
+			bgGrid
 			createGroup();
 			scene.render()
 			
@@ -170,11 +172,11 @@ package game
 					//	}
 					//}
 					//else
-					temp.push("soil");
+						temp.push("soil");
 						
 				}
-				
 				_map.push(temp);
+				
 			}
 			
 			_group = new Group(grid);
@@ -194,28 +196,44 @@ package game
 				for (var j:int = 0; j < bgWidth; j++)
 				{
 					//for temp screenshot take into account width
-					//if (j >= bgWidth / 2)//if on the bad side
+					//if (j > bgWidth / 2)//if on the bad side
 					//{
-					var randInt:int = Math.floor(Math.random()*(1+10-1))+1
-					if (randInt > 3)
-					{
-						temp.push("grass");
-					}
-					else
-					{
-						temp.push("desert");
-					}
+					//	if ( !(j < 6 || i < 6 || j >= 24 || i >= 24) )
+					//	{
+					//		var randInt:int = Math.floor(Math.random() * (1 + 10 - 1)) + 1
+					//		if (randInt < 4)
+					//		{
+					//			temp.push("grass");
+					//		}
+					//		else if (randInt > 6)//was 6 with grass else if
+					//		{
+					//			temp.push("drygrass");
+					//		}
+					//		else
+					//		{
+					//			temp.push("desert");
+					//		}
+					//	}
+					//	else
+					//		temp.push("drygrass");
 					//}
 					//else//on the good side
-					//	temp.push("grass");
+					//{
+						if(j < 6 || i < 6 || j >= 24 || i >= 24)
+							temp.push("drygrass");//drygrass on the outside
+						else
+							temp.push("grass");
+					//}
 				}
 				bgMap.push(temp);
 			}
 			bGroup = new bgGroup(bgGrid);
 			bGroup._setMap(bgMap);
-			bGroup.moveTo(-4500, -4500, 0);
-			scene.addChild(bGroup);
+			bGroup.moveTo(-6000, -6000, 0);//-4500 is back by 9, need it back by 15?  that is -7500
+			scene.addChild(bGroup);//no we need back by 12 because top left corner of the thing starts at 0, so that's -6000
 		}
+		
+		
 		
 		private function hourhandler(ev:timeElapsedEvent):void
 		{
