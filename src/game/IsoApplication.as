@@ -1,6 +1,7 @@
 package game
 {
 		import eDpLib.events.ProxyEvent;
+		import flash.display.DisplayObject;
     	import flash.display.MovieClip;
 		import flash.events.*;
 		import flash.filters.*;    
@@ -85,6 +86,7 @@ package game
 			//trace("dispatching internal game layed out event");
 			var ev2:layedOutEvent = new layedOutEvent(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
 			dispatchEvent(ev2);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
 			
 		}
 		
@@ -109,7 +111,7 @@ package game
 			
 			view.currentZoom = .06;
 			
-			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
+			//view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
 			//this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
@@ -128,13 +130,36 @@ package game
 			m_timeline.addEventListener(timeElapsedEvent.HOURCOMPLETE, hourhandler);
 		}
 		
-		private function viewMouseDown(e:Event):void
+		/*private function viewMouseDown(e:Event):void
 		{
 			panPt = new Point(stage.mouseX, stage.mouseY);
 			view.addEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			view.addEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
+		}*/
+		
+		private function viewKeyDown(e:KeyboardEvent):void
+		{
+			if (e.keyCode == 87)
+			{
+				view.panBy(0, -500);
+			}
+			if (e.keyCode == 65)
+			{
+				view.panBy( -500, 0);
+			}
+			if (e.keyCode == 83)
+			{
+				view.panBy(0, 500);
+			}
+			if (e.keyCode == 68)
+			{
+				view.panBy(500, 0);
+			}
+			
+			view.limitRangeOfMotion = true;
 		}
-		private function viewPan(e:Event):void
+		
+		/*private function viewPan(e:Event):void
 		{
 			view.panBy(panPt.x - stage.mouseX, panPt.y - stage.mouseY);
 			panPt.x = stage.mouseX;
@@ -144,18 +169,56 @@ package game
 		{
 			view.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			view.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
-		}
+		}*/
 		private function viewZoom(e:MouseEvent):void
 		{
-			if(e.delta > 0)
+			var zoomable:Boolean = true;
+			/*if(e.delta > 0)
 			{
 				zoom +=  0.01;
 			}
 			if(e.delta < 0)
 			{
 				zoom -=  0.01;
+			}*/
+			if (view.currentZoom > .25)
+			{
+				//need limit
+				if(e.delta > 0)
+				{
+					zoom +=  0;
+				}
+				if(e.delta < 0)
+				{
+					zoom -=  0.01;
+				}
 			}
+			else if (view.currentZoom < .059)
+			{
+				//need limit
+				if(e.delta > 0)
+				{
+				zoom +=  0.01;
+				}
+				if(e.delta < 0)
+				{
+				zoom -=  0;
+				}
+			}
+			
+			else {
+				if(e.delta > 0)
+				{
+					zoom +=  0.01;
+				}
+				if(e.delta < 0)
+				{
+					zoom -=  0.01;
+				}
+			}
+
 			view.currentZoom = zoom;
+			trace(view.currentZoom);
 		}
 		
 		private function createGroup():void
