@@ -59,13 +59,10 @@ package game
 					addChild(rect);
 					_layout.set(col, row, rect);
 				}
-				
 				//add the lake (comment out after screenshot)
 				//if(hasLake)
 				//	addLake(map);
 				//reset the background
-				
-				
 			}
 		}
 		

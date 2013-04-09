@@ -33,6 +33,7 @@ package game
 		import myEvents.layedOutEvent;
 		import myEvents.timeElapsedEvent;
 		import myEvents.landSelectEvent;
+		import flash.events.EventDispatcher;
 		
         public class IsoApplication extends Sprite
         {
@@ -55,6 +56,8 @@ package game
 		private var bgLength:int = 30;
 		private var bGroup:bgGroup;
 		
+		//the dispatcher for handling normal events
+		private var m_standardDispatcher:EventDispatcher;
 		
 		//time line var
 		private var m_timeline:timeLine;
@@ -88,6 +91,7 @@ package game
 		public function IsoApplication() 
 		{
 			this.m_addedToStage = false;
+			this.m_standardDispatcher = new EventDispatcher(this);
 			view = new IsoView();
 			view.clipContent = true;
 			view.showBorder = false;
@@ -108,6 +112,8 @@ package game
 			view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
+			//this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
+			//this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 			this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
 			this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 		}
@@ -181,7 +187,6 @@ package game
 				_map.push(temp);
 				
 			}
-			
 			_group = new Group(grid);
 			_group.setMap(_map);
 			_group.moveTo(0, 0, 0);
@@ -235,21 +240,17 @@ package game
 			bGroup.moveTo(-6000, -6000, 0);//-4500 is back by 9, need it back by 15?  that is -7500
 			scene.addChild(bGroup);//no we need back by 12 because top left corner of the thing starts at 0, so that's -6000
 		}
-		
-		
-		
 		private function hourhandler(ev:timeElapsedEvent):void
 		{
 			return;//do whatever you want here
 		}
-		
 		private function selectHandler(ev:landSelectEvent):void
 		{
-			trace("select found");
+			//trace("select found");
 		}
 		private function deselectHandler(ev:landSelectEvent):void
 		{
-			trace("deselect found");
+			//trace("deselect found");
 		}
 	}
 }

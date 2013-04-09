@@ -3,6 +3,7 @@ package game
 	import as3isolib.display.primitive.IsoRectangle;
 	import as3isolib.graphics.BitmapFill;
 	import as3isolib.enum.IsoOrientation;
+	import eDpLib.events.EventDispatcherProxy;
 
 	public class Tile extends IsoRectangle
 	{
@@ -38,11 +39,17 @@ package game
 		{
 			return isActive = false;
 		}
-		
 		public function get selected():Boolean
 		{
 			return this.isActive;
 		}
+		/*
+		public function get standardDispatcher():EventDispatcher
+		{
+			
+		}
+		*/
+		
 		
 	}
 

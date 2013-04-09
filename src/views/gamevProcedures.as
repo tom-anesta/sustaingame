@@ -12,6 +12,7 @@ import mx.core.Window;
 import mx.events.CloseEvent;
 import mx.events.FlexEvent;
 import flash.events.MouseEvent;
+import myEvents.landSelectEvent;
 import myEvents.layedOutEvent;
 import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
@@ -23,6 +24,7 @@ import itemClasses.itemObject;
 import components.popups.sellItemPopup;
 import flash.utils.*;
 import myEvents.inventoryEvent;
+import myEvents.landSelectEvent;
 /**
  * ...
  * @author thomas anesta
@@ -43,6 +45,7 @@ private var internalGame:IsoApplication;
 //public var buyPopupOnStage:Boolean;
 
 //private event listeners
+//sell
 private function sellRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVSellPopup = PopUpManager.createPopUp(this, sellItemPopup, true) as components.popups.sellItemPopup;
@@ -88,6 +91,7 @@ private function advanceInventoryDays():void
 		(user_inventory[i] as itemObjectCollection).advanceDay();
 	}
 }
+//buy
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
 	gameVBuyPopup = PopUpManager.createPopUp(this, buyItemPopup, true) as buyItemPopup;
@@ -127,6 +131,7 @@ private function buyPopupClosing(ev:CloseEvent):void
 	}
 	ev.stopPropagation();//stop the event
 }
+//info in buy and sell and inventory
 private function infoPopupClosing(ev:CloseEvent):void
 {
 	if (ev.target == gameVInfoPopup)
@@ -143,6 +148,16 @@ private function infoRequestEventReceived(ev:popupRequestEvent):void
 	PopUpManager.centerPopUp(gameVInfoPopup);
 	PopUpManager.bringToFront(gameVInfoPopup);
 }
+//land selectevents
+private function landSelectHandler(ev:landSelectEvent):void
+{
+	trace("main game received landselect event");
+}
+private function landDeSelectHandler(ev:landSelectEvent):void
+{
+	trace("main game received land deselect event");
+}
+//time events
 private function pauseEventReceived(ev:timeElapsedEvent):void
 {
 	mainTimeLine.pause();//pause the timeline
@@ -202,6 +217,10 @@ private function ccGameV():void
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 	this.addEventListener(popupRequestEvent.SELL_REQUEST, sellRequestEventReceived);
 	initGameSprite();
+	//after initing the game sprite add the events for land selection
+	this.addEventListener(landSelectEvent.LAND_SELECT, landSelectHandler);
+	this.addEventListener(landSelectEvent.LAND_DESELECT, landDeSelectHandler);
+	
 	//race("dispatching game view layed out event");
 	var dEvent:layedOutEvent = new layedOutEvent(layedOutEvent.GAMELAYEDOUT, true);
 	this.dispatchEvent(dEvent);

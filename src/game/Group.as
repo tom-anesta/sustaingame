@@ -29,15 +29,19 @@ package game
     {
         private var _grid:IsoGrid;
 		private var _layout:Array2;
-		private var m_standardDispatcher:EventDispatcher;//this class uses a proxyeventdispatcher, this needs to use a standard dispatcher
+		//private var m_standardDispatcher:EventDispatcher;//this class uses a proxyeventdispatcher, this needs to use a standard dispatcher
 		[Embed(source = "../../assets/images/soil.gif")]
 		private var imgSoil:Class;
 		[Embed(source = "../../assets/images/DrySoil.gif")]
 		private var imgDrySoil:Class;
- 
+		
+		//event dispatching solution from 
+		//http://tech.groups.yahoo.com/group/as3isolib/messages/2387?threaded=1&m=e&var=1&tidx=1
+		
+		
         public function Group(grid:IsoGrid)
         {
-			this.m_standardDispatcher = new EventDispatcher(this);
+			//this.m_standardDispatcher = new EventDispatcher(this);
             _grid = grid;
         }
 		
@@ -47,6 +51,9 @@ package game
 			var w:Number = Math.max(map[0].length, map.length);
 			_layout = new Array2(w, w);
 			_layout.fill(0);
+			//temporarily test select
+			this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
+			this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 		 
 			for (var row:int = 0; row < map.length; row++)
 			{
@@ -105,34 +112,37 @@ package game
 				
 				if (i == _layout.indexOf(e.target))
 				{
-					//trace("found target at " + i);
 					if ( (_layout.getAtIndex(i) as Tile).selected)//if it was selected all we need to do is deselect it
 					{
-						//trace("deselecting old");
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0;
 						_layout.getAtIndex(i).unSelect();
 						//send deselection event
-						var ev2:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_DESELECT, _layout.getAtIndex(i) as Tile, true);
-						this.m_standardDispatcher.dispatchEvent(ev2);
+						e.proxyTarget.dispatchEvent(new landSelectEvent(landSelectEvent.LAND_DESELECT, _layout.getAtIndex(i) as Tile, true));
 						break;//we have deselected the thing we can leave the for loop
 					}
 					else//if it was not selected we now need to select it
 					{
-						//trace("making a new selection");
 						newlySelected = true;//in case we select a new thing before deselecting the old thing
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 0.5;
 						_layout.getAtIndex(i).select();
-						var ev3:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true);
-						this.m_standardDispatcher.dispatchEvent(ev3);
+						//these don't work
+						/*
+							var ev3:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true);
+							var ev3Proxy:ProxyEvent = new ProxyEvent(this, ev3);
+							this.dispatchEvent(ev3Proxy);
+							this.dispatchEvent(ev3);
+							event.proxyTarget.dispatchEvent(new SomeCustomEvent(SomeCustomEvent.TYPE));
+						*/
+						//this does
+						e.proxyTarget.dispatchEvent(new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true));
 					}
 				}
 				else//otherwise if it was selected we need to remove that selection
 				{
 					if ( (_layout.getAtIndex(i) as Tile).selected)
 					{
-						//trace("deselecting a thing");
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0;
 						_layout.getAtIndex(i).unSelect();
@@ -143,13 +153,10 @@ package game
 						}
 						else
 						{
-							var ev4:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_DESELECT, _layout.getAtIndex(i) as Tile, true);
-							this.m_standardDispatcher.dispatchEvent(ev4);
+							e.proxyTarget.dispatchEvent(new landSelectEvent(landSelectEvent.LAND_DESELECT, _layout.getAtIndex(i) as Tile, true));
 						}
 					}
 				}
-				
-				
 				
 			}
 		}
@@ -157,6 +164,17 @@ package game
 		public function getSize():int
 		{
 			return _layout.size();
+		}
+		
+		private function selectHandler(ev:ProxyEvent):void//(ev:landSelectEvent):void
+		{
+			//trace("select received by group");
+			//trace(ev.type);
+		}
+		private function deselectHandler(ev:ProxyEvent):void//(ev:landSelectEvent):void
+		{
+			//trace("deselect received by group");
+			//trace(ev.type);
 		}
 		
 	}
