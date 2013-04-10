@@ -4,8 +4,11 @@ package game
 	import as3isolib.graphics.BitmapFill;
 	import as3isolib.enum.IsoOrientation;
 	import eDpLib.events.EventDispatcherProxy;
+	import eDpLib.events.ProxyEvent;
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
+	import itemClasses.itemObject;
+	import myEvents.inventoryEvent;
 
 	public class Tile extends IsoRectangle
 	{
@@ -34,6 +37,17 @@ package game
 			top = new TopLayer();
 			mid = new MidLayer();
 			bot = new BotLayer();
+			
+			//addChild(top);//as this is an iso container it requires its children to implement the icontainer interface, which node does not
+			//addChild(mid);
+			//addChild(bot);//add the children so that we can use event bubbling
+			//fuck it just add the event listeners and handle as needed
+			top.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
+			top.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			mid.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
+			mid.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			bot.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
+			bot.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
 		}
 		
 		public function select():Boolean
@@ -49,15 +63,23 @@ package game
 		{
 			return this.isActive;
 		}
-		/*
-		public function get standardDispatcher():EventDispatcher
-		{
-			
-		}
-		*/
 		public function doStuff():void
 		{
 			
+		}
+		public function acceptExternalItemFromInventory(value:itemObject):void
+		{
+			//all of these things need to be added to the top layer initially, that is where they will do the work specified by the player
+			//check for top layer can accept the new item here
+			top.acceptExternalItemFromInventory(value);//this should dispatch an event if successful
+			
+		}
+		
+		//private event handlers
+		private function inventoryEventHandler(ev:ProxyEvent):void
+		{
+			ev.stopImmediatePropagation();
+			dispatchEvent(new ProxyEvent(this, ev.targetEvent));//this should then dispatch the event again
 			
 		}
 		

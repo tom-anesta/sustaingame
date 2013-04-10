@@ -31,6 +31,7 @@ package game
 		import flash.geom.Point;
 		import de.polygonal.ds.Array2
 		import globalManagers.timeLine;
+		import itemClasses.itemObject;
 		import myEvents.layedOutEvent;
 		import myEvents.timeElapsedEvent;
 		import myEvents.landSelectEvent;
@@ -38,33 +39,39 @@ package game
 		
         public class IsoApplication extends Sprite
         {
+		
+		//scenes as direct children
 		private var view:IsoView;
 		public var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
+		
+		//grid container variables for determining contents
 		private var _group:Group;
-		
-		private var panPt:Point;
-		private var zoom:Number = .09;
 		private var _map:Array;
-		private var gridWidth:int  = 8;
-		private var gridLength:int = 8;
-		
 		private var bgHolder:IsoScene;
 		private var bgGrid:IsoGrid;
 		private var bgMap:Array;
-		private var bgWidth:int = 30;
-		private var bgLength:int = 30;
 		private var bGroup:bgGroup;
 		
-		//the dispatcher for handling normal events
-		private var m_standardDispatcher:EventDispatcher;
+		//panning and zooming variables
+		private var panPt:Point;
+		private var zoom:Number = .09;
 		
+		//public static const vars
+		public static const gridWidth:int  = 8;
+		public static const gridLength:int = 8;
+		public static const bgWidth:int = 30;
+		public static const bgLength:int = 30;
+		
+		
+		//the dispatcher for handling normal events
+		//private var m_standardDispatcher:EventDispatcher;//actually unneeded
 		//time line var
 		private var m_timeline:timeLine;
-		
 		//check for is on stage so no info error
 		private var m_addedToStage:Boolean = false;
+		private var selectedTile:Tile;//what our selected tile is
 		
 		private function appOnStage(ev:Event):void
 		{
@@ -93,7 +100,6 @@ package game
 		public function IsoApplication() 
 		{
 			this.m_addedToStage = false;
-			this.m_standardDispatcher = new EventDispatcher(this);
 			view = new IsoView();
 			view.clipContent = true;
 			view.showBorder = false;
@@ -118,6 +124,7 @@ package game
 			//this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 			this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
 			this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
+			
 		}
 		
 		public function setTimeLine(value:timeLine):void
@@ -309,11 +316,21 @@ package game
 		}
 		private function selectHandler(ev:landSelectEvent):void
 		{
-			//trace("select found");
+			selectedTile = ev.tile;
 		}
 		private function deselectHandler(ev:landSelectEvent):void
 		{
-			//trace("deselect found");
+			selectedTile = null;
 		}
+		
+		public function acceptExternalItemFromInventory(value:itemObject):void
+		{
+			if (selectedTile != null)
+			{
+				selectedTile
+			}
+		}
+		
+		
 	}
 }
