@@ -35,6 +35,7 @@ import myEvents.landSelectEvent;
 public var gameVBuyPopup:components.popups.buyItemPopup = null;
 public var gameVInfoPopup:components.popups.infoOnItemPopup = null;
 public var gameVSellPopup:components.popups.sellItemPopup = null;
+public var gameVUsePopup:components.popups.inventoryUsePopup = null;
 //private variables
 //just keep these here use events to update from main
 private var user_moneyManager:moneyManager;
@@ -42,6 +43,7 @@ private var user_inventory:ArrayCollection;
 
 private var lastItemSelectedForBuy:itemObject;
 private var lastItemSelectedForSell:itemObjectCollection;
+private var lastItemSelectedForUse:itemObjectCollection;
 private var mainTimeLine:timeLine;
 private var internalGame:IsoApplication;
 private var selectedTile:Tile;
@@ -87,13 +89,7 @@ private function sellRemoveFromInventory(ev:inventoryEvent):void
 	var ev2:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, ev.items, true, true);
 	dispatchEvent(ev2);
 }
-private function advanceInventoryDays():void
-{
-	for (var i:uint = 0; i < user_inventory.length; i++)
-	{
-		(user_inventory[i] as itemObjectCollection).advanceDay();
-	}
-}
+
 //buy
 private function buyRequestEventReceived(ev:popupRequestEvent):void
 {
@@ -151,6 +147,38 @@ private function infoRequestEventReceived(ev:popupRequestEvent):void
 	PopUpManager.centerPopUp(gameVInfoPopup);
 	PopUpManager.bringToFront(gameVInfoPopup);
 }
+//inventory use
+private function usePopupClosing(ev:CloseEvent):void
+{
+	if (ev.target == gameVUsePopup)
+	{
+		gameVUsePopup.removeEventListener(CloseEvent.CLOSE, infoPopupClosing);
+		PopUpManager.removePopUp(gameVUsePopup);
+	}
+	ev.stopPropagation();//stop the event
+}
+private function useFromInventory(ev:inventoryEvent):void
+{
+	/*
+	var ev2:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, ev.items, true, true);
+	dispatchEvent(ev2);
+	*/
+	//need to wait for the tile signal to remove from inventory
+	if (ev.type == inventoryEvent.USE && ev.items.length == 1)
+	{
+		(gameSpriteContainer.getChildAt(0) as IsoApplication).acceptExternalItemFromInventory(ev.items[0]);
+	}
+}
+private function useRequestEventReceived(ev:popupRequestEvent):void
+{
+	lastItemSelectedForUse = (ev.releventItem as itemObjectCollection);
+	gameVUsePopup = PopUpManager.createPopUp(this, components.popups.inventoryUsePopup, true) as components.popups.inventoryUsePopup;
+	gameVUsePopup.addEventListener(CloseEvent.CLOSE, usePopupClosing);
+	gameVUsePopup.addEventListener(inventoryEvent.USE, useFromInventory);
+	gameVUsePopup.setDataProvider(lastItemSelectedForUse);
+	PopUpManager.centerPopUp(gameVUsePopup);
+	PopUpManager.bringToFront(gameVUsePopup);
+}
 //land selectevents
 private function landSelectHandler(ev:landSelectEvent):void
 {//it is more appropriate that we handle everything here
@@ -184,6 +212,13 @@ private function slowerEventReceived(ev:timeElapsedEvent):void
 private function dayElapsedHandler(ev:timeElapsedEvent):void
 {
 	advanceInventoryDays();
+}
+private function advanceInventoryDays():void
+{
+	for (var i:uint = 0; i < user_inventory.length; i++)
+	{
+		(user_inventory[i] as itemObjectCollection).advanceDay();
+	}
 }
 //init functions
 private function initGameSprite():void
@@ -226,6 +261,7 @@ private function ccGameV():void
 	this.addEventListener(popupRequestEvent.BUY_REQUEST, buyRequestEventReceived);
 	this.addEventListener(popupRequestEvent.INFO_REQUEST, infoRequestEventReceived);
 	this.addEventListener(popupRequestEvent.SELL_REQUEST, sellRequestEventReceived);
+	this.addEventListener(popupRequestEvent.USE_REQUEST, useRequestEventReceived);
 	initGameSprite();
 	//after initing the game sprite add the events for land selection
 	this.addEventListener(landSelectEvent.LAND_SELECT, landSelectHandler);

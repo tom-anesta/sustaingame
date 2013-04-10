@@ -34,9 +34,9 @@ package game
 				fill = new BitmapFill(drySoilImg, IsoOrientation.XY);
 			}
 			
-			top = new TopLayer();
-			mid = new MidLayer();
-			bot = new BotLayer();
+			top = new TopLayer(this);
+			mid = new MidLayer(this);
+			bot = new BotLayer(this);
 			
 			//addChild(top);//as this is an iso container it requires its children to implement the icontainer interface, which node does not
 			//addChild(mid);
@@ -79,8 +79,10 @@ package game
 		private function inventoryEventHandler(ev:ProxyEvent):void
 		{
 			ev.stopImmediatePropagation();
-			dispatchEvent(new ProxyEvent(this, ev.targetEvent));//this should then dispatch the event again
-			
+			var tgtevt:inventoryEvent = ev.targetEvent as inventoryEvent;
+			var nevt:inventoryEvent = new inventoryEvent(tgtevt.type, tgtevt.items, true);
+			//dispatchEvent(new ProxyEvent(this, ev.targetEvent));//this should then dispatch the event again
+			ev.proxyTarget.dispatchEvent(nevt);
 		}
 		
 	}

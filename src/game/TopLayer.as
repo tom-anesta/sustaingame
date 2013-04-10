@@ -1,20 +1,25 @@
 package game 
 {
 	import as3isolib.data.Node;
+	import eDpLib.events.IEventDispatcherProxy;
 	import eDpLib.events.ProxyEvent;
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
 	import itemClasses.itemObject;
 	import myEvents.inventoryEvent;
+	import flash.events.IEventDispatcher;
+
 
 	public class TopLayer extends Node
 	{
 		private var dist:distributableItemObject
 		private var equip:equipmentItemObject;
+		private var m_parentTile:Tile;
 		
-		public function TopLayer() 
+		public function TopLayer(value:Tile) 
 		{
 			super();
+			m_parentTile = value;
 			dist = null;
 			equip = null;
 		}
@@ -63,9 +68,10 @@ package game
 			{//dispatch an event
 				var vect:Vector.<itemObject> = new Vector.<itemObject>();
 				vect.push(value);
-				var e:ProxyEvent = new ProxyEvent(this.parent, new inventoryEvent(inventoryEvent.REMOVE, vect, true));
-				//e.proxyTarget.dispatchEvent(new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true));
-				dispatchEvent(e);
+				//var e:ProxyEvent = new ProxyEvent(this.parent as IEventDispatcher, new inventoryEvent(inventoryEvent.REMOVE, vect, true));
+				//e.proxyTarget.dispatchEvent(e.targetEvent);
+				dispatchEvent(new ProxyEvent(this.m_parentTile, new inventoryEvent(inventoryEvent.REMOVE, vect, false)));
+				
 			}
 		}
 		/*//to be implemented later on
@@ -103,6 +109,14 @@ package game
 		public function set Equip(value:equipmentItemObject):void
 		{
 			return;//cannot set return in setter
+		}
+		public function get parentTile():Tile
+		{
+			return this.m_parentTile;
+		}
+		public function set parentTile(value:Tile):void
+		{
+			return;
 		}
 		
 	}

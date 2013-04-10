@@ -19,6 +19,7 @@ package myEvents
 		public static const SELL_REQUEST:String = "sellPopup";
 		public static const MONEY_REQUEST:String = "moneyPopup";
 		public static const ENVIRONMENT_REQUEST:String = "environmentPopup";
+		public static const USE_REQUEST:String = "usePopup";
 		//-private
 		private var m_releventItem:Object;//the object that is the subject of the popup that we want to base things off of
 		//functions

@@ -8,10 +8,13 @@ package game
 	public class MidLayer extends Node
 	{
 		private var crops:Array;
+		private var m_parentTile:Tile;
 		
-		public function MidLayer() 
+		public function MidLayer(value:Tile) 
 		{
 			super();
+			crops = new Array();
+			parentTile = value;
 		}
 		
 		public function addCrop(_crop:itemClasses.cropItemObject):void
@@ -23,6 +26,16 @@ package game
 		{
 			return crops;
 		}
+		
+		public function get parentTile():Tile
+		{
+			return this.m_parentTile;
+		}
+		public function set parentTile(value:Tile):void
+		{
+			return;
+		}
+		
 	}
 
 }

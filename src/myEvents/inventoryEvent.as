@@ -13,6 +13,7 @@ package myEvents
 		
 		public static const ADD:String = "additemstoinventory";
 		public static const REMOVE:String = "removeitemsfrominventory";
+		public static const USE:String = "useitemsfrominventory";
 		
 		public function inventoryEvent(type:String, items:Vector.<itemObject> = null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{

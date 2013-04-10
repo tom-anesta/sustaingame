@@ -327,7 +327,7 @@ package game
 		{
 			if (selectedTile != null)
 			{
-				selectedTile
+				selectedTile.acceptExternalItemFromInventory(value);
 			}
 		}
 		

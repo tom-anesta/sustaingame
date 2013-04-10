@@ -22,8 +22,16 @@
 		<s:layout>
 			<s:VerticalLayout horizontalAlign="center"/>
 		</s:layout>
-		<components:customList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />		
-		<s:Button id="infoItemButton" label="Info" height="5%" width="50%" enabled="{(inventoryPanelList.selectedIndex >= 0)}" />
+		<components:customList id="inventoryPanelList" itemRenderer="components.inventoryPanelItemRenderer" height="95%" dataProvider="{null}" />
+		<s:Group height="10%" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>
+			<s:Button id="infoItemButton" label="Info" height="5%" width="50%" enabled="{(inventoryPanelList.selectedIndex >= 0)}" />
+			<s:Button id="useItemButton" label="Use" height="5%" width="50%" enabled="{(inventoryPanelList.selectedIndex >=0 )}" />
+			<!-- I'd like to fix this so that it won't be able to use if we have a thing that is not selected but I don't have time to worry about it now -->
+		</s:Group>
+		
 	</s:Group>
 	
 	

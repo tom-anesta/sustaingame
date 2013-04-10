@@ -6,10 +6,12 @@ package game
 	public class BotLayer extends Node
 	{
 		private var dists:Array;
+		private var m_parentTile:Tile;
 		
-		public function BotLayer() 
+		public function BotLayer(value:Tile) 
 		{
 			super();
+			this.m_parentTile = value;
 		}
 		
 		public function addDistrib(_dist:distributableItemObject):void
@@ -20,6 +22,15 @@ package game
 		public function getDistribs():Array
 		{
 			return dists;
+		}
+		
+		public function get parentTile():Tile
+		{
+			return this.m_parentTile;
+		}
+		public function set parentTile(value:Tile):void
+		{
+			return;//
 		}
 		
 	}
