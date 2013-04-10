@@ -33,7 +33,7 @@ package itemClasses
 		//-public
 		
 		//--constructor
-		public function cropItemObject(itemKey:uint=cropItemObject.DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint=DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function cropItemObject(itemKey:uint=cropItemObject.DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint=cropItemObject.DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
 			super(itemKey, type, subtype, cost, days, redeemability);
 			//this.m_tNSource = DEFAULT_CROP_TNSOURCE;

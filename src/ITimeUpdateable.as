@@ -21,13 +21,13 @@ package
 		function resolveActions(hourVal:uint = uint.MAX_VALUE, dayVal:uint = uint.MAX_VALUE, dateVal:uint = uint.MAX_VALUE, monthVal:uint = uint.MAX_VALUE, yearVal:uint = uint.MAX_VALUE):void;//resolve all actions set to occur on the hour, day, date, month, and year specified
 		function get hour():uint;//get the current hour of this object
 		function get date():uint;//get the current date of this object
-		function get day():uint;//get the current number of days this object has existed
+		function get days():uint;//get the current number of days this object has existed
 		function get month():uint;//get the current month of this object
 		function get year():uint;//get the current year of this object
 		function get actions():Vector.<actionObject>;
 		function set hour(value:uint):void;//set the hour of this item
 		function set date(value:uint):void;//set the date of this item
-		function set day(value:uint):void;//set the day of this item
+		function set days(value:uint):void;//set the day of this item
 		function set month(value:uint):void;//set the month of this item
 		function set year(value:uint):void;//set the year of this item
 		function set actions(value:Vector.<actionObject>):void;//set the actions you want this item to perform based on updates

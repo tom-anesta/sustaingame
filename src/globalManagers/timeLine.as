@@ -7,13 +7,14 @@ package globalManagers
 	import mx.core.UITextField;
 	import myEvents.timeElapsedEvent;
 	import flash.events.EventDispatcher;
+	import ITimeUpdateable;
 	/**
 	 * ...
 	 * @author thomas anesta
 	 */
 	//timer help from http://www.emanueleferonato.com/2011/04/14/pausing-a-flash-game-or-movie-when-there-is-a-timer-event/
 	[Bindable]
-	public class timeLine extends Object implements IEventDispatcher
+	public class timeLine extends Object implements IEventDispatcher, ITimeUpdateable
 	{
 		//member variables
 		//-public
@@ -29,20 +30,26 @@ package globalManagers
 		public static const DEFAULT_SECONDS_PER_DAY:Number = 60.0;
 		public static const LEVEL_MULTIPLIER:Number = 5;
 		public static const STARTING_YEAR:uint = 1990;
+		
 		//-private
+		//--passed out
 		private var m_theDate:Date;
+		//--timers and timer monitoring
 		private var m_hourTimer:Timer;
+		private var m_currentTimer:Number;//
+		private var m_lapTime:Number;//the milliseconds that have elapsed in the timer
+		//--pause control
 		private var m_speed:uint;
 		private var m_started:Boolean;
+		private var m_interval:Number;//the intended interval for the hour timer.  not necessarily what the interval is
+		private var m_dispatcher:EventDispatcher;
+		//--for ITimeUpdateable
 		private var m_hour:uint;//the current hour of the day
 		private var m_date:uint;//the date in terms of month not total days passed
 		private var m_days:uint;//total days passed
 		private var m_month:uint;//the current month
 		private var m_year:uint;//the current year
-		private var m_dispatcher:EventDispatcher;
-		private var m_interval:Number;//the intended interval for the hour timer.  not necessarily what the interval is
-		private var m_currentTimer:Number;//
-		private var m_lapTime:Number;//the milliseconds that have elapsed in the timer
+		private var m_actions:Vector.<actionObject>;
 		//functions
 		//-public
 		//--constructor
@@ -50,6 +57,7 @@ package globalManagers
 		{
 			super();//object constructor
 			this.m_dispatcher = new EventDispatcher(this);
+			m_actions = new Vector.<actionObject>();
 			while (hour > 23)//handle parameters
 			{
 				date++;
@@ -75,6 +83,7 @@ package globalManagers
 			this.m_interval = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );
 			this.m_lapTime = this.m_interval;
 			this.m_hourTimer = new Timer( this.m_interval );
+			this.m_days = 0;
 			this.m_date = date;
 			this.m_hour = hour;
 			this.m_month = month;
@@ -83,7 +92,8 @@ package globalManagers
 			this.m_hourTimer.addEventListener(TimerEvent.TIMER, hearTimer);
 		}
 		//--getters and setters
-		//---getters
+		//---for the class
+		//----getters
 		public function get theDate():Date
 		{
 			return this.m_theDate;
@@ -92,6 +102,33 @@ package globalManagers
 		{
 			return this.m_hourTimer;
 		}
+		public function get started():Boolean
+		{
+			return this.m_started;
+		}
+		public function get running():Boolean
+		{
+			return this.m_hourTimer.running;//if any timer is running then we are not paused
+		}
+		//----setters, all read only
+		public function set theDate(value:Date):void
+		{
+			return;
+		}
+		public function set hourTimer(value:Timer):void
+		{
+			return;
+		}
+		public function set started(value:Boolean):void
+		{
+			return;
+		}
+		public function set running(value:Boolean):void
+		{
+			return;
+		}
+		//---for ITimeUpdateable
+		//----getters
 		public function get hour():uint
 		{
 			return this.m_hour;
@@ -112,23 +149,11 @@ package globalManagers
 		{
 			return this.m_days;
 		}
-		public function get started():Boolean
+		public function get actions():Vector.<actionObject>
 		{
-			return this.m_started;
+			return this.m_actions;
 		}
-		public function get running():Boolean
-		{
-			return this.m_hourTimer.running;//if any timer is running then we are not paused
-		}
-		//---setters, all read only
-		public function set theDate(value:Date):void
-		{
-			return;
-		}
-		public function set hourTimer(value:Timer):void
-		{
-			return;
-		}
+		//----setters all read only
 		public function set hour(value:uint):void
 		{
 			return;
@@ -149,15 +174,11 @@ package globalManagers
 		{
 			return;
 		}
-		public function set started(value:Boolean):void
+		public function set actions(value:Vector.<actionObject>):void
 		{
 			return;
 		}
-		public function set running(value:Boolean):void
-		{
-			return;
-		}
-		//--time related functions
+		//--time related functions for class
 		public function start():void
 		{
 			if (this.m_hourTimer.delay - this.m_lapTime > 0 )
@@ -291,7 +312,7 @@ package globalManagers
 		}
 		//-private
 		//--event listeners
-		private function hearTimer(ev:TimerEvent):void
+		private function hearTimer(ev:TimerEvent):void//migrate functionality to the items
 		{
 			
 			if (ev.target == this.m_hourTimer)
@@ -382,8 +403,49 @@ package globalManagers
 		{
 			return this.m_dispatcher.willTrigger(type);
 		}
-		
-		
+		//FUNCTIONS SUPPORTING ITIMEUPDATEABLE
+		public function updateByHours(value:uint = 1, event:timeElapsedEvent = null):void//move hours forward
+		{
+			return;
+		}
+		public function updateByDays(value:uint = 1, event:timeElapsedEvent = null):void//move days forward
+		{
+			return;
+		}
+		public function updateByDate(value:uint = 1, event:timeElapsedEvent = null):void//move date forward
+		{
+			return;
+		}
+		public function updateByMonths(value:uint = 1, event:timeElapsedEvent = null):void//move months forward
+		{
+			return;
+		}
+		public function updateByYears(value:uint = 1, event:timeElapsedEvent = null):void//move years forward
+		{
+			return;
+		}
+		public function addActions(valueVect:Vector.<actionObject> = null):void//add action objects
+		{
+			return;
+		}
+		public function addAction(value:actionObject):void//add an action object
+		{
+			return;
+		}
+		public function removeActions(value:Vector.<actionObject> = null):Vector.<Boolean>//remove any action objects
+		{
+			var tempVect:Vector.<Boolean> = new Vector.<Boolean>();
+			tempVect.push(false);
+			return tempVect;
+		}
+		public function removeAction(value:actionObject):Boolean
+		{
+			return false;
+		}
+		public function resolveActions(hourVal:uint = uint.MAX_VALUE, dayVal:uint = uint.MAX_VALUE, dateVal:uint = uint.MAX_VALUE, monthVal:uint = uint.MAX_VALUE, yearVal:uint = uint.MAX_VALUE):void//resolve all actions set to occur on the hour, day, date, month, and year specified
+		{
+			return;
+		}
 		
 	}
 
