@@ -1,3 +1,4 @@
+import game.Tile;
 import itemClasses.itemObjectCollection;
 import globalManagers.moneyManager;
 import itemClasses.itemObject;
@@ -25,6 +26,7 @@ import components.popups.sellItemPopup;
 import flash.utils.*;
 import myEvents.inventoryEvent;
 import myEvents.landSelectEvent;
+//import mx.core.*;
 /**
  * ...
  * @author thomas anesta
@@ -42,6 +44,7 @@ private var lastItemSelectedForBuy:itemObject;
 private var lastItemSelectedForSell:itemObjectCollection;
 private var mainTimeLine:timeLine;
 private var internalGame:IsoApplication;
+private var selectedTile:Tile;
 //public var buyPopupOnStage:Boolean;
 
 //private event listeners
@@ -150,12 +153,18 @@ private function infoRequestEventReceived(ev:popupRequestEvent):void
 }
 //land selectevents
 private function landSelectHandler(ev:landSelectEvent):void
-{
-	trace("main game received landselect event");
+{//it is more appropriate that we handle everything here
+	//sideMenu.toInfo(true);
+	ev.stopPropagation();
+	selectedTile = ev.tile;
+	sideMenu.selectLand(selectedTile);
+	sideMenu.toInfo();
 }
 private function landDeSelectHandler(ev:landSelectEvent):void
-{
-	trace("main game received land deselect event");
+{//it is more appropriate that we handle everything here
+	ev.stopPropagation();
+	selectedTile = null;
+	sideMenu.DeSelectLand();
 }
 //time events
 private function pauseEventReceived(ev:timeElapsedEvent):void
@@ -179,7 +188,7 @@ private function dayElapsedHandler(ev:timeElapsedEvent):void
 //init functions
 private function initGameSprite():void
 {
-	var gameApp:Sprite = new IsoApplication();
+	var gameApp:IsoApplication = new IsoApplication();
 	gameApp.x = 0;
 	gameApp.y = 0;
 	gameSpriteContainer.addChild(gameApp);
@@ -206,6 +215,7 @@ private function ccGameV():void
 	user_moneyManager = new moneyManager();
 	user_inventory = new ArrayCollection();
 	mainTimeLine = new timeLine();
+	selectedTile = null;
 	//inits
 	this.addEventListener(layedOutEvent.INTERNALGAMELAYEDOUT, recognizeInternalGameLayedOut);
 	//pause and speed up

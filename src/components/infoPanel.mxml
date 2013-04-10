@@ -3,7 +3,8 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
 			   top="0" right="0" left="0" bottom="0"
-			   creationComplete="ccinfopanel()">
+			   initialize = "initInfoPanel()"
+			   creationComplete="ccInfoPanel()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -19,6 +20,7 @@
 		<s:Scroller width="100%" height="100%">
 			<s:Group width="100%" height="100%">
 				<s:VGroup left="20" right="20" top="20" bottom="20">
+					<s:Label id="tileNameLabel" width="100%" height="5%" />
 				</s:VGroup>
 			</s:Group>
 		</s:Scroller>

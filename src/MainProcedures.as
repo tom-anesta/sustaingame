@@ -27,12 +27,15 @@ import globalManagers.moneyManager;
 import globalManagers.timeLine;
 import itemClasses.itemObject;
 import itemClasses.itemObjectCollection;
+import game.Tile;
 //events
 import myEvents.transactionEvent;
 import myEvents.inventoryEvent;
 import myEvents.layedOutEvent;
 import myEvents.viewChangeEvent
 import myEvents.timeElapsedEvent;
+import myEvents.requestInfoEvent;
+import myEvents.landSelectEvent;
 //import com.adobe.serialization.json.*;
 
 //PUBLIC VARIABLES
@@ -61,6 +64,8 @@ private var m_app_passWord:String;//we should figure out how to encrypt and decr
 public var user_moneyManager:moneyManager;
 public var user_inventory:ArrayCollection;
 public var mainTimeLine:timeLine;
+//public var selectedTile:Tile;
+public var infoIsInited:Boolean = false;
 
 
 //PUBLIC FUNCTIONS
@@ -98,6 +103,10 @@ private function initApp():void
 	addEventListener(layedOutEvent.GAMELAYEDOUT, gameLayedOutHandler);
 	addEventListener(layedOutEvent.INVENTORYLAYEDOUT, inventoryLayedOutHandler);
 	addEventListener(layedOutEvent.SELLLAYEDOUT, sellLayedOutHandler);
+	//addEventListener(layedOutEvent.INFOLAYEDOUT, infoLayedOutHandler);
+	//addEventListener(landSelectEvent.LAND_SELECT, landSelectedHandler);
+	//addEventListener(landSelectEvent.LAND_DESELECT, landDeSelectedHandler);
+	//addEventListener(requestInfoEvent.requestTile, tileRequestHandler);
 }
 private function ccApp():void
 {
@@ -139,6 +148,33 @@ private function sellLayedOutHandler(e:layedOutEvent):void
 	e.target.setSellPanelDataProvider(user_inventory);
 	e.stopImmediatePropagation();
 }
+/*
+private function landSelectedHandler(e:landSelectEvent):void
+{
+	trace("main has received tile selected");
+	selectedTile = e.tile;
+}
+private function landDeSelectedHandler(e:landSelectEvent):void
+{
+	trace("main has received tile deselected");
+	selectedTile = null;
+}
+
+private function tileRequestHandler(e:landSelectEvent):void
+{
+	trace("tile request received");
+	if (selectedTile != null)
+	{
+		trace("setting to null");
+		e.target.setDefaults();
+	}
+	else
+	{
+		trace("setting to new");
+		e.target.setTile(selectedTile);
+	}
+}
+*/
 //handle a transaction
 private function handleCost(ev:transactionEvent):void
 {

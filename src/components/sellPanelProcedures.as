@@ -16,9 +16,19 @@ private function initSellPanel():void
 }
 private function ccSellPanel():void
 {
+	sellPanelDataProvider = new ArrayCollection();
+	//if (sellPanelList != null)
+	//{
 	sellPanelList.dataProvider = sellPanelDataProvider;
+	//}
+	//if (sellItemButton != null)
+	//{
 	sellItemButton.addEventListener(MouseEvent.CLICK, sellItemButtonClicked);
+	//}
+	//if (infoItemButton != null)
+	//{
 	infoItemButton.addEventListener(MouseEvent.CLICK, infoItemButtonClicked);
+	//}
 	//dispatch event to the main
 	var ev:layedOutEvent = new layedOutEvent(layedOutEvent.SELLLAYEDOUT, true, true);
 	dispatchEvent(ev);
@@ -36,6 +46,7 @@ private function sellItemButtonClicked(ev:MouseEvent):void
 public function setSellPanelDataProvider(value:mx.collections.ArrayCollection):void
 {
 	sellPanelDataProvider = value;
+	//if(sellPanelList != null)
 	sellPanelList.dataProvider = sellPanelDataProvider;
 }
 public function setListWidth():void

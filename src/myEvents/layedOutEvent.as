@@ -16,13 +16,13 @@ package myEvents
 		public static const INTERNALGAMELAYEDOUT:String = "internalgamelayedout";
 		public static const INVENTORYLAYEDOUT:String = "inventorylayedout";
 		public static const SELLLAYEDOUT:String = "selllayedout";
+		public static const INFOLAYEDOUT:String = "infolayedout";
 		//-private
 		
 		public function layedOutEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{
 			super(type, bubbles, cancelable);
 		}
-		
 	}
 
 }

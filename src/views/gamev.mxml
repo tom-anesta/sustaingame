@@ -2,6 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:coreComps = "mx.core.*"
 			   xmlns:components="components.*"
 			   initialize="initGameV()"
 			   creationComplete="ccGameV()">
@@ -27,7 +28,8 @@
 			<s:VerticalLayout horizontalAlign="center" />
 		</s:layout>
 		<s:Label text="" height="12.5%" width="100%" />
-		<s:SpriteVisualElement id="gameSpriteContainer" width="100%" height="75%"/>
+		<!-- <s:SpriteVisualElement id="gameSpriteContainer" width="100%" height="75%"/> -->
+		<coreComps:UIComponent id="gameSpriteContainer" width="100%" height="75%"/>
 		<s:Label text="" height="12.5%" width="100%" />
 	</s:Group>
 	

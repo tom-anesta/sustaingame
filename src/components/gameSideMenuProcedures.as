@@ -1,4 +1,5 @@
 import flash.display.DisplayObject;
+import game.Tile;
 import itemClasses.itemObject;
 import itemClasses.itemObjectCollection;
 
@@ -32,4 +33,28 @@ public function itemsToInventory(inputs:Vector.<itemObject>):void
 public function toInventory():void
 {
 	menuPanel.toInventory();
+}
+/*
+public function toInfo(deselecting:Boolean = false):void
+{
+	trace("doing to info");
+	menuPanel.toInfo(deselecting);
+}
+
+public function toInfo(req:Boolean):void
+{
+	menuPanel.toInfo(req);
+}
+*/
+public function selectLand(value:Tile):void
+{
+	menuPanel.selectLand(value);
+}
+public function toInfo():void
+{
+	menuPanel.toInfo();
+}
+public function DeSelectLand():void
+{
+	menuPanel.DeSelectLand();
 }

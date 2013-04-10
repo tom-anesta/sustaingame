@@ -14,7 +14,7 @@ package itemClasses
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class trailerEquipmentItemObject extends equipmentItemObject 
+	public class trailerEquipmentItemObject extends equipmentItemObject
 	{
 		//members
 		//-public
