@@ -4,6 +4,8 @@ package game
 	import as3isolib.graphics.BitmapFill;
 	import as3isolib.enum.IsoOrientation;
 	import eDpLib.events.EventDispatcherProxy;
+	import itemClasses.distributableItemObject;
+	import itemClasses.equipmentItemObject;
 
 	public class Tile extends IsoRectangle
 	{
@@ -28,6 +30,10 @@ package game
 			{
 				fill = new BitmapFill(drySoilImg, IsoOrientation.XY);
 			}
+			
+			top = new TopLayer();
+			mid = new MidLayer();
+			bot = new BotLayer();
 		}
 		
 		public function select():Boolean
@@ -49,7 +55,11 @@ package game
 			
 		}
 		*/
-		
+		public function doStuff():void
+		{
+			
+			
+		}
 		
 	}
 
