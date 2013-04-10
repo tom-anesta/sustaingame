@@ -64,7 +64,6 @@ package game
 		public static const bgWidth:int = 30;
 		public static const bgLength:int = 30;
 		
-		
 		//the dispatcher for handling normal events
 		//private var m_standardDispatcher:EventDispatcher;//actually unneeded
 		//time line var

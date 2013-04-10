@@ -72,9 +72,7 @@ package game
 			//all of these things need to be added to the top layer initially, that is where they will do the work specified by the player
 			//check for top layer can accept the new item here
 			top.acceptExternalItemFromInventory(value);//this should dispatch an event if successful
-			
 		}
-		
 		//private event handlers
 		private function inventoryEventHandler(ev:ProxyEvent):void
 		{

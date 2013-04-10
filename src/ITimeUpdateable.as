@@ -7,7 +7,7 @@ package
 	 * ...
 	 * @author thomas anesta
 	 */
-	public interface ITimeUpdateable 
+	public interface ITimeUpdateable
 	{
 		function updateByHours(value:uint = 1, event:timeElapsedEvent = null):void;//move hours forward
 		function updateByDays(value:uint = 1, event:timeElapsedEvent = null):void;//move days forward
