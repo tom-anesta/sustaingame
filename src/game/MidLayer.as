@@ -40,7 +40,7 @@ package game
 		
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
-			if(value.type == 1){
+			if(value is cropItemObject){
 				this.m_items.push(value);
 				return true;
 			}

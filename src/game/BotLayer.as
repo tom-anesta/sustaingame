@@ -42,7 +42,7 @@ package game
 		
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
-			if (value.type == 0) {
+			if (value.type is distributableItemObject) {
 				this.m_items.push(value);
 				return true;
 			}
