@@ -2,6 +2,7 @@ package game
 {
 	import as3isolib.data.Node;
 	import itemClasses.distributableItemObject;
+	import itemClasses.itemObject;
 
 	public class BotLayer extends Layer
 	{
@@ -10,8 +11,8 @@ package game
 		
 		public function BotLayer(value:Tile) 
 		{
-			super();
-			this.m_parentTile = value;
+			super(value);
+			//this.m_parentTile = value;//handled in super
 		}
 		
 		public function addDistrib(_dist:distributableItemObject):void

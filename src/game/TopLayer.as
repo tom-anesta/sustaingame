@@ -26,8 +26,8 @@ package game
 		
 		public function TopLayer(value:Tile) 
 		{
-			super();
-			m_parentTile = value;
+			super(value);
+			//m_parentTile = value;//handled in super
 			dist = null;
 			equip = null;
 		}

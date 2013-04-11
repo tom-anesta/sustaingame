@@ -1,6 +1,7 @@
 package game 
 {
 	import as3isolib.data.Node;
+	import itemClasses.itemObject;
 	import itemClasses.cropItemObject;
 	import itemClasses.plantCropItemObject;
 	import itemClasses.seedDistributableItemObject;
@@ -12,9 +13,9 @@ package game
 		
 		public function MidLayer(value:Tile) 
 		{
-			super();
+			super(value);
 			crops = new Array();
-			parentTile = value;
+			//parentTile = value;//handled in super
 		}
 		
 		public function addCrop(_crop:itemClasses.cropItemObject):void

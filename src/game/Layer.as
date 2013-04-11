@@ -21,16 +21,16 @@ package game
 		protected var m_parentTile:Tile;
 		protected var m_items:Vector.<itemObject>;
 		protected static var m_allowedTypes:Array;
-		protected static var inited = false;
+		protected static var m_inited:Boolean = false;
 		//-private
-		private var m_defaultClass:Class = itemObject;
+		private static var m_defaultClass:Class = itemObject;
 		//functions
 		//-public
 		//--constructor
 		public function Layer(value:Tile, items:Vector.<itemObject>=null )
 		{
-			super();//node constructor
-			if (!inited)
+			super();//isocontainer constructor
+			if (!m_inited)
 			{
 				initTypes();
 			}
@@ -50,7 +50,7 @@ package game
 		//add a whole item
 		public function addWholeItem(value:itemObject):Boolean//overload the following protected function this one should not need to be overloaded
 		{
-			if (!inited)
+			if (!m_inited)
 			{
 				initTypes();
 			}
@@ -75,23 +75,23 @@ package game
 			return;//a layer received a quantity of an item(called from without by event or tile)
 			//dispatch an event to say you have received the quantity
 		}
-		public function removeQuantity(quantValue:itemObject)
+		public function removeQuantity(quantValue:itemObject):void
 		{
 			return;//a layer removes a quantity of an item(called from without by event or tile)
 			//dispatch an event to say you have removed the quantity
 		}
-		public function dispatchQuantity(quantValue:itemObject)
+		public function dispatchQuantity(quantValue:itemObject):void
 		{
 			return;//a layer is told to dispatch a quantity of an object (called from within)
 		}
-		public function requestQuantity(quantValue:itemObject)
+		public function requestQuantity(quantValue:itemObject):void
 		{
 			return;//a layer is told to request a quantity of an object (called from within)
 		}
 		//type access
-		public function getItemsOfType(value:Class)//overload in each item to return only those items of the types that can be contained in them
+		public function getItemsOfType(value:Class):Vector.<itemObject>//overload in each item to return only those items of the types that can be contained in them
 		{
-			
+			return new Vector.<itemObject>();
 		}
 		//getters and setters
 		public function get items():Vector.<itemObject>
@@ -112,7 +112,7 @@ package game
 		}
 		public function get acceptedTypes():Array
 		{
-			if (!inited)
+			if (!m_inited)
 			{
 				initTypes();
 			}
@@ -128,7 +128,7 @@ package game
 		{
 			Layer.m_allowedTypes = new Array();
 			Layer.m_allowedTypes.push(m_defaultClass);//add the default class
-			inited = true;
+			m_inited = true;
 		}
 		//add after function checking: decide whether or not
 		protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
