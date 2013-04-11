@@ -21,8 +21,8 @@ package game
 		//private var m_parentTile:Tile;
 		private var img:Bitmap;
 		private var sprite:IsoSprite;
-		
-		
+		private static var distClass:Class = distributableItemObject;
+		private static var equipClass:Class = equipmentItemObject;	
 		
 		public function TopLayer(value:Tile) 
 		{
@@ -134,8 +134,34 @@ package game
 		
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
-			this.m_items.push(value);
-			return true;
+			if(value.type || value.type == 2){
+				this.m_items.push(value);
+				return true;
+			}
+			
+			return false;
+		}
+		
+		override protected function initTypes():void
+		{
+			Layer.m_allowedTypes = new Array();
+			Layer.m_allowedTypes.push(distClass);
+			Layer.m_allowedTypes.push(equipClass);
+			m_inited = true;
+		}
+		
+		override public function getItemsOfType(value:Class):Vector.<itemObject>//overload in each item to return only those items of the types that can be contained in them
+		{
+			if (value == distClass)
+			{
+				return new Vector.<distributableItemObject>();
+			}
+			else if (value == equipClass)
+			{
+				return new Vector.<equipmentItemObject>();
+			}
+			
+			return null;
 		}
 		
 	}

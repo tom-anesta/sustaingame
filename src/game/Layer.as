@@ -124,7 +124,7 @@ package game
 		}
 		//-protected functions
 		//init the types
-		protected static function initTypes():void
+		protected function initTypes():void
 		{
 			Layer.m_allowedTypes = new Array();
 			Layer.m_allowedTypes.push(m_defaultClass);//add the default class
@@ -135,6 +135,11 @@ package game
 		{
 			this.m_items.push(value);
 			return true;
+		}
+		
+		protected function addSprite(sprite:IsoSprite):void
+		{
+			return;
 		}
 		
 	}
