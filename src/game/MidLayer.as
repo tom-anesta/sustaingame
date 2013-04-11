@@ -5,10 +5,10 @@ package game
 	import itemClasses.plantCropItemObject;
 	import itemClasses.seedDistributableItemObject;
 
-	public class MidLayer extends Node
+	public class MidLayer extends Layer
 	{
 		private var crops:Array;
-		private var m_parentTile:Tile;
+		//private var m_parentTile:Tile;
 		
 		public function MidLayer(value:Tile) 
 		{
@@ -27,11 +27,11 @@ package game
 			return crops;
 		}
 		
-		public function get parentTile():Tile
+		override public function get parentTile():Tile
 		{
 			return this.m_parentTile;
 		}
-		public function set parentTile(value:Tile):void
+		override public function set parentTile(value:Tile):void
 		{
 			return;
 		}

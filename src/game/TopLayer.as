@@ -1,6 +1,7 @@
 package game 
 {
 	import as3isolib.data.Node;
+	import as3isolib.display.IsoSprite;
 	import eDpLib.events.IEventDispatcherProxy;
 	import eDpLib.events.ProxyEvent;
 	import itemClasses.distributableItemObject;
@@ -8,13 +9,20 @@ package game
 	import itemClasses.itemObject;
 	import myEvents.inventoryEvent;
 	import flash.events.IEventDispatcher;
+	import as3isolib.enum.IsoOrientation;
+	import flash.display.Bitmap;
+	import as3isolib.graphics.BitmapFill;
 
 
-	public class TopLayer extends Node
+	public class TopLayer extends Layer
 	{
 		private var dist:distributableItemObject
 		private var equip:equipmentItemObject;
-		private var m_parentTile:Tile;
+		//private var m_parentTile:Tile;
+		private var img:Bitmap;
+		private var sprite:IsoSprite;
+		
+		
 		
 		public function TopLayer(value:Tile) 
 		{
@@ -31,6 +39,11 @@ package game
 				return false;
 			}
 			dist = _dist;
+			img = new Bitmap();
+			img = dist.tNBitmap;
+			sprite = new IsoSprite();
+			sprite.sprites[img];
+			this.addChild(sprite);
 			return true;
 		}
 		
@@ -110,11 +123,11 @@ package game
 		{
 			return;//cannot set return in setter
 		}
-		public function get parentTile():Tile
+		override public function get parentTile():Tile
 		{
 			return this.m_parentTile;
 		}
-		public function set parentTile(value:Tile):void
+		override public function set parentTile(value:Tile):void
 		{
 			return;
 		}

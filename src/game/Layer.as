@@ -1,13 +1,18 @@
 package game 
 {
+	import as3isolib.core.IsoContainer;
+	import as3isolib.display.IsoSprite;
 	import as3isolib.data.Node;
 	import itemClasses.itemObject;
+	import flash.display.Bitmap;
+	import as3isolib.graphics.BitmapFill;
+	
 	
 	/**
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class Layer extends Node
+	public class Layer extends IsoContainer
 	{
 		//members
 		//-public
@@ -86,10 +91,10 @@ package game
 		//type access
 		public function getItemsOfType(value:Class)//overload in each item to return only those items of the types that can be contained in them
 		{
-			if(
+			
 		}
 		//getters and setters
-		public function get items():Vector.<itemObject>()
+		public function get items():Vector.<itemObject>
 		{
 			return this.m_items;
 		}

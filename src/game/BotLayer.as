@@ -3,10 +3,10 @@ package game
 	import as3isolib.data.Node;
 	import itemClasses.distributableItemObject;
 
-	public class BotLayer extends Node
+	public class BotLayer extends Layer
 	{
 		private var dists:Array;
-		private var m_parentTile:Tile;
+		//private var m_parentTile:Tile;
 		
 		public function BotLayer(value:Tile) 
 		{
@@ -24,11 +24,11 @@ package game
 			return dists;
 		}
 		
-		public function get parentTile():Tile
+		override public function get parentTile():Tile
 		{
 			return this.m_parentTile;
 		}
-		public function set parentTile(value:Tile):void
+		override public function set parentTile(value:Tile):void
 		{
 			return;//
 		}
