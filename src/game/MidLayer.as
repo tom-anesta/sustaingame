@@ -36,6 +36,12 @@ package game
 			return;
 		}
 		
+		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
+		{
+			this.m_items.push(value);
+			return true;
+		}
+		
 	}
 
 }
