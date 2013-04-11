@@ -18,20 +18,20 @@ package myEvents
 		{
 			super(type, bubbles, cancelable);
 			this.m_quant = quant;
-			if (items == null)
+			if (quant == null)
 			{
 				this.m_quant = new itemObject();
 			}
 			else
 				this.m_quant = quant;
 		}
-		public function get quant():Vector.<itemObject>
+		public function get quant():itemObject
 		{
 			return this.m_quant;
 		}
 		public function set quant(value:itemObject):void
 		{
-			this.quant = value;
+			this.m_quant = value;
 		}
 	}
 }
