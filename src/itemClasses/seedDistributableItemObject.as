@@ -17,16 +17,17 @@ package itemClasses
 		//members
 		//-public
 		//--static const
-		public static const TYPE_CONSTRUCTOR:uint = MAINTYPES_LENGTH + DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + equipmentItemObject.EQUIPMENTTYPES_LENGTH;
-		public static const DEFAULT_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 0;
-		public static const SORGHUM_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 1;
-		public static const MAIZE_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 2;
-		public static const PEANUT_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 3;
-		public static const SOYBEAN_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 4;
-		public static const SUGARCANE_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 5;
-		public static const TOBACCO_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 6;
-		public static const GRAPE_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 7;
-		public static const APRICOT_SEED_TYPE:uint = TYPE_CONSTRUCTOR + 8;
+		//must hard code because we can't evaluate expressions
+		public static const TYPE_CONSTRUCTOR:uint = 14//MAINTYPES_LENGTH + DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + equipmentItemObject.EQUIPMENTTYPES_LENGTH;
+		public static const DEFAULT_SEED_TYPE:uint = 14//TYPE_CONSTRUCTOR + 0;
+		public static const SORGHUM_SEED_TYPE:uint = 15//TYPE_CONSTRUCTOR + 1;
+		public static const MAIZE_SEED_TYPE:uint = 16//TYPE_CONSTRUCTOR + 2;
+		public static const PEANUT_SEED_TYPE:uint = 17//TYPE_CONSTRUCTOR + 3;
+		public static const SOYBEAN_SEED_TYPE:uint = 18//TYPE_CONSTRUCTOR + 4;
+		public static const SUGARCANE_SEED_TYPE:uint = 19//TYPE_CONSTRUCTOR + 5;
+		public static const TOBACCO_SEED_TYPE:uint = 20//TYPE_CONSTRUCTOR + 6;
+		public static const GRAPE_SEED_TYPE:uint = 21//TYPE_CONSTRUCTOR + 7;
+		public static const APRICOT_SEED_TYPE:uint = 22//TYPE_CONSTRUCTOR + 8;
 		public static const SEEDDISTRIBUTABLETYPES_LENGTH:uint = 9;
 		//---type identifiers
 		public static const SEED_SORGHUM:String = "sorghum_seeds";
