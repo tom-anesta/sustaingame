@@ -3,9 +3,11 @@ package game
 	import as3isolib.core.IsoContainer;
 	import as3isolib.display.IsoSprite;
 	import as3isolib.data.Node;
+	import eDpLib.events.ProxyEvent;
 	import itemClasses.itemObject;
 	import flash.display.Bitmap;
 	import as3isolib.graphics.BitmapFill;
+	import myEvents.layerEvent;
 	
 	
 	/**
@@ -82,11 +84,13 @@ package game
 		}
 		public function dispatchQuantity(quantValue:itemObject):void
 		{
-			return;//a layer is told to dispatch a quantity of an object (called from within)
+			//return;//a layer is told to dispatch a quantity of an object (called from within)
+			dispatchEvent(new ProxyEvent (this.m_parentTile, new layerEvent(layerEvent.SENDUP, quantValue, true, true)));
 		}
 		public function requestQuantity(quantValue:itemObject):void
 		{
-			return;//a layer is told to request a quantity of an object (called from within)
+			//return;//a layer is told to request a quantity of an object (called from within)
+			dispatchEvent(new ProxyEvent (this.m_parentTile, new layerEvent(layerEvent.ASK, quantValue, true, true)));
 		}
 		//type access
 		public function getItemsOfType(value:Class):Vector.<itemObject>//overload in each item to return only those items of the types that can be contained in them

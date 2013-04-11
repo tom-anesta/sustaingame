@@ -48,6 +48,10 @@ package game
 			mid.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
 			bot.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
 			bot.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			
+			this.addChild(top);
+			top.addChild(mid);
+			mid.addChild(bot);
 		}
 		
 		public function select():Boolean
