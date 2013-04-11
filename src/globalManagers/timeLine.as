@@ -189,10 +189,6 @@ package globalManagers
 			this.m_currentTimer=getTimer();
 			// starting the timers
 			this.m_hourTimer.start();
-			//this.m_dayTimer.start();
-			//this.m_monthTimer.start();
-			//this.m_yearTimer.start();
-			//this.m_paused = false;
 			this.m_started = true;
 			return;
 		}
@@ -314,7 +310,6 @@ package globalManagers
 		//--event listeners
 		private function hearTimer(ev:TimerEvent):void//migrate functionality to the items
 		{
-			
 			if (ev.target == this.m_hourTimer)
 			{
 				//this is KEY, it resets the timer to the interval if the timer had been paused and its 
@@ -324,7 +319,10 @@ package globalManagers
 				}
 				// saving the current timer for the next pause
 				this.m_currentTimer = getTimer();
+				var funcEvent:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.HOURCOMPLETE, this.m_theDate, false);
 				//now we handle the events and advancement of time
+				this.updateByHours(1, funcEvent);
+				/*
 				//get your booleans ready
 				var timeBoolArray:Array = [ false, false, false, false ];//hour, day, month, year
 				//set your hour
@@ -379,6 +377,7 @@ package globalManagers
 					var timeEV3:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.YEARCOMPLETE, this.m_theDate, true, true);
 					dispatchEvent(timeEV3);
 				}
+				*/
 				
 			}
 		}
@@ -406,23 +405,74 @@ package globalManagers
 		//FUNCTIONS SUPPORTING ITIMEUPDATEABLE
 		public function updateByHours(value:uint = 1, event:timeElapsedEvent = null):void//move hours forward
 		{
+			while (value > 0)
+			{
+				this.m_hour++;
+				if(this.m_hour >= 24)
+				{
+					this.m_hour = 0;
+					this.updateByDate(1, event);					
+				}
+				//dispatch the hour event after the date has been set properly
+				this.m_theDate = new Date(this.m_year, this.m_month, this.m_date, this.m_hour);//reset your date
+				var evHour:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.HOURCOMPLETE, this.m_theDate, true);
+				dispatchEvent(evHour);
+				value--;
+			}
 			return;
 		}
 		public function updateByDays(value:uint = 1, event:timeElapsedEvent = null):void//move days forward
-		{
-			return;
+		{//day will handle day event listener
+			while (value > 0)
+			{
+				this.m_days++;
+				this.m_theDate = new Date(this.m_year, this.m_month, this.m_date, this.m_hour);//reset your date
+				var evDay:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.DAYCOMPLETE, this.m_theDate, true);
+				dispatchEvent(evDay);
+				value--;
+			}
 		}
 		public function updateByDate(value:uint = 1, event:timeElapsedEvent = null):void//move date forward
-		{
-			return;
+		{//months will handle the month handler while the days will handle the date handler
+			while (value > 0)
+			{
+				this.m_date++;
+				if(this.m_date >= 31)
+				{
+					this.m_date = 1;
+					this.updateByMonths(1, event);
+				}
+				//dispatch the day event after the date has been set properly
+				this.updateByDays(1, event);//handles the day advance event
+				value--;
+			}
 		}
 		public function updateByMonths(value:uint = 1, event:timeElapsedEvent = null):void//move months forward
 		{
-			return;
+			while (value > 0)
+			{
+				this.m_month++;
+				if(this.m_month >= 12)
+				{
+					this.m_month = 1;
+					this.updateByYears(1, event);
+				}
+				this.m_theDate = new Date(this.m_year, this.m_month, this.m_hour);//reset your date
+				var evMonth:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.MONTHCOMPLETE, this.m_theDate, true);
+				dispatchEvent(evMonth);
+				value--;
+			}
 		}
 		public function updateByYears(value:uint = 1, event:timeElapsedEvent = null):void//move years forward
 		{
-			return;
+			while (value > 0)
+			{
+				this.m_year++;
+				this.m_theDate = new Date(this.m_year, this.m_month, this.m_hour);//reset your date
+				var evYear:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.YEARCOMPLETE, this.m_theDate, true);
+				dispatchEvent(evYear);
+				value--;
+			}
 		}
 		public function addActions(valueVect:Vector.<actionObject> = null):void//add action objects
 		{

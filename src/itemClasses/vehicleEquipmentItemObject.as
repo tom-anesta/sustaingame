@@ -19,10 +19,11 @@ package itemClasses
 		//members
 		//-public
 		//--static const
-		public static const TYPE_CONSTRUCTOR:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH + toolEquipmentItemObject.TOOLEQUIPMENT_TYPES_LENGTH;//modify for all classes
-		public static const DEFAULT_VEHICLE_TYPE:uint = TYPE_CONSTRUCTOR + 0;
-		public static const TRACTOR_VEHICLE_TYPE:uint = TYPE_CONSTRUCTOR + 1;
-		public static const VEHICLEEQUIPMENT_TYPES_LENGTH:uint = 2;
+		//must hard code because we can't evaluate expressions
+		public static const TYPE_CONSTRUCTOR:uint = 25//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH + toolEquipmentItemObject.TOOLEQUIPMENT_TYPES_LENGTH;//modify for all classes
+		public static const DEFAULT_VEHICLE_TYPE:uint = 25//TYPE_CONSTRUCTOR + 0;
+		public static const TRACTOR_VEHICLE_TYPE:uint = 26//TYPE_CONSTRUCTOR + 1;
+		//public static const VEHICLEEQUIPMENT_TYPES_LENGTH:uint = 2;
 		//---type identifiers
 		public static const VEHICLE_TRACTOR:String = "tractor";
 		//---defaults

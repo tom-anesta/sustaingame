@@ -14,12 +14,13 @@ package itemClasses
 		//members
 		//-public
 		//--const static
-		public static const SEED_TYPE:uint = MAINTYPES_LENGTH + 0;
-		public static const FERTILIZER_TYPE:uint = MAINTYPES_LENGTH + 1;
-		public static const PESTICIDE_TYPE:uint = MAINTYPES_LENGTH + 2;
-		public static const HERBICIDE_TYPE:uint = MAINTYPES_LENGTH + 3;
-		public static const WATER_TYPE:uint = MAINTYPES_LENGTH + 4;
-		public static const DISTRIBUTABLETYPES_LENGTH:uint = 5;
+		//must hard code because we can't evaluate expressions
+		public static const SEED_TYPE:uint = 3//MAINTYPES_LENGTH + 0;
+		public static const FERTILIZER_TYPE:uint = 4//MAINTYPES_LENGTH + 1;
+		public static const PESTICIDE_TYPE:uint = 5//MAINTYPES_LENGTH + 2;
+		public static const HERBICIDE_TYPE:uint = 6//MAINTYPES_LENGTH + 3;
+		public static const WATER_TYPE:uint = 7//MAINTYPES_LENGTH + 4;
+		//public static const DISTRIBUTABLETYPES_LENGTH:uint = 5;
 		//defaults
 		public static const DEFAULT_DISTRIBUTABLE_SUBTYPE:uint = SEED_TYPE;
 		public static const DEFAULT_DISTRIBUTABLE_ITEMKEY:uint = DEFAULT_DISTRIBUTABLE_SUBTYPE;

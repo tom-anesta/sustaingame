@@ -18,9 +18,10 @@ package itemClasses
 		//members
 		//-public
 		//--static const
-		public static const PLANT_TYPE:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + 0;
-		public static const PRODUCT_TYPE:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + 1;
-		public static const CROPTYPES_LENGTH:uint = 2;
+		//must hard code because we can't evaluate expressions
+		public static const PLANT_TYPE:uint = 8//itemObject.MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + 0;
+		public static const PRODUCT_TYPE:uint = 9//itemObject.MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + 1;
+		//public static const CROPTYPES_LENGTH:uint = 2;
 		//defaults
 		public static const DEFAULT_CROP_SUBTYPE:uint = PLANT_TYPE;
 		public static const DEFAULT_CROP_ITEMKEY:uint = DEFAULT_CROP_SUBTYPE;
@@ -33,7 +34,7 @@ package itemClasses
 		//-public
 		
 		//--constructor
-		public function cropItemObject(itemKey:uint=cropItemObject.DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint=cropItemObject.DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function cropItemObject(itemKey:uint = DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
 			super(itemKey, type, subtype, cost, days, redeemability);
 			//this.m_tNSource = DEFAULT_CROP_TNSOURCE;

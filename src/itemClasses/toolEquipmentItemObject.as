@@ -14,15 +14,16 @@ package itemClasses
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class toolEquipmentItemObject extends equipmentItemObject 
+	public class toolEquipmentItemObject extends equipmentItemObject
 	{
 		//members
 		//-public
 		//--static const
-		public static const TYPE_CONSTRUCTOR:uint = MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH;//modify for all classes
-		public static const DEFAULT_TOOL_TYPE:uint = TYPE_CONSTRUCTOR + 0;
-		public static const HOE_TOOL_TYPE:uint = TYPE_CONSTRUCTOR + 1;
-		public static const TOOLEQUIPMENT_TYPES_LENGTH:uint = 2;
+		//must hard code because we can't evaluate expressions
+		public static const TYPE_CONSTRUCTOR:uint = 23//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH;//modify for all classes
+		public static const DEFAULT_TOOL_TYPE:uint = 23//TYPE_CONSTRUCTOR + 0;
+		public static const HOE_TOOL_TYPE:uint = 24//TYPE_CONSTRUCTOR + 1;
+		//public static const TOOLEQUIPMENT_TYPES_LENGTH:uint = 2;
 		//---type identifiers
 		public static const TOOL_HOE:String = "hoe";
 		//---defaults
