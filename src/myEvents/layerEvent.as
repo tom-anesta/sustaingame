@@ -8,11 +8,12 @@ package myEvents
 	{
 		private var m_quant:itemObject;
 		
-		public static const SENDUP:String = "sendup";
-		public static const SENDDOWN:String = "senddown";
-		public static const ASK:String = "ask"
-		public static const REMOVE:String = "remove";
-		public static const RECEIVE:String = "receive";
+		//public static const SENDUP:String = "sendup";//logic handled by bubbling
+		//public static const SENDDOWN:String = "senddown";//logic can be handled with tile
+		public static const RECEIVE:String = "receiveQuantity";
+		public static const REMOVE:String = "removeQuantity";
+		public static const DISPATCH:String = "dispatchQuantity";
+		public static const ASK:String = "askQuantity";
 		
 		public function layerEvent(type:String, quant:itemObject = null, bubbles:Boolean = true, cancelable:Boolean = true ) 
 		{

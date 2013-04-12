@@ -35,20 +35,24 @@ package game
 			}
 			
 			top = new TopLayer(this);
+			this.addChild(top)
 			mid = new MidLayer(this);
+			top.addChild(mid);
 			bot = new BotLayer(this);
+			mid.addChild(bot);
 			
 			//addChild(top);//as this is an iso container it requires its children to implement the icontainer interface, which node does not
 			//addChild(mid);
 			//addChild(bot);//add the children so that we can use event bubbling
 			//fuck it just add the event listeners and handle as needed
-			top.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
-			top.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
-			mid.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
-			mid.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
-			bot.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
-			bot.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
-			
+			this.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			//top.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
+			//top.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			//mid.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
+			//mid.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			//bot.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
+			//bot.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			//add children
 			this.addChild(top);
 			top.addChild(mid);
 			mid.addChild(bot);
@@ -80,11 +84,12 @@ package game
 		//private event handlers
 		private function inventoryEventHandler(ev:ProxyEvent):void
 		{
-			ev.stopImmediatePropagation();
-			var tgtevt:inventoryEvent = ev.targetEvent as inventoryEvent;
-			var nevt:inventoryEvent = new inventoryEvent(tgtevt.type, tgtevt.items, true);
+			trace("doing event");
+			//ev.stopImmediatePropagation();
+			//var tgtevt:inventoryEvent = ev.targetEvent as inventoryEvent;
+			//var nevt:inventoryEvent = new inventoryEvent(tgtevt.type, tgtevt.items, true);
 			//dispatchEvent(new ProxyEvent(this, ev.targetEvent));//this should then dispatch the event again
-			ev.proxyTarget.dispatchEvent(nevt);
+			//ev.proxyTarget.dispatchEvent(nevt);
 		}
 		
 	}

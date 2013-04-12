@@ -68,15 +68,12 @@ private function sellPopupClosing(ev:CloseEvent):void
 {
 	if (ev.target == gameVSellPopup)
 	{
-		//trace("sell popup closing");
 		gameVSellPopup.removeEventListener(CloseEvent.CLOSE, sellPopupClosing);
 		gameVSellPopup.removeEventListener(transactionEvent.INCOME, incomeFromSell);
 		gameVSellPopup.removeEventListener(inventoryEvent.REMOVE, sellRemoveFromInventory);
 		//gameVBuyPopup.removeEventListener(transactionEvent.COST, handleItemBought);
 		PopUpManager.removePopUp(gameVSellPopup);
 	}
-	//else
-	//	trace("was not sell popup");
 	ev.stopPropagation();//stop the event
 }
 private function incomeFromSell(ev:transactionEvent):void
@@ -236,7 +233,6 @@ private function initGameV():void
 }
 private function recognizeInternalGameLayedOut(ev:layedOutEvent):void
 {
-	//trace("recognizing game layed out");
 	internalGame = ev.target as IsoApplication;
 	ev.target.setTimeLine(mainTimeLine);
 }
@@ -286,7 +282,6 @@ public function setTimeLine(value:timeLine):void
 	{
 		mainTimeLine.removeEventListener(timeElapsedEvent.DAYCOMPLETE, dayElapsedHandler);
 	}
-	//trace("main game screen is setting its timeline");
 	mainTimeLine = value;
 	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, dayElapsedHandler);
 	//set the timeline on the internal game now

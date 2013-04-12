@@ -3,64 +3,67 @@ package game
 	import as3isolib.data.Node;
 	import itemClasses.distributableItemObject;
 	import itemClasses.itemObject;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 
 	public class BotLayer extends Layer
 	{
-		private var dists:Array;
 		//private var m_parentTile:Tile;
 		private static var distClass:Class = distributableItemObject;
+		private static var m_allowedTypes:Array;
+		private static var m_inited:Boolean = false;
 		
-		public function BotLayer(value:Tile) 
+		public function BotLayer(value:Tile, items:Vector.<itemObject> = null) //the bot layer expects soil nutrients and stuff
 		{
-			super(value);
+			super(value, items);
 			//this.m_parentTile = value;//handled in super
+			if (!BotLayer.m_inited)
+			{
+				BotLayer.initTypes();
+			}
 		}
 		
-		public function addDistrib(_dist:distributableItemObject):void
+		public static function get acceptedTypes():Array//overload in subclasses for class
 		{
-			dists.push(_dist);
+			if (!BotLayer.inited)
+				{
+					BotLayer.initTypes();
+				}
+				return BotLayer.m_allowedTypes;
 		}
-		
-		public function getDistribs():Array
-		{
-			return dists;
-		}
-		
-		override public function set items(value:Vector.<itemObject>):void
+		public static function set acceptedTypes(value:Array):void
 		{
 			return;
 		}
-		
-		override public function get parentTile():Tile
+		public static function get inited():Boolean
 		{
-			return this.m_parentTile;
+			return BotLayer.m_inited;
 		}
-		override public function set parentTile(value:Tile):void
+		public static function set inited(value:Boolean):void
 		{
-			return;//
+			return;
 		}
-		
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
-			if (value.type is distributableItemObject) {
-				this.m_items.push(value);
-				return true;
+			//check if this thing is already in the tile
+			for (var i:int = 0; i < this.m_items.length; i++)
+			{
+				if (value.itemKey == this.m_items[i].itemKey)//if we already have that thing in the place
+				{
+					return false;//figure out what we actually do later
+				}
 			}
-			
-			return false;
+			this.m_items.push(value);
+			return true;
+		}
+		public static function initTypes():void
+		{
+			//trace(getQualifiedClassName(BotLayer) + " init types");
+			BotLayer.m_allowedTypes = new Array();//define the accepted types for this class
+			BotLayer.m_allowedTypes.push(distClass);//add the default class
+			BotLayer.m_inited = true;
 		}
 		
-		override protected function initTypes():void
-		{
-			Layer.m_allowedTypes = new Array();
-			Layer.m_allowedTypes.push(distClass);
-			m_inited = true;
-		}
-		
-		override public function getItemsOfType(value:Class):Vector.<itemObject>//overload in each item to return only those items of the types that can be contained in them
-		{
-			return new Vector.<distributableItemObject>();
-		}
 		
 	}
 

@@ -12,156 +12,77 @@ package game
 	import as3isolib.enum.IsoOrientation;
 	import flash.display.Bitmap;
 	import as3isolib.graphics.BitmapFill;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 
 
 	public class TopLayer extends Layer
 	{
-		private var dist:distributableItemObject
-		private var equip:equipmentItemObject;
 		//private var m_parentTile:Tile;
 		private var img:Bitmap;
 		private var sprite:IsoSprite;
 		private static var distClass:Class = distributableItemObject;
-		private static var equipClass:Class = equipmentItemObject;	
+		private static var equipClass:Class = equipmentItemObject;
+		private static var m_allowedTypes:Array;
+		private static var m_inited:Boolean = false;
 		
 		public function TopLayer(value:Tile) 
 		{
 			super(value);
 			//m_parentTile = value;//handled in super
-			dist = null;
-			equip = null;
+			if (!TopLayer.m_inited)
+			{
+				TopLayer.initTypes();
+			}
 		}
 		
-		public function addDist(_dist:distributableItemObject):Boolean
-		{
-			if (dist != null)//if we have an equip in there already
-			{
-				return false;
-			}
-			dist = _dist;
-			img = new Bitmap();
-			img = dist.tNBitmap;
-			sprite = new IsoSprite();
-			sprite.sprites[img];
-			this.addChild(sprite);
-			return true;
-		}
-		
-		public function addEquip(_equip:equipmentItemObject):Boolean
-		{
-			if (equip != null)//if we have an equip in there already
-			{
-				return false;//we set the equip sucessfully
-			}
-			equip = _equip
-			return true;
-		}
-		//accept an item from outside
+		//accept an item from outside, not in the other classes?
 		public function acceptExternalItemFromInventory(value:itemObject):void
 		{
-			//is it of the correct type?
-			if ( !(value is equipmentItemObject) && !(value is distributableItemObject))
-				return;
-			var addedSuccessfully:Boolean = false;
-			if (value is equipmentItemObject)
+			if (this.addWholeItem(value))//if we added it successfully
 			{
-				if (!addEquip(value as equipmentItemObject))
-					return;//if we can't add just leave
-				else//if success
-					addedSuccessfully = true;
-			}
-			else
-			{
-				if (!addDist(value as distributableItemObject))
-					return;//if we can't add just leave
-				else//if success
-					addedSuccessfully = true;
-			}
-			if (addedSuccessfully)//if we did succeed
-			{//dispatch an event
 				var vect:Vector.<itemObject> = new Vector.<itemObject>();
 				vect.push(value);
-				//var e:ProxyEvent = new ProxyEvent(this.parent as IEventDispatcher, new inventoryEvent(inventoryEvent.REMOVE, vect, true));
-				//e.proxyTarget.dispatchEvent(e.targetEvent);
-				dispatchEvent(new ProxyEvent(this.m_parentTile, new inventoryEvent(inventoryEvent.REMOVE, vect, false)));
-				
+				var invEvt:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, vect, true);
+				var tempEvt:ProxyEvent = new ProxyEvent(this, invEvt);
+				//dispatchEvent(new ProxyEvent(this, new inventoryEvent(inventoryEvent.REMOVE, vect, true)));
+				//dispatchEvent(new inventoryEvent(inventoryEvent.REMOVE, vect, true));
+				tempEvt.proxyTarget.dispatchEvent(tempEvt.targetEvent);
 			}
 		}
-		/*//to be implemented later on
-		public function distToInventory():Boolean//when we want to move dist back to the inventory
+		public static function get acceptedTypes():Array
 		{
-			
+			if (!TopLayer.inited)
+			{
+				TopLayer.initTypes();
+			}
+			return TopLayer.m_allowedTypes;
 		}
-		public function equipToInventory():Boolean//when we want to move equip back to the inventory
-		{
-		
-		}
-		public function distToGrave():Boolean//when we want to destroy the item in dist.  just nullify and garbage collection should handle
-		{
-		
-		}
-		public function equipToGrave():Boolean//when we want to destroy the item in equip.  just nullify and garbage collection should handl
-		{
-		
-		}
-		*/
-		
-		//getters and setters on private variables
-		public function get Dist():distributableItemObject
-		{
-			return this.dist;
-		}
-		public function set Dist(value:distributableItemObject):void
-		{
-			return;//cannot set dist in setter
-		}
-		public function get Equip():equipmentItemObject
-		{
-			return this.equip;
-		}
-		public function set Equip(value:equipmentItemObject):void
-		{
-			return;//cannot set return in setter
-		}
-		override public function get parentTile():Tile
-		{
-			return this.m_parentTile;
-		}
-		override public function set parentTile(value:Tile):void
+		public static function set acceptedTypes(value:Array):void
 		{
 			return;
 		}
-		
+		public static function get inited():Boolean
+		{
+			return TopLayer.m_inited;
+		}
+		public static function set inited(value:Boolean):void
+		{
+			return;
+		}
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
-			if(value is distributableItemObject || value.type is equipmentItemObject){
-				this.m_items.push(value);
-				return true;
-			}
-			
-			return false;
+			if(this.m_items.length > 0)//we can add weeds later
+				return false;
+			this.m_items.push(value);
+			return true;
 		}
-		
-		override protected function initTypes():void
+		public static function initTypes():void
 		{
-			Layer.m_allowedTypes = new Array();
-			Layer.m_allowedTypes.push(distClass);
-			Layer.m_allowedTypes.push(equipClass);
-			m_inited = true;
-		}
-		
-		override public function getItemsOfType(value:Class):Vector.<itemObject>//overload in each item to return only those items of the types that can be contained in them
-		{
-			if (value == distClass)
-			{
-				return new Vector.<distributableItemObject>();
-			}
-			else if (value == equipClass)
-			{
-				return new Vector.<equipmentItemObject>();
-			}
-			
-			return null;
+			//trace(getQualifiedClassName(TopLayer) + " init types");
+			TopLayer.m_allowedTypes = new Array();//define the accepted types for this class
+			TopLayer.m_allowedTypes.push(distClass);//add the default class
+			TopLayer.m_inited = true;
 		}
 		
 	}

@@ -8,7 +8,8 @@ package game
 	import flash.display.Bitmap;
 	import as3isolib.graphics.BitmapFill;
 	import myEvents.layerEvent;
-	
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getDefinitionByName;
 	
 	/**
 	 * ...
@@ -22,8 +23,8 @@ package game
 		//-protected
 		protected var m_parentTile:Tile;
 		protected var m_items:Vector.<itemObject>;
-		protected static var m_allowedTypes:Array;
-		protected static var m_inited:Boolean = false;
+		private static var m_allowedTypes:Array;
+		private static var m_inited:Boolean = false;
 		//-private
 		private static var m_defaultClass:Class = itemObject;
 		//functions
@@ -32,44 +33,47 @@ package game
 		public function Layer(value:Tile, items:Vector.<itemObject>=null )
 		{
 			super();//isocontainer constructor
-			if (!m_inited)
+			/*
+			if (!getDefinitionByName(getQualifiedClassName(this)).inited)//do it by the class
 			{
-				initTypes();
+				trace(getQualifiedClassName(this));
+				( (this) as (Object(this).constructor as Class)  ).initTypes();
+			}
+			*/
+			if (!Layer.m_inited)
+			{
+				Layer.initTypes();
 			}
 			if (items == null)
 			{
-				m_items = new Vector.<itemObject>();
+				this.m_items = new Vector.<itemObject>();
 			}
 			else
-				m_items = items;
+				m_items = items;//set to starting items (used for bottom layer when we assign these things to tile (starting soil content)
 		}
-		/*
-		public function acceptExternalItemFromInventory(value:itemObject):void
-		{
-			return;//does nothing in the base class the subclasses override it
-		}
-		*/
-		//add a whole item
+		//add a whole item, may want to change to protected
 		public function addWholeItem(value:itemObject):Boolean//overload the following protected function this one should not need to be overloaded
 		{
-			if (!m_inited)
+			var cVal:Class = Object(this).constructor as Class ;//getDefinitionByName(getQualifiedClassName(this));
+			if ( !cVal.inited )
 			{
-				initTypes();
+				cVal.initTypes();//because this is not a static function we must have a reference to it
 			}
-			var valid:Boolean = false;
-			for (var i:int = 0; i < m_allowedTypes.length; i++)
+			var i:int = 0;
+			trace(cVal.acceptedTypes);
+			trace(cVal.acceptedTypes.length);
+			for (i = 0; i < cVal.acceptedTypes.length; i++)
 			{
-				if (value is (m_allowedTypes[i] as Class))
+				if (value is (cVal.acceptedTypes[i] as Class))
 				{
-					valid = true;
 					break;
 				}
 			}
-			if (!valid)//if this was not valid
+			if (i == cVal.acceptedTypes.length)//if this was not valid and we got to the end of the array
 			{
 				return false;
 			}
-			return addWholeItemOfAcceptedType(value);
+			return addWholeItemOfAcceptedType(value);//this can be overloaded
 		}
 		//handle the quantities
 		public function receiveQuantity(quantValue:itemObject):void
@@ -85,7 +89,7 @@ package game
 		public function dispatchQuantity(quantValue:itemObject):void
 		{
 			//return;//a layer is told to dispatch a quantity of an object (called from within)
-			dispatchEvent(new ProxyEvent (this.m_parentTile, new layerEvent(layerEvent.SENDUP, quantValue, true, true)));
+			dispatchEvent(new ProxyEvent (this.m_parentTile, new layerEvent(layerEvent.DISPATCH, quantValue, true, true)));
 		}
 		public function requestQuantity(quantValue:itemObject):void
 		{
@@ -95,7 +99,13 @@ package game
 		//type access
 		public function getItemsOfType(value:Class):Vector.<itemObject>//overload in each item to return only those items of the types that can be contained in them
 		{
-			return new Vector.<itemObject>();
+			var rVect:Vector.<itemObject> = new Vector.<itemObject>();
+			for (var i:int = 0; i < this.m_items.length; i++)
+			{
+				if (this.m_items[i] is value)
+					rVect.push(this.m_items[i]);
+			}
+			return rVect;
 		}
 		//getters and setters
 		public function get items():Vector.<itemObject>
@@ -114,33 +124,42 @@ package game
 		{
 			return;//cannot be set externally
 		}
-		public function get acceptedTypes():Array
+		public static function get acceptedTypes():Array//overload in subclasses for class
 		{
-			if (!m_inited)
+			if (!Layer.m_inited)
 			{
-				initTypes();
+				Layer.initTypes();
 			}
 			return Layer.m_allowedTypes;
 		}
-		public function set acceptedTypes(value:Array):void
+		public static function set acceptedTypes(value:Array):void//overload in subclasses for class
 		{
 			return;//
 		}
+		public static function get inited():Boolean
+		{
+			return Layer.m_inited;
+		}
+		public static function set inited(value:Boolean):void
+		{
+			return;
+		}
 		//-protected functions
 		//init the types
-		protected function initTypes():void
+		public static function initTypes():void
 		{
-			Layer.m_allowedTypes = new Array();
+			//trace(getQualifiedClassName(Layer) + " init types");
+			Layer.m_allowedTypes = new Array();//define the accepted types for this class
 			Layer.m_allowedTypes.push(m_defaultClass);//add the default class
-			m_inited = true;
+			Layer.m_inited = true;
 		}
-		//add after function checking: decide whether or not
+		//add after function checking: decide whether or not we can add that thing
 		protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
-		{
+		{//should only be called from addwholeitem so don't need to check on the init
+			//check against accepted types
 			this.m_items.push(value);
 			return true;
 		}
-		
 		protected function addSprite(sprite:IsoSprite):void
 		{
 			return;
