@@ -10,6 +10,7 @@ package game
 	import myEvents.layerEvent;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
+	import myEvents.timeElapsedEvent;
 	
 	/**
 	 * ...
@@ -144,6 +145,50 @@ package game
 		{
 			return;
 		}
+		//time functions for handling time stuff
+		//fuck it implement itimeupdateable on this too ?  no don't do that yet//this does not need its own time representation or 
+		public function acceptHourAdvancement(quant:int = 1, evt:timeElapsedEvent = null):void
+		{
+			for (var i:int = 0; i < this.m_items.length; i++)
+			{
+				this.m_items[i].updateByHours(1, evt);
+			}
+		}
+		public function resolveActions():void
+		{
+			for (var i:int = 0; i < this.m_items.length; i++)
+			{
+				var it:itemObject = this.m_items[i];
+				it.resolveActions(it.hour, it.day, it.date, it.month, it.year);//resolve all actions at its time
+			}
+		}
+		//for adding and removing the visual components of an item object
+		protected function addSprite(sprite:IsoSprite):Boolean//did we add it successfully?
+		{
+			var i:int = 0;
+			for (i = 0; i < this.numChildren; i++)
+			{//if it's already there it does not make sense to add it again
+				if (this.getChildAt(i) is IsoSprite && this.getChildAt(i) == sprite)
+					return false;
+			}
+			this.addChild(sprite);
+			return true;
+		}
+		public function removeSprite(sprite:IsoSprite):Boolean
+		{
+			var i:int = 0;
+			for (i = 0; i < this.numChildren; i++)
+			{//go find it
+				if (this.getChildAt(i) is IsoSprite && this.getChildAt(i) == sprite)
+				{
+					this.removeChildAt(i);
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		
 		//-protected functions
 		//init the types
 		public static function initTypes():void
@@ -160,10 +205,7 @@ package game
 			this.m_items.push(value);
 			return true;
 		}
-		protected function addSprite(sprite:IsoSprite):void
-		{
-			return;
-		}
+		
 		
 	}
 

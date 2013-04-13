@@ -9,6 +9,7 @@ package game
 	import itemClasses.equipmentItemObject;
 	import itemClasses.itemObject;
 	import myEvents.inventoryEvent;
+	import myEvents.timeElapsedEvent;
 
 	public class Tile extends IsoRectangle
 	{
@@ -40,18 +41,7 @@ package game
 			top.addChild(mid);
 			bot = new BotLayer(this);
 			mid.addChild(bot);
-			
-			//addChild(top);//as this is an iso container it requires its children to implement the icontainer interface, which node does not
-			//addChild(mid);
-			//addChild(bot);//add the children so that we can use event bubbling
-			//fuck it just add the event listeners and handle as needed
-			this.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
-			//top.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
-			//top.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
-			//mid.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
-			//mid.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
-			//bot.addEventListener(inventoryEvent.ADD, inventoryEventHandler);
-			//bot.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);
+			//this.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);//inventory events should be handled by bubbling
 			//add children
 			this.addChild(top);
 			top.addChild(mid);
@@ -62,7 +52,6 @@ package game
 		{
 			return isActive = true;
 		}
-		
 		public function unSelect():Boolean
 		{
 			return isActive = false;
@@ -71,26 +60,38 @@ package game
 		{
 			return this.isActive;
 		}
-		public function doStuff():void
-		{
-			
-		}
+		
 		public function acceptExternalItemFromInventory(value:itemObject):void
 		{
 			//all of these things need to be added to the top layer initially, that is where they will do the work specified by the player
 			//check for top layer can accept the new item here
 			top.acceptExternalItemFromInventory(value);//this should dispatch an event if successful
 		}
+		
+		//fuck it implement itimeupdateable on this too ?  no don't do that yet, we don't need a description of time here or for it to handle action objects
+		public function acceptHourAdvancement(quant:int = 1, evt:timeElapsedEvent = null):void
+		{
+			this.bot.acceptHourAdvancement(quant, evt);//tell bot to do its whatever and send events if needed
+			this.mid.acceptHourAdvancement(quant, evt);//tell mid to do its whatever and send events if needed
+			this.top.acceptHourAdvancement(quant, evt);//tell top to do its whatever and send events if needed
+			//next resolve their events at this time
+		}
+		public function resolveActions():void
+		{
+			this.bot.resolveActions();
+			this.mid.resolveActions();
+			this.top.resolveActions();
+		}
+		
+		//commented extra code
 		//private event handlers
+		/*
 		private function inventoryEventHandler(ev:ProxyEvent):void
 		{
-			trace("doing event");
-			//ev.stopImmediatePropagation();
-			//var tgtevt:inventoryEvent = ev.targetEvent as inventoryEvent;
-			//var nevt:inventoryEvent = new inventoryEvent(tgtevt.type, tgtevt.items, true);
-			//dispatchEvent(new ProxyEvent(this, ev.targetEvent));//this should then dispatch the event again
-			//ev.proxyTarget.dispatchEvent(nevt);
+			//trace("doing event");
+			//inventory event just bubbles up yo.
 		}
+		*/
 		
 	}
 

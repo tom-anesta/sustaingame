@@ -6,7 +6,7 @@ package
 	 * ...
 	 * @author thomas anesta
 	 */
-	public class actionObject extends Object 
+	public class actionObject extends Object
 	{
 		//members
 		//-public
@@ -118,7 +118,7 @@ package
 			return;
 		}
 		//KEY FUNCTION; returns whether or not the action object should activate
-		public function willActivate(hour:uint = uint.MAX_VALUE, day:uint = uint.MAX_VALUE, date:uint = uint.MAX_VALUE, month:uint = uint.MAX_VALUE, year:uint = uint.MAX_VALUE):Boolean
+		public function Execute(hour:uint = uint.MAX_VALUE, day:uint = uint.MAX_VALUE, date:uint = uint.MAX_VALUE, month:uint = uint.MAX_VALUE, year:uint = uint.MAX_VALUE):Boolean
 		{
 			return ( (this.m_hour == hour || this.m_hour == uint.MAX_VALUE) && (this.m_day == day || this.m_day == uint.MAX_VALUE) && (this.m_date == date || this.m_date==uint.MAX_VALUE) && (this.m_month == month || this.m_month == uint.MAX_VALUE)  && (this.m_year == year || this.m_year == uint.MAX_VALUE)   );
 		}
@@ -131,8 +131,6 @@ package
 		{
 			this.m_func.apply(value, this.m_args);//could be dangerous.  let's find out!
 		}
-		
-		
 		
 	}
 

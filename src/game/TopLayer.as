@@ -45,8 +45,6 @@ package game
 				vect.push(value);
 				var invEvt:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, vect, true);
 				var tempEvt:ProxyEvent = new ProxyEvent(this, invEvt);
-				//dispatchEvent(new ProxyEvent(this, new inventoryEvent(inventoryEvent.REMOVE, vect, true)));
-				//dispatchEvent(new inventoryEvent(inventoryEvent.REMOVE, vect, true));
 				tempEvt.proxyTarget.dispatchEvent(tempEvt.targetEvent);
 			}
 		}

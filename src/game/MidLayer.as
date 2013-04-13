@@ -24,7 +24,6 @@ package game
 			}
 			//parentTile = value;//handled in super
 		}
-		
 		public static function get acceptedTypes():Array//overload in subclasses for class
 		{
 			if (!MidLayer.inited)
