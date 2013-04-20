@@ -1,8 +1,13 @@
 package game 
 {
+	
+	//imports
+	//-isolib
 	import as3isolib.data.Node;
+	//-flash
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	//-our classes
 	import itemClasses.itemObject;
 	import itemClasses.cropItemObject;
 	import itemClasses.plantCropItemObject;

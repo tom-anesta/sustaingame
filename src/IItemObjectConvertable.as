@@ -1,5 +1,7 @@
 package  
 {
+	//imports
+	//-our classes
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;

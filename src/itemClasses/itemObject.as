@@ -62,7 +62,7 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function itemObject(itemKey:uint=DEFAULT_BASE_ITEMKEY, type:uint=DEFAULT_TYPE, subtype:uint=DEFAULT_TYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY)
+		public function itemObject(itemKey:uint=DEFAULT_BASE_ITEMKEY, type:uint=DEFAULT_TYPE, subtype:uint=DEFAULT_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY)
 		{
 			super();
 			this.m_eventDispatcher = new EventDispatcher(this);
@@ -71,14 +71,13 @@ package itemClasses
 			this.m_subtype = subtype;
 			this.m_itemKey = itemKey;
 			this.m_cost = cost;
-			this.m_days = days;
 			this.m_redeemability = Math.abs(redeemability);
 			this.m_name = DEFAULT_NAME;
 			//handle graphics
 			this.m_tNAsset = DEFAULT_TNASSET;
 			this.m_tNBitmap = ((Bitmap) (new this.m_tNAsset()));
 			//ITimeUpdateable handling
-			this.m_hour = 0;//
+			this.m_hour = 0;//first hour
 			this.m_date = 1;//first day
 			this.m_day = 0;//how many days have we done?
 			this.m_month = 1;//first month
@@ -99,10 +98,6 @@ package itemClasses
 		public function get subtype():uint
 		{
 			return this.m_subtype;
-		}
-		public function get days():uint
-		{
-			return this.m_days;
 		}
 		public function get redeemability():Number
 		{
@@ -138,10 +133,6 @@ package itemClasses
 			return;//do nothing
 		}
 		public function set subtype(value:uint):void
-		{
-			return;//do nothing
-		}
-		public function set days(value:uint):void
 		{
 			return;//do nothing
 		}
@@ -223,10 +214,6 @@ package itemClasses
 			return;
 		}
 		//outer functions
-		public function advanceDay():void//get rid of soon
-		{
-			this.m_days++;
-		}
 		//--update functions
 		
 		//IEventDispatcher Support from http://flexdiary.blogspot.com/2008/11/implementing-ieventdispatcher.html

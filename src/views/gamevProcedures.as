@@ -208,13 +208,13 @@ private function slowerEventReceived(ev:timeElapsedEvent):void
 }
 private function dayElapsedHandler(ev:timeElapsedEvent):void
 {
-	advanceInventoryDays();
+	advanceInventoryDays(ev);
 }
-private function advanceInventoryDays():void
+private function advanceInventoryDays(ev:timeElapsedEvent):void
 {
 	for (var i:uint = 0; i < user_inventory.length; i++)
 	{
-		(user_inventory[i] as itemObjectCollection).advanceDay();
+		(user_inventory[i] as itemObjectCollection).updateByDays(1, ev);
 	}
 }
 //init functions

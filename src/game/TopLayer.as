@@ -1,20 +1,24 @@
 package game 
 {
+	
+	//imports
+	//-isolib
+	import as3isolib.enum.IsoOrientation;
 	import as3isolib.data.Node;
 	import as3isolib.display.IsoSprite;
+	import as3isolib.graphics.BitmapFill;
 	import eDpLib.events.IEventDispatcherProxy;
 	import eDpLib.events.ProxyEvent;
+	//-flash
+	import flash.display.Bitmap;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
+	import flash.events.IEventDispatcher;
+	//-our clases
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
 	import itemClasses.itemObject;
 	import myEvents.inventoryEvent;
-	import flash.events.IEventDispatcher;
-	import as3isolib.enum.IsoOrientation;
-	import flash.display.Bitmap;
-	import as3isolib.graphics.BitmapFill;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
-
 
 	public class TopLayer extends Layer
 	{
