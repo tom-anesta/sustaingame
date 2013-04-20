@@ -286,6 +286,5 @@ public function setTimeLine(value:timeLine):void
 	mainTimeLine.addEventListener(timeElapsedEvent.DAYCOMPLETE, dayElapsedHandler);
 	//set the timeline on the internal game now
 	internalGame.setTimeLine(mainTimeLine);
-	
 }
 
