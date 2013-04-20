@@ -27,7 +27,7 @@ package game
 		private var mid:MidLayer;
 		private var bot:BotLayer;
 		
-		public function Tile(cname:String = "soil") 
+		public function Tile(cname:String = "soil", nutrients:Vector.<itemObject> = null) 
 		{
 			isActive = false;
 			this.name = cname;
@@ -39,8 +39,6 @@ package game
 			{
 				fill = new BitmapFill(drySoilImg, IsoOrientation.XY);
 			}
-			
-			var nutrients:Vector.<itemObject>;
 			
 			top = new TopLayer(this);
 			this.addChild(top)

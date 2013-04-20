@@ -22,6 +22,7 @@ package game
 	import flash.net.URLRequest;
 	import as3isolib.graphics.BitmapFill;
 	import flash.geom.ColorTransform;
+	import itemClasses.itemObject;
 	import myEvents.landSelectEvent;
 	import flash.events.Event;
     
@@ -61,7 +62,8 @@ package game
 		 
 				for (var col:int = 0; col < r.length; col++)
 				{
-					var tile:Tile = new Tile(map[row][col]);
+					var nutrients:Vector.<itemObject> = null;
+					var tile:Tile = new Tile(map[row][col], nutrients);
 					tile.setSize(_grid.cellSize, _grid.cellSize, 0);
 					tile.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
 					//tile.name = map[row][col];
