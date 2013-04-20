@@ -31,6 +31,8 @@ package game
 		import flash.geom.Point;
 		import de.polygonal.ds.Array2
 		import globalManagers.timeLine;
+		import itemClasses.fertilizerDistributableItemObject;
+		import itemClasses.distributableItemObject;
 		import itemClasses.itemObject;
 		import myEvents.layedOutEvent;
 		import myEvents.timeElapsedEvent;
@@ -49,6 +51,9 @@ package game
 		//grid container variables for determining contents
 		private var _group:Group;
 		private var _map:Array;
+		private var _nutrientMap_Nitrogen:Array;
+		private var _nutrientMap_Phosphorous:Array;
+		private var _nutrientMap_Potassium:Array;
 		private var bgHolder:IsoScene;
 		private var bgGrid:IsoGrid;
 		private var bgMap:Array;
@@ -74,7 +79,9 @@ package game
 		
 		private function appOnStage(ev:Event):void
 		{
+			//resize
 			view.setSize(this.parent.width, this.parent.height);
+			//configure children
 			this.addChild(view);
 			view.addScene(gridHolder);
 			view.addScene(bgHolder);
@@ -82,14 +89,13 @@ package game
 			gridHolder.addChild(grid);
 			bgHolder.addChild(bgGrid);
 			gridHolder.render();
+			//set values in the children
 			createBackground();
-			
-			bgGrid
 			createGroup();
+			//BOOM COLORS
 			scene.render()
-			
+			//now handle with events
 			this.m_addedToStage = true;
-			//trace("dispatching internal game layed out event");
 			var ev2:layedOutEvent = new layedOutEvent(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
 			dispatchEvent(ev2);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
@@ -98,29 +104,27 @@ package game
 		
 		public function IsoApplication() 
 		{
+			//begin
 			this.m_addedToStage = false;
 			view = new IsoView();
 			view.clipContent = true;
 			view.showBorder = false;
-			
+			//the grid
 			gridHolder = new IsoScene();
 			scene = new IsoScene();
 			grid = new IsoGrid();
 			grid.cellSize = 500;
 			grid.setGridSize(gridWidth, gridLength, 1);
-			
+			//the background
 			bgHolder = new IsoScene();
 			bgGrid = new IsoGrid();
 			bgGrid.cellSize = 500;
 			bgGrid.setGridSize(bgWidth, bgLength, 0);
-			
+			//set variables
 			view.currentZoom = .06;
-			
-			//view.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
+			//add event listeners
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
-			//this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
-			//this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 			this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
 			this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 			
@@ -165,28 +169,11 @@ package game
 			view.limitRangeOfMotion = true;
 		}
 		
-		/*private function viewPan(e:Event):void
-		{
-			view.panBy(panPt.x - stage.mouseX, panPt.y - stage.mouseY);
-			panPt.x = stage.mouseX;
-			panPt.y = stage.mouseY;
-		}
-		private function viewMouseUp(e:Event):void
-		{
-			view.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
-			view.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
-		}*/
+		
 		private function viewZoom(e:MouseEvent):void
 		{
 			var zoomable:Boolean = true;
-			/*if(e.delta > 0)
-			{
-				zoom +=  0.01;
-			}
-			if(e.delta < 0)
-			{
-				zoom -=  0.01;
-			}*/
+			
 			if (view.currentZoom > .25)
 			{
 				//need limit
@@ -222,42 +209,42 @@ package game
 					zoom -=  0.01;
 				}
 			}
-
 			view.currentZoom = zoom;
 			trace(view.currentZoom);
+			
 		}
 		
 		private function createGroup():void
 		{
 			_map = new Array();
+			_nutrientMap_Nitrogen = new Array();
+			_nutrientMap_Phosphorous = new Array();
+			_nutrientMap_Potassium = new Array();
 			var temp:Array;
+			var tempN:Array;
+			var tempP:Array;
+			var tempK:Array;
 			//initialize
 			for (var i:int = 0; i < gridLength; i++)
 			{
 				temp = new Array();
+				tempN = new Array();
+				tempP = new Array();
+				tempK = new Array();
 				for (var j:int = 0; j < gridWidth; j++)
 				{
-					//if (j >= gridWidth/2)
-					//{	
-					//	var randInt:int = Math.floor(Math.random()*(1+10-1))+1
-					//	if (randInt > 4)
-					//	{
-					//		temp.push("soil");
-					//	}
-					//	else
-					//	{
-					//		temp.push("drysoil");
-					//	}
-					//}
-					//else
-						temp.push("soil");
-						
+					temp.push("soil");
+					tempN.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.TYPE_NITROGEN, fertilizerDistributableItemObject.NITROGEN_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, distributableItemObject.UNIT_KILOGRAM, Number(100), Number(50)));
+					tempP.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.TYPE_PHOSPHOROUS, fertilizerDistributableItemObject.PHOSPHOROUS_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, distributableItemObject.UNIT_KILOGRAM, Number(100), Number(50)));
+					tempK.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.TYPE_POTASSIUM, fertilizerDistributableItemObject.POTASSIUM_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, distributableItemObject.UNIT_KILOGRAM, Number(100), Number(50)));
 				}
 				_map.push(temp);
-				
+				_nutrientMap_Nitrogen.push(tempN);
+				_nutrientMap_Phosphorous.push(tempP);
+				_nutrientMap_Potassium.push(tempK);
 			}
 			_group = new Group(grid);
-			_group.setMap(_map);
+			_group.setMap(_map, _nutrientMap_Nitrogen, _nutrientMap_Phosphorous, _nutrientMap_Potassium);
 			_group.moveTo(0, 0, 0);
 			scene.addChild(_group);
 		}
@@ -272,35 +259,11 @@ package game
 				temp = new Array();
 				for (var j:int = 0; j < bgWidth; j++)
 				{
-					//for temp screenshot take into account width
-					//if (j > bgWidth / 2)//if on the bad side
-					//{
-					//	if ( !(j < 6 || i < 6 || j >= 24 || i >= 24) )
-					//	{
-					//		var randInt:int = Math.floor(Math.random() * (1 + 10 - 1)) + 1
-					//		if (randInt < 4)
-					//		{
-					//			temp.push("grass");
-					//		}
-					//		else if (randInt > 6)//was 6 with grass else if
-					//		{
-					//			temp.push("drygrass");
-					//		}
-					//		else
-					//		{
-					//			temp.push("desert");
-					//		}
-					//	}
-					//	else
-					//		temp.push("drygrass");
-					//}
-					//else//on the good side
-					//{
 						if(j < 6 || i < 6 || j >= 24 || i >= 24)
 							temp.push("drygrass");//drygrass on the outside
 						else
-							temp.push("grass");
-					//}
+							temp.push("grass");//grass on the inside we are like a tiny oasis
+					
 				}
 				bgMap.push(temp);
 			}
@@ -331,5 +294,70 @@ package game
 		}
 		
 		
+		
+		/*
+		if(e.delta > 0)
+		{
+			zoom +=  0.01;
+		}
+		if(e.delta < 0)
+		{
+			zoom -=  0.01;
+		}
+		*/
+		
+		/*
+		private function viewPan(e:Event):void
+		{
+			view.panBy(panPt.x - stage.mouseX, panPt.y - stage.mouseY);
+			panPt.x = stage.mouseX;
+			panPt.y = stage.mouseY;
+		}
+		private function viewMouseUp(e:Event):void
+		{
+			view.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
+			view.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
+		}
+		*/
+		
+		//if (j >= gridWidth/2)
+		//{	
+		//	var randInt:int = Math.floor(Math.random()*(1+10-1))+1
+		//	if (randInt > 4)
+		//	{
+		//		temp.push("soil");
+		//	}
+		//	else
+		//	{
+		//		temp.push("drysoil");
+		//	}
+		//}
+		//else
+		
+		//for temp screenshot take into account width
+		//if (j > bgWidth / 2)//if on the bad side
+		//{
+		//	if ( !(j < 6 || i < 6 || j >= 24 || i >= 24) )
+		//	{
+		//		var randInt:int = Math.floor(Math.random() * (1 + 10 - 1)) + 1
+		//		if (randInt < 4)
+		//		{
+		//			temp.push("grass");
+		//		}
+		//		else if (randInt > 6)//was 6 with grass else if
+		//		{
+		//			temp.push("drygrass");
+		//		}
+		//		else
+		//		{
+		//			temp.push("desert");
+		//		}
+		//	}
+		//	else
+		//		temp.push("drygrass");
+		//}
+		//else//on the good side
+		//{
+		//}
 	}
 }

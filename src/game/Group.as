@@ -22,6 +22,7 @@ package game
 	import flash.net.URLRequest;
 	import as3isolib.graphics.BitmapFill;
 	import flash.geom.ColorTransform;
+	import itemClasses.cropItemObject;
 	import itemClasses.itemObject;
 	import myEvents.landSelectEvent;
 	import flash.events.Event;
@@ -46,23 +47,56 @@ package game
             _grid = grid;
         }
 		
-		public function setMap(map:Array):void
+		public function setMap(map:Array, nNitrogen:Array = null, nPhosphorous:Array = null, nPotassium:Array=null):void
 		{
 			//make NxN array that represents the group’s layout
 			var w:Number = Math.max(map[0].length, map.length);
 			_layout = new Array2(w, w);
 			_layout.fill(0);
 			//temporarily test select
-			this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
-			this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
-		 
+			//this.addEventListener(landSelectEvent.LAND_SELECT, selectHandler);
+			//this.addEventListener(landSelectEvent.LAND_DESELECT, deselectHandler);
 			for (var row:int = 0; row < map.length; row++)
 			{
 				var r:Array = map[row];
+				var rN:Array = null;//nitrogen vector
+				var rP:Array = null;//phosphorous vector
+				var rK:Array = null;//potassium vector
+				if (nNitrogen != null)
+				{
+					if (nNitrogen.length > row)
+						rN = nNitrogen[row];
+				}
+				if (nPhosphorous != null)
+				{
+					if (nPhosphorous.length > row)
+						rP = nPhosphorous[row];
+				}
+				if (nPotassium != null)
+				{
+					if (nPotassium.length > row)
+						rK = nPotassium[row];
+				}
 		 
 				for (var col:int = 0; col < r.length; col++)
 				{
-					var nutrients:Vector.<itemObject> = null;
+					//set the nutrients from array
+					var nutrients:Vector.<itemObject> = new Vector.<itemObject>();
+					if (rN != null)
+					{
+						if (rN.length > col)
+							nutrients.push(rN[col] as itemObject);
+					}
+					if (rP != null)
+					{
+						if (rP.length > col)
+							nutrients.push(rP[col] as itemObject);
+					}
+					if (rK != null)
+					{
+						if (rK.length > col)
+							nutrients.push(rP[col] as itemObject);
+					}
 					var tile:Tile = new Tile(map[row][col], nutrients);
 					tile.setSize(_grid.cellSize, _grid.cellSize, 0);
 					tile.moveTo(_grid.cellSize * col, _grid.cellSize * row, 1);
@@ -87,31 +121,13 @@ package game
 		}
 		public function select(e:ProxyEvent):void
 		{
-			//trace("select event called in tile");
 			var highlightTransform:ColorTransform = new ColorTransform();
 			highlightTransform.blueOffset = 100;
 			var unHighlightTransform:ColorTransform = new ColorTransform();
 			//var to handle if we get to the newly selected item before we deselect the old one
 			var newlySelected:Boolean = false;
 			for (var i:int = 0; i < _layout.size(); i++)
-			{
-				//earlier code
-				/*
-				if (i == _layout.indexOf(e.target))
-				{
-					(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
-					(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 0.5
-					_layout.getAtIndex(i).selected();
-					
-				}
-				else
-				{
-					(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
-					(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0
-					_layout.getAtIndex(i).unSelected();
-				}
-				*/
-				
+			{	
 				if (i == _layout.indexOf(e.target))
 				{
 					if ( (_layout.getAtIndex(i) as Tile).selected)//if it was selected all we need to do is deselect it
@@ -129,15 +145,7 @@ package game
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = highlightTransform;
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 0.5;
 						_layout.getAtIndex(i).select();
-						//these don't work
-						/*
-							var ev3:landSelectEvent = new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true);
-							var ev3Proxy:ProxyEvent = new ProxyEvent(this, ev3);
-							this.dispatchEvent(ev3Proxy);
-							this.dispatchEvent(ev3);
-							event.proxyTarget.dispatchEvent(new SomeCustomEvent(SomeCustomEvent.TYPE));
-						*/
-						//this does
+						//this works
 						e.proxyTarget.dispatchEvent(new landSelectEvent(landSelectEvent.LAND_SELECT, _layout.getAtIndex(i) as Tile, true));
 					}
 				}
@@ -148,7 +156,6 @@ package game
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.transform.colorTransform = unHighlightTransform;
 						(_layout.getAtIndex(i) as IsoDisplayObject).container.alpha = 1.0;
 						_layout.getAtIndex(i).unSelect();
-						//if we haven't done the selection for new, then we need to dispatch an event, else we can break out of the loop
 						if (newlySelected)
 						{
 							break;
@@ -168,16 +175,14 @@ package game
 			return _layout.size();
 		}
 		
+		/*
 		private function selectHandler(ev:ProxyEvent):void//(ev:landSelectEvent):void
 		{
-			//trace("select received by group");
-			//trace(ev.type);
 		}
 		private function deselectHandler(ev:ProxyEvent):void//(ev:landSelectEvent):void
 		{
-			//trace("deselect received by group");
-			//trace(ev.type);
 		}
+		*/
 		
 	}
 }
