@@ -84,6 +84,7 @@ package game
 			//trace(getQualifiedClassName(TopLayer) + " init types");
 			TopLayer.m_allowedTypes = new Array();//define the accepted types for this class
 			TopLayer.m_allowedTypes.push(distClass);//add the default class
+			TopLayer.m_allowedTypes.push(equipClass);
 			TopLayer.m_inited = true;
 		}
 		

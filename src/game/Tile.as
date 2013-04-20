@@ -12,6 +12,7 @@ package game
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
 	import itemClasses.itemObject;
+	import itemClasses.fertilizerDistributableItemObject;
 	import myEvents.inventoryEvent;
 	import myEvents.timeElapsedEvent;
 
@@ -39,11 +40,13 @@ package game
 				fill = new BitmapFill(drySoilImg, IsoOrientation.XY);
 			}
 			
+			var nutrients:Vector.<itemObject>;
+			
 			top = new TopLayer(this);
 			this.addChild(top)
 			mid = new MidLayer(this);
 			top.addChild(mid);
-			bot = new BotLayer(this);
+			bot = new BotLayer(this, nutrients);
 			mid.addChild(bot);
 			//this.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);//inventory events should be handled by bubbling
 			//add children

@@ -7,6 +7,7 @@ package game
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	//-our classes
+	import itemClasses.fertilizerDistributableItemObject;
 	import itemClasses.distributableItemObject;
 	import itemClasses.itemObject;
 	
