@@ -1,10 +1,14 @@
 package game 
 {
+	
+	//imports
+	//-isolib
 	import as3isolib.display.primitive.IsoRectangle;
 	import as3isolib.graphics.BitmapFill;
 	import as3isolib.enum.IsoOrientation;
 	import eDpLib.events.EventDispatcherProxy;
 	import eDpLib.events.ProxyEvent;
+	//-our classes
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
 	import itemClasses.itemObject;

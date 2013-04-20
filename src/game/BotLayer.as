@@ -1,10 +1,15 @@
 package game 
 {
+	//imports
+	//-isolib
 	import as3isolib.data.Node;
-	import itemClasses.distributableItemObject;
-	import itemClasses.itemObject;
+	//-flash
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	//-our classes
+	import itemClasses.distributableItemObject;
+	import itemClasses.itemObject;
+	
 
 	public class BotLayer extends Layer
 	{

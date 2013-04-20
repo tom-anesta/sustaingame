@@ -1,11 +1,9 @@
 package  
 {
-	import air.net.ServiceMonitor;
-	import itemClasses.cropItemObject;
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
+	//imports
+	//-our stuff
+	import itemClasses.itemObject;
+	
 	public class actionObject extends Object
 	{
 		//members
@@ -127,7 +125,7 @@ package
 		//http://stackoverflow.com/questions/1914648/accept-multiple-arguments-in-an-as3-method
 		//http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/Function.html
 		//http://stackoverflow.com/questions/972460/as3-arguments
-		public function execute(value:cropItemObject):void
+		public function execute(value:itemObject):void
 		{
 			this.m_func.apply(value, this.m_args);//could be dangerous.  let's find out!
 		}

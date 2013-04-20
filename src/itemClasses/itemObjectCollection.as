@@ -1,37 +1,106 @@
 package itemClasses 
 {
-	import air.net.SecureSocketMonitor;
-	import flash.display.Bitmap;
+	//imports
+	//-mx
 	import mx.collections.ArrayCollection;
+	//-flash
+	import flash.display.Bitmap;
+	//-our things
 	import itemClasses.itemObject;
+	import actionObject;
+	import myEvents.timeElapsedEvent;
+	
 	/**
 	 * ...
 	 * @author thomas anesta
 	 */
 	[Bindable]
-	public class itemObjectCollection extends ArrayCollection //the class in inventory that holds multiple objects of the same type
+	public class itemObjectCollection extends ArrayCollection implements ITimeUpdateable//the class in inventory that holds multiple objects of the same type
 	{
 		//members
 		//-private
-		//source is all we need
+		//--members for itimeupdateable
+		private var m_hour:uint;
+		private var m_date:uint;
+		private var m_day:uint;
+		private var m_month:uint;
+		private var m_year:uint;
+		private var m_actions:Vector.<actionObject>;
 		//-public
 		
 		//functions
 		//-private
 		//-public
 		//--constructor
-		public function itemObjectCollection() 
+		public function itemObjectCollection()
 		{
 			super();
 			this.source = new Array();
+
+			this.m_hour = 0;//first hour
+			this.m_date = 1;//first day
+			this.m_day = 0;//how many days have we done?
+			this.m_month = 1;//first month
+			this.m_year = 0;//first year
+			this.m_actions = new Vector.<actionObject>();
 		}
 		//getters and setters
-		/*
-		public function get quantity():uint
-		{
-			return this.source.length;
+		//getters for itimeupdateable
+		public function get hour():uint
+		{//get the average of hours (not an accurate representation of anything
+			var sumVal:uint = 0;
+			for (var i:uint = 0; i < this.source.length; i++)
+				sumVal += (this.getItemAt(i) as itemObject).hour;
+			if (this.source.length > 0)
+				sumVal = sumVal / this.source.length;
+			return sumVal;
 		}
-		*/
+		public function get date():uint
+		{//get the average of date (not an accurate representation of anything)
+			var sumVal:uint = 0;
+			for (var i:uint = 0; i < this.source.length; i++)
+				sumVal += (this.getItemAt(i) as itemObject).date;
+			if (this.source.length > 0)
+				sumVal = sumVal / this.source.length;
+			else
+				return (1 as uint);
+			return sumVal;
+		}
+		public function get day():uint
+		{//get the average of day (not an accurate representation of anything)
+			var sumVal:uint = 0;
+			for (var i:uint = 0; i < this.source.length; i++)
+				sumVal += (this.getItemAt(i) as itemObject).day
+			if (this.source.length > 0)
+				sumVal = sumVal / this.source.length;
+			return sumVal;
+		}
+		public function get month():uint
+		{//get the average of month (not an accurate representation of anything)
+			var sumVal:uint = 0;
+			for (var i:uint = 0; i < this.source.length; i++)
+				sumVal += (this.getItemAt(i) as itemObject).month;
+			if (this.source.length > 0)
+				sumVal = sumVal / this.source.length;
+			else
+				return (1 as uint);
+			return sumVal;
+		}
+		public function get year():uint//get the current year of this object
+		{//get the average of yeat (not an accurate representation of anything)
+			var sumVal:uint = 0;
+			for (var i:uint = 0; i < this.source.length; i++)
+				sumVal += (this.getItemAt(i) as itemObject).date;
+			if (this.source.length > 0)
+				sumVal = sumVal / this.source.length;
+			return sumVal;
+		}
+		public function get actions():Vector.<actionObject>
+		{//get ALL actions (functions should be set to their respective object)
+			return this.m_actions;
+		}
+		
+		//getters for other things
 		public function get itemKey():uint
 		{
 			if (this.source.length > 0)
@@ -61,26 +130,6 @@ package itemClasses
 			else
 				return itemObject.DEFAULT_TYPE;
 			//return this.m_subtype;
-		}
-		public function get days():uint
-		{
-			//need the average days
-			if (this.source.length > 0)
-			{//need the average sell price
-				var avgP:uint = 0;
-				for (var i:uint = 0; i < this.source.length; i++)
-				{
-					avgP += (this.source[i] as itemObject).days;
-				}
-				if (avgP == 0)
-					return 0;
-				else
-					return Math.abs(Math.floor( avgP / this.source.length ) ) as uint;
-				return;
-			}
-			else
-				return 0;
-			//return this.m_days;
 		}
 		public function get redeemability():Number
 		{
@@ -160,13 +209,32 @@ package itemClasses
 			//return this.m_tNBitmap;
 		}
 		//setters, for data binding (are read only)
-		/*
-		public function set quantity(value:uint):void
+		public function set hour(value:uint):void//set the hour of this item
 		{
-			return;//do nothing
+			return;
 		}
-		*/
-		//setters, for data binding (are read only)
+		public function set date(value:uint):void//set the date of this item
+		{
+			return;
+		}
+		public function set day(value:uint):void//set the day of this item
+		{
+			return;
+		}
+		public function set month(value:uint):void//set the month of this item
+		{
+			return;
+		}
+		public function set year(value:uint):void//set the year of this item
+		{
+			return;
+		}
+		public function set actions(value:Vector.<actionObject>):void//set the actions you want this item to perform based on updates
+		{
+			return;
+		}
+		//setters for itimeupdatable
+		//setters, for other things are read only
 		public function set itemKey(value:uint):void
 		{
 			return;//do nothing
@@ -310,7 +378,7 @@ package itemClasses
 				}
 				return;
 			}
-			if (canAdd(item))//if we can add to this
+			else if (canAdd(item))//if we can add to this
 			{
 				if (item is itemObject)
 				{
@@ -331,13 +399,77 @@ package itemClasses
 			return;
 		}
 		
-		public function advanceDay():void
+		//other functions for itimeupdateable
+		public function updateByHours(value:uint = 1, event:timeElapsedEvent = null):void//move hours forward
 		{
-			for (var i:uint = 0; i < this.length; i++)
-			{
-				(source[i] as itemObject).advanceDay();
-			}
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).updateByHours(value, event);
+			return;
 		}
+		public function updateByDays(value:uint = 1, event:timeElapsedEvent = null):void//move days forward
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).updateByDays(value, event);
+			return;
+		}
+		public function updateByDate(value:uint = 1, event:timeElapsedEvent = null):void//move date forward
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).updateByDate(value, event);
+			return;
+		}
+		public function updateByMonths(value:uint = 1, event:timeElapsedEvent = null):void//move months forward
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).updateByMonths(value, event);
+			return;
+		}
+		public function updateByYears(value:uint = 1, event:timeElapsedEvent = null):void//move years forward
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).updateByYears(value, event);
+			return;
+		}
+		public function addActions(valueVect:Vector.<actionObject> = null):void//add action objects
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).addActions(valueVect);
+			return;
+		}
+		public function addAction(value:actionObject):void//add an action object
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).addAction(value);
+			return;
+		}
+		public function removeActions(value:Vector.<actionObject> = null):Vector.<Boolean>//remove any action objects
+		{
+			var rVect:Vector.<Boolean> = new Vector.<Boolean>();
+			for (var i:uint = 0; i < this.source.length; i++)
+			{
+				rVect.concat( (this.getItemAt(i) as itemObject).removeActions(value) );
+			}
+			return rVect;
+		}
+		public function removeAction(value:actionObject):Boolean
+		{
+			var rVal:Boolean = true;
+			for (var i:uint = 0; i < this.source.length; i++)
+			{
+				if (! ( (this.getItemAt(i) as itemObject).removeAction(value) ))
+					rVal = false;
+			}
+			return rVal;
+		}
+		public function resolveActions(hourVal:uint = uint.MAX_VALUE, dayVal:uint = uint.MAX_VALUE, dateVal:uint = uint.MAX_VALUE, monthVal:uint = uint.MAX_VALUE, yearVal:uint = uint.MAX_VALUE):void//resolve all actions set to occur on the hour, day, date, month, and year specified
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+				(this.getItemAt(i) as itemObject).resolveActions(hourVal, dayVal, dateVal, monthVal, yearVal);
+			return;
+		}
+		
+		
+		
 		
 		
 	}

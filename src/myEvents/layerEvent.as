@@ -1,8 +1,12 @@
 package myEvents 
 {
-
-	import itemClasses.itemObject;
+	
+	//imports
+	//-flash
 	import flash.events.Event;
+	//-our classes
+	import itemClasses.itemObject;
+	
 	
 	public class layerEvent extends Event
 	{

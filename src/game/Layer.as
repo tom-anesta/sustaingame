@@ -188,7 +188,6 @@ package game
 			return false;
 		}
 		
-		
 		//-protected functions
 		//init the types
 		public static function initTypes():void
@@ -205,7 +204,6 @@ package game
 			this.m_items.push(value);
 			return true;
 		}
-		
 		
 	}
 

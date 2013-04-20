@@ -46,7 +46,7 @@ package globalManagers
 		//--for ITimeUpdateable
 		private var m_hour:uint;//the current hour of the day
 		private var m_date:uint;//the date in terms of month not total days passed
-		private var m_days:uint;//total days passed
+		private var m_day:uint;//total days passed
 		private var m_month:uint;//the current month
 		private var m_year:uint;//the current year
 		private var m_actions:Vector.<actionObject>;
@@ -83,7 +83,7 @@ package globalManagers
 			this.m_interval = Math.floor( (DEFAULT_SECONDS_PER_DAY / 24.0) * 1000.0 );
 			this.m_lapTime = this.m_interval;
 			this.m_hourTimer = new Timer( this.m_interval );
-			this.m_days = 0;
+			this.m_day = 0;
 			this.m_date = date;
 			this.m_hour = hour;
 			this.m_month = month;
@@ -145,9 +145,9 @@ package globalManagers
 		{
 			return this.m_year;
 		}
-		public function get days():uint
+		public function get day():uint
 		{
-			return this.m_days;
+			return this.m_day;
 		}
 		public function get actions():Vector.<actionObject>
 		{
@@ -170,7 +170,7 @@ package globalManagers
 		{
 			return;
 		}
-		public function set days(value:uint):void
+		public function set day(value:uint):void
 		{
 			return;
 		}
@@ -425,7 +425,7 @@ package globalManagers
 		{//day will handle day event listener
 			while (value > 0)
 			{
-				this.m_days++;
+				this.m_day++;
 				this.m_theDate = new Date(this.m_year, this.m_month, this.m_date, this.m_hour);//reset your date
 				var evDay:timeElapsedEvent = new timeElapsedEvent(timeElapsedEvent.DAYCOMPLETE, this.m_theDate, true);
 				dispatchEvent(evDay);

@@ -32,9 +32,9 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function equipmentItemObject(itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function equipmentItemObject(itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(itemKey, type, subtype, cost, days, redeemability);
+			super(itemKey, type, subtype, cost, redeemability);
 			//this.m_tNSource = DEFAULT_EQUIPMENT_TNSOURCE;
 			this.m_tNAsset = DEFAULT_EQUIPMENT_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );

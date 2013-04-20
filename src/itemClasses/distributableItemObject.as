@@ -32,15 +32,14 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, days:uint=DEFAULT_DAYS, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
 		{
-			super(itemKey, type, subtype, cost, days, redeemability);
+			super(itemKey, type, subtype, cost, redeemability);
 			//this.m_tNSource = DEFAULT_DISTRIBUTABLE_TNSOURCE;
 			this.m_tNAsset = DEFAULT_DISTRIBUTABLE_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
 
-		
 	}
 }
