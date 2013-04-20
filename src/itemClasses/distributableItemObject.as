@@ -40,9 +40,9 @@ package itemClasses
 		protected var DEFAULT_DISTRIBUTABLE_TNASSET : Class;
 		//-private
 		//
-		private var m_unit:String;
-		private var m_quantity:Number;
-		private var m_maxQuantity:Number;//applies to all items of the class? no because in the future we are going to make this dependent on the soil quality
+		protected var m_unit:String;
+		protected var m_quantity:Number;
+		protected var m_maxQuantity:Number;//applies to all items of the class? no because in the future we are going to make this dependent on the soil quality
 		
 		//functions
 		//-public
