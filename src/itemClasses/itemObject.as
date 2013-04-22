@@ -36,6 +36,7 @@ package itemClasses
 		//public static const DEFAULT_//need something to describe the function for calculating redeemability
 		//-private
 		//-protected
+		//--for children
 		protected var m_itemKey:uint;//the unique itemkey, identifies both type and subtype and name
 		protected var m_type:uint;//the main type of this item
 		protected var m_subtype:uint;
@@ -45,7 +46,8 @@ package itemClasses
 		protected var m_name:String;//the name of the item, tied to itemkey
 		protected var m_tNAsset:Class;//the thumbnail asset
 		protected var m_tNBitmap:Bitmap;//the bitmap for the image
-		//for event dispatcher support
+		protected var m_isInInventory:Boolean;//is the item in the inventory or not?  if so the actions will be different
+		//--for event dispatcher support
 		protected var m_eventDispatcher:EventDispatcher;
 		//for ITimeUpdateable functionality
 		protected var m_hour:uint;
@@ -54,15 +56,15 @@ package itemClasses
 		protected var m_month:uint;
 		protected var m_year:uint;
 		protected var m_actions:Vector.<actionObject>;
-		//protected embeds
-		//[Embed(source = DEFAULT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
+		//--embeds
 		[Embed(source = "../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
 		protected static var DEFAULT_TNASSET:Class;
+		
 		
 		//functions
 		//-public
 		//--constructor
-		public function itemObject(itemKey:uint=DEFAULT_BASE_ITEMKEY, type:uint=DEFAULT_TYPE, subtype:uint=DEFAULT_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY)
+		public function itemObject(itemKey:uint = DEFAULT_BASE_ITEMKEY, type:uint = DEFAULT_TYPE, subtype:uint = DEFAULT_TYPE, cost:uint = DEFAULT_COST, redeemability:Number = DEFAULT_REDEEMABILITY, isInInventory:Boolean = true )
 		{
 			super();
 			this.m_eventDispatcher = new EventDispatcher(this);
@@ -83,6 +85,8 @@ package itemClasses
 			this.m_month = 1;//first month
 			this.m_year = 0;//first year on
 			this.m_actions = new Vector.<actionObject>();
+			//other for handling adding and removing actions
+			this.m_isInInventory = isInInventory;
 		}
 		//--getters and setters
 		//---for class
@@ -123,6 +127,10 @@ package itemClasses
 		{
 			return this.m_tNBitmap;
 		}
+		public function get isInInventory():Boolean
+		{
+			return this.m_isInInventory;
+		}
 		//----setters, for data binding (are read only)
 		public function set itemKey(value:uint):void
 		{
@@ -159,6 +167,14 @@ package itemClasses
 		public function set tNBitmap(value:Bitmap):void
 		{
 			return;//do nothing
+		}
+		public function set isInInventory(value:Boolean):void
+		{//we actually want to do stuff here when we switch from inventory to out of the inventory
+			this.m_isInInventory = value;
+			if (this.m_isInInventory)//if we moved it to the inventory remove the actions
+			{
+				this.m_actions = new Vector.<actionObject>();
+			}
 		}
 		//
 		//---for ITimeUpdatable

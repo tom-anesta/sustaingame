@@ -34,9 +34,10 @@ package itemClasses
 		//-public
 		
 		//--constructor
-		public function cropItemObject(itemKey:uint = DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function cropItemObject(itemKey:uint = DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
-			super(itemKey, type, subtype, cost, redeemability);
+			
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			//this.m_tNSource = DEFAULT_CROP_TNSOURCE;
 			this.m_tNAsset = DEFAULT_CROP_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );

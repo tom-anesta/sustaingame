@@ -47,9 +47,9 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number = DEFAULT_MINIMUM_MAXQUANTITY)
+		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number = DEFAULT_MINIMUM_MAXQUANTITY)
 		{
-			super(itemKey, type, subtype, cost, redeemability);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			//this.m_tNSource = DEFAULT_DISTRIBUTABLE_TNSOURCE;
 			this.m_tNAsset = DEFAULT_DISTRIBUTABLE_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
@@ -82,11 +82,9 @@ package itemClasses
 			}
 			else//if zero or less
 			{
-				this.m_quantity = 0.0000000000000002;//should be smallest number greater than 0 according to wikipedia
+				this.m_quantity = 0.000000000000002;//should be smallest number greater than 0 according to wikipedia//took out a zero just in case
 				//http://en.wikipedia.org/wiki/Double-precision_floating-point_format
 			}
-			
-			
 		}
 		//--getters and setters
 		//---getters

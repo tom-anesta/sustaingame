@@ -8,7 +8,7 @@ package itemClasses
 	//-our things
 	import itemClasses.distributableItemObject;
 	
-	public class waterDistributableItemObject extends distributableItemObject 
+	public class waterDistributableItemObject extends distributableItemObject
 	{
 		//members
 		//-public
@@ -33,13 +33,13 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function waterDistributableItemObject(typeString:String, itemKey:uint=DEFAULT_WATERDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=WATER_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY) 
+		public function waterDistributableItemObject(typeString:String, itemKey:uint=DEFAULT_WATERDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=WATER_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY) 
 		{
 			if (!s_inited)
 			{
 				s_inited = initClassArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability, unitVal, maxQuantityVal, quantityVal);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory, unitVal, maxQuantityVal, quantityVal);
 			switch(typeString)
 			{
 				case WATER_WATER:
