@@ -204,12 +204,14 @@ package game
 			m_timeline = value;
 			m_timeline.addEventListener(timeElapsedEvent.HOURCOMPLETE, hourhandler);
 		}
-		public function acceptExternalItemFromInventory(value:itemObject):void
+		public function acceptExternalItemFromInventory(value:itemObject):Boolean
 		{
 			if (selectedTile != null)
 			{
-				selectedTile.acceptExternalItemFromInventory(value);
+				return selectedTile.acceptExternalItemFromInventory(value);
 			}
+			else
+				return false;
 		}
 		//-private
 		//--construction event handlers
@@ -348,10 +350,10 @@ package game
 						tempWVal = this.m_waterAvg + tempWVal * 1 * this.m_waterStdDev;
 					}
 					temp.push("soil");
-					tempN.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_NITROGEN, fertilizerDistributableItemObject.NITROGEN_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, this.m_nutrientUnit, this.m_nitrogenMax, tempNVal));
-					tempP.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_PHOSPHOROUS, fertilizerDistributableItemObject.PHOSPHOROUS_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, this.m_nutrientUnit, this.m_phosphorousMax, tempPVal));
-					tempK.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_POTASSIUM, fertilizerDistributableItemObject.POTASSIUM_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, this.m_nutrientUnit, this.m_potassiumMax, tempKVal));
-					tempW.push(new waterDistributableItemObject(waterDistributableItemObject.WATER_WATER, waterDistributableItemObject.WATER_WATER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.WATER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, this.m_waterUnit, this.m_waterMax, tempWVal));
+					tempN.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_NITROGEN, fertilizerDistributableItemObject.NITROGEN_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, false, this.m_nutrientUnit, this.m_nitrogenMax, tempNVal));
+					tempP.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_PHOSPHOROUS, fertilizerDistributableItemObject.PHOSPHOROUS_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, false, this.m_nutrientUnit, this.m_phosphorousMax, tempPVal));
+					tempK.push(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_POTASSIUM, fertilizerDistributableItemObject.POTASSIUM_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, false, this.m_nutrientUnit, this.m_potassiumMax, tempKVal));
+					tempW.push(new waterDistributableItemObject(waterDistributableItemObject.WATER_WATER, waterDistributableItemObject.WATER_WATER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.WATER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, false, this.m_waterUnit, this.m_waterMax, tempWVal));
 				}
 				_map.push(temp);
 				_nutrientMap_Nitrogen.push(tempN);
@@ -449,7 +451,7 @@ package game
 				}
 			}
 			view.currentZoom = zoom;
-			trace(view.currentZoom);
+			//trace(view.currentZoom);
 			
 		}
 		private function hourhandler(ev:timeElapsedEvent):void
@@ -516,7 +518,6 @@ package game
 		//	}
 		//}
 		//else
-		
 		//for temp screenshot take into account width
 		//if (j > bgWidth / 2)//if on the bad side
 		//{

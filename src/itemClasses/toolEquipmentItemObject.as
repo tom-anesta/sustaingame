@@ -38,19 +38,20 @@ package itemClasses
 		protected static var TOOL_BYHAND_TNASSET:Class;
 		[Embed(source = "../../assets/images/Hoe.gif")]
 		protected static var TOOL_HOE_TNASSET:Class;
-		//private
+		//-private
+		//static
 		private static var s_inited:Boolean = false;
 		private static var s_assetArray:Array;
 		//functions
 		//-public
 		//--constructor
-		public function toolEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function toolEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true) 
 		{
 			if (!s_inited)
 			{
 				s_inited = initClassArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			switch(typeString)
 			{
 				case TOOL_HOE:

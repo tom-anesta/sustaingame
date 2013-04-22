@@ -64,13 +64,13 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function plantCropItemObject(typeString:String, itemKey:uint = DEFAULT_PLANTCROP_ITEMKEY, type:uint = CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint = DEFAULT_COST, redeemability:Number = DEFAULT_REDEEMABILITY) 
+		public function plantCropItemObject(typeString:String, itemKey:uint = DEFAULT_PLANTCROP_ITEMKEY, type:uint = CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint = DEFAULT_COST, redeemability:Number = DEFAULT_REDEEMABILITY, isInInventory:Boolean) 
 		{
 			if (!s_inited)
 			{
 				s_inited = initClassArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			switch(typeString)
 			{
 				case PLANT_SORGHUM:

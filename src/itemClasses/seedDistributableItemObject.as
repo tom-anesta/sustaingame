@@ -88,13 +88,13 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function seedDistributableItemObject(typeString:String, itemKey:uint = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=SEED_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function seedDistributableItemObject(typeString:String, itemKey:uint = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=SEED_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number = DEFAULT_MINIMUM_MAXQUANTITY)
 		{
 			if (!s_inited)
 			{
 				s_inited = initClassArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory, unitVal, maxQuantity, quantity);
 			switch(typeString)
 			{
 				case SEED_SORGHUM:

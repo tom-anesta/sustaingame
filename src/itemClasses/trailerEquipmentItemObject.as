@@ -38,13 +38,13 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function trailerEquipmentItemObject(typeString:String, itemKey:uint=trailerEquipmentItemObject.DEFAULT_TRAILEREQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=TRAILER_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function trailerEquipmentItemObject(typeString:String, itemKey:uint=trailerEquipmentItemObject.DEFAULT_TRAILEREQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=TRAILER_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
 			if (!s_inited)
 			{
 				s_inited = initClassArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			switch(typeString)
 			{
 				case TRAILER_WATERINGCAN:

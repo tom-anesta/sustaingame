@@ -39,13 +39,13 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function vehicleEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY) 
+		public function vehicleEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
 			if (!s_inited)
 			{
 				s_inited = initClassArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			switch(typeString)
 			{
 				case VEHICLE_TRACTOR:

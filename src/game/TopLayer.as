@@ -41,7 +41,7 @@ package game
 		}
 		
 		//accept an item from outside, not in the other classes?
-		public function acceptExternalItemFromInventory(value:itemObject):void
+		public function acceptExternalItemFromInventory(value:itemObject):Boolean
 		{
 			if (this.addWholeItem(value))//if we added it successfully
 			{
@@ -50,7 +50,10 @@ package game
 				var invEvt:inventoryEvent = new inventoryEvent(inventoryEvent.REMOVE, vect, true);
 				var tempEvt:ProxyEvent = new ProxyEvent(this, invEvt);
 				tempEvt.proxyTarget.dispatchEvent(tempEvt.targetEvent);
+				return true;
 			}
+			else
+				return false
 		}
 		public static function get acceptedTypes():Array
 		{
@@ -81,7 +84,6 @@ package game
 		}
 		public static function initTypes():void
 		{
-			//trace(getQualifiedClassName(TopLayer) + " init types");
 			TopLayer.m_allowedTypes = new Array();//define the accepted types for this class
 			TopLayer.m_allowedTypes.push(distClass);//add the default class
 			TopLayer.m_allowedTypes.push(equipClass);

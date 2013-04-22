@@ -27,7 +27,7 @@ package itemClasses
 		private var m_year:uint;
 		private var m_actions:Vector.<actionObject>;
 		//-public
-		
+		//--static const
 		//functions
 		//-private
 		//-public
@@ -208,6 +208,15 @@ package itemClasses
 				return new Bitmap();
 			//return this.m_tNBitmap;
 		}
+		public function get isInInventory():Boolean
+		{
+			if (source.length > 0)
+			{
+				return (source[0] as itemObject).isInInventory;
+			}
+			else
+				return true;
+		}
 		//setters, for data binding (are read only)
 		public function set hour(value:uint):void//set the hour of this item
 		{
@@ -271,6 +280,13 @@ package itemClasses
 		{
 			return;//do nothing
 		}
+		public function set isInInventory(value:Boolean):void
+		{
+			for (var i:uint = 0; i < this.source.length; i++)
+			{
+				(this.getItemAt(i) as itemObject).isInInventory = value;//set all the things
+			}
+		}
 		//reset
 		public function reset():void
 		{
@@ -311,7 +327,14 @@ package itemClasses
 		private function canAddItemObject(item:itemObject):Boolean
 		{
 			if (item.type == this.type && item.subtype == this.subtype && item.itemKey == this.itemKey)
+			{
+				if (this.source.length > 0)
+				{
+					if (this.isInInventory != item.isInInventory)
+						return false;
+				}
 				return true;
+			}
 			return false;
 		}
 		override public function addItem(item:Object):void
@@ -327,12 +350,24 @@ package itemClasses
 				else if (item is Vector.<itemObject>)
 				{
 					for (var g:uint = 0; g < (item as Vector.<itemObject>).length; g++)
-						super.addItem( (item as Vector.<itemObject>)[g] as itemObject);
+					{
+						//super.addItem( (item as Vector.<itemObject>)[g] as itemObject);
+						if (canAddItemObject( (item as Vector.<itemObject>)[g]))
+							super.addItem( (item as Vector.<itemObject>)[g] as itemObject);
+						else
+							break;//somewhat different behavior but is okay
+					}
 				}
 				else if (item is itemObjectCollection)
 				{
 					for (var h:uint = 0; h < (item as itemObjectCollection).length; h++)
-						super.addItem( (item as itemObjectCollection)[h] as itemObject);
+					{
+						//super.addItem( (item as itemObjectCollection)[h] as itemObject);
+						if (canAddItemObject( (item as itemObjectCollection)[g]))
+							super.addItem( (item as itemObjectCollection)[g] as itemObject);
+						else
+							break;//somewhat different behavior but is okay
+					}
 				}
 				return;
 			}
@@ -362,19 +397,31 @@ package itemClasses
 				return;//then we can't add it
 			if (this.source.length == 0)//then we can definitely add it
 			{
+				var g:uint = 0
 				if (item is itemObject)
 				{
 					super.addItemAt(item as itemObject, index);
 				}
 				else if (item is Vector.<itemObject>)
 				{
-					for (var g:uint = 0; g < (item as Vector.<itemObject>).length; g++)
-						super.addItemAt( (item as Vector.<itemObject>)[g] as itemObject, index+i);
+					for (g = 0; g < (item as Vector.<itemObject>).length; g++)
+					{
+						//super.addItem( (item as Vector.<itemObject>)[g] as itemObject);
+						if (canAddItemObject( (item as Vector.<itemObject>)[g]))
+							super.addItem( (item as Vector.<itemObject>)[g] as itemObject);
+						else
+							break;//somewhat different behavior but is okay
+					}
 				}
 				else if (item is itemObjectCollection)
 				{
-					for (var h:uint = 0; h < (item as itemObjectCollection).length; h++)
-						super.addItemAt( (item as itemObjectCollection)[h] as itemObject, index+i);
+					for (g = 0; g < (item as itemObjectCollection).length; g++)
+					{
+						if (canAddItemObject( (item as itemObjectCollection)[g]))
+							super.addItem( (item as itemObjectCollection)[g] as itemObject);
+						else
+							break;//somewhat different behavior but is okay
+					}
 				}
 				return;
 			}
