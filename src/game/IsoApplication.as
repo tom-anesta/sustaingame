@@ -3,6 +3,7 @@ package game
 	//imports
 	//-eDpLib
 	import eDpLib.events.ProxyEvent;
+	import flash.media.Sound;
 	import itemClasses.waterDistributableItemObject;
 	//-de
 	import de.polygonal.ds.Array2
@@ -111,6 +112,19 @@ package game
 		private var m_waterMax:Number;
 		private var m_waterAvg:Number;
 		private var m_waterStdDev:Number;
+		
+		
+		[Embed(source="../../assets/music/song1.wav", mimeType="application/octet-stream")]
+		private var BGMusicOne:Class;
+		private var bgMusicOne:Sound;
+		
+		[Embed(source = "../../assets/music/song2.wav", mimeType = "application/octet-stream")]
+		private var BGMusicTwo:Class;
+		private var bgMusicTwo:Sound;
+		
+		[Embed(source = "../../assets/music/song3.wav", mimeType = "application/octet-stream")]
+		private var BGMusicThree:Class;
+		private var bgMusicThree:Sound;
 		
 		//functions
 		//-public
@@ -221,6 +235,32 @@ package game
 			var ev2:layedOutEvent = new layedOutEvent(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
 			dispatchEvent(ev2);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
+			
+			//music
+			bgMusicOne = (new BGMusicOne) as Sound;
+			bgMusicTwo = (new BGMusicTwo) as Sound;
+			bgMusicThree = (new BGMusicThree) as Sound;
+			
+			while (1)
+			{
+				var x:uint = 0;
+				if (x == 0)
+				{
+					bgMusicOne.play(0, 1, 0);
+					x++;
+				}
+				if (x == 1)
+				{
+					bgMusicTwo.play(0, 1, 0);
+					x++;
+				}
+				if (x == 2)
+				{
+					bgMusicThree.play(0, 1, 0);
+					x = 0;
+				}
+				
+			}
 			
 		}
 		private function createGroup():void
