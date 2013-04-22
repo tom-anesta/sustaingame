@@ -2,6 +2,7 @@ package game
 {
 	//imports
 	//-eDpLib
+	import as3isolib.core.IsoDisplayObject;
 	import eDpLib.events.ProxyEvent;
 	import flash.media.Sound;
 	import itemClasses.waterDistributableItemObject;
@@ -43,6 +44,7 @@ package game
 	import myEvents.timeElapsedEvent;
 	import myEvents.landSelectEvent;
 	
+	
 	public class IsoApplication extends Sprite
 	{
 		//members
@@ -78,6 +80,7 @@ package game
 		private var scene:IsoScene;
 		private var gridHolder:IsoScene;
 		private var grid:IsoGrid;
+		private var bg:Sprite;
 		//--grid container variables for determining contents
 		private var _group:Group;
 		private var _map:Array;
@@ -140,6 +143,17 @@ package game
 			bgGrid.setGridSize(bgWidth, bgLength, 0);
 			//set variables
 			view.currentZoom = .06;
+			bg = new Sprite();
+			bg.graphics.beginFill(0x00FF00);
+			bg.graphics.drawRect(0, 0, 35000, 22500);
+			bg.graphics.endFill();
+			view.backgroundContainer.addChild(bg);
+			
+			var pos:Pt = IsoMath.isoToScreen(new Pt(grid.gridSize[0] * grid.cellSize, grid.gridSize[1] * grid.cellSize, 0));
+			bg.x = (pos.x/2) - (bg.width/2);
+			bg.y = (pos.y/2) - (bg.height/2);
+			
+			view.rangeOfMotionTarget = bg;
 			//add event listeners
 			this.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ADDED_TO_STAGE, appOnStage);
@@ -363,19 +377,19 @@ package game
 		{
 			if (e.keyCode == 87)
 			{
-				view.panBy(0, -500);
+					view.panBy(0, -500);
 			}
 			if (e.keyCode == 65)
 			{
-				view.panBy( -500, 0);
+					view.panBy( -500, 0);
 			}
 			if (e.keyCode == 83)
 			{
-				view.panBy(0, 500);
+					view.panBy(0, 500);
 			}
 			if (e.keyCode == 68)
 			{
-				view.panBy(500, 0);
+					view.panBy(500, 0);
 			}
 			
 			view.limitRangeOfMotion = true;
