@@ -10,6 +10,7 @@ package itemClasses
 	import itemClasses.vehicleEquipmentItemObject;
 	import flash.utils.*;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	/**
 	 * ...
 	 * @author thomas anesta
@@ -20,18 +21,22 @@ package itemClasses
 		//-public
 		//--static const
 		//must hard code because we can't evaluate expressions
-		public static const TYPE_CONSTRUCTOR:uint = 23//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH;//modify for all classes
-		public static const DEFAULT_TOOL_TYPE:uint = 23//TYPE_CONSTRUCTOR + 0;
-		public static const HOE_TOOL_TYPE:uint = 24//TYPE_CONSTRUCTOR + 1;
+		public static const TYPE_CONSTRUCTOR:uint = 29;//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH;//modify for all classes
+		public static const DEFAULT_TOOL_TYPE:uint = TYPE_CONSTRUCTOR;//TYPE_CONSTRUCTOR + 0;
+		public static const BYHAND_TOOL_TYPE:uint = 30;
+		public static const HOE_TOOL_TYPE:uint = 31;//TYPE_CONSTRUCTOR + 1;
 		//public static const TOOLEQUIPMENT_TYPES_LENGTH:uint = 2;
 		//---type identifiers
+		public static const TOOL_BYHAND:String = "byhand";
 		public static const TOOL_HOE:String = "hoe";
 		//---defaults
 		public static const DEFAULT_TOOLEQUIPMENT_ITEMKEY:uint = DEFAULT_TOOL_TYPE;
 		//--embeds
 		[Embed(source="../../assets/images/Hoe.gif")]
 		protected static var DEFAULT_TOOLEQUIPMENT_TNASSET:Class;
-		[Embed(source="../../assets/images/Hoe.gif")]
+		[Embed(source = "../../assets/images/Hoe.gif")]
+		protected static var TOOL_BYHAND_TNASSET:Class;
+		[Embed(source = "../../assets/images/Hoe.gif")]
 		protected static var TOOL_HOE_TNASSET:Class;
 		//private
 		private static var s_inited:Boolean = false;
@@ -66,6 +71,7 @@ package itemClasses
 		{
 			s_assetArray = new Array();
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_TOOLEQUIPMENT_TNASSET))) as Class );
+			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(TOOL_BYHAND_TNASSET))) as Class );
 			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(TOOL_HOE_TNASSET))) as Class );
 			return true;
 		}

@@ -19,9 +19,9 @@ package itemClasses
 		//members
 		//-public
 		//--static const
-		public static const TYPE_CONSTRUCTOR:uint = 27//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH + toolEquipmentItemObject.TOOLEQUIPMENT_TYPES_LENGTH + vehicleEquipmentItemObject.VEHICLEEQUIPMENT_TYPES_LENGTH;//modify for all classes
-		public static const DEFAULT_TRAILER_TYPE:uint = 27//TYPE_CONSTRUCTOR + 0;
-		public static const WATERINGCAN_TRAILER_TYPE:uint = 28//TYPE_CONSTRUCTOR + 1;
+		public static const TYPE_CONSTRUCTOR:uint = 34//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + EQUIPMENTTYPES_LENGTH + seedDistributableItemObject.SEEDDISTRIBUTABLETYPES_LENGTH + plantCropItemObject.PLANTCROPTYPES_LENGTH + toolEquipmentItemObject.TOOLEQUIPMENT_TYPES_LENGTH + vehicleEquipmentItemObject.VEHICLEEQUIPMENT_TYPES_LENGTH;//modify for all classes
+		public static const DEFAULT_TRAILER_TYPE:uint = TYPE_CONSTRUCTOR//TYPE_CONSTRUCTOR + 0;
+		public static const WATERINGCAN_TRAILER_TYPE:uint = 35//TYPE_CONSTRUCTOR + 1;
 		//public static const PLANTCROPTYPES_LENGTH:uint = 2;
 		//---type identifiers
 		public static const TRAILER_WATERINGCAN:String = "wateringcan";

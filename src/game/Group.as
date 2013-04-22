@@ -47,7 +47,7 @@ package game
             _grid = grid;
         }
 		
-		public function setMap(map:Array, nNitrogen:Array = null, nPhosphorous:Array = null, nPotassium:Array=null):void
+		public function setMap(map:Array, nNitrogen:Array = null, nPhosphorous:Array = null, nPotassium:Array=null, wWater:Array=null):void
 		{
 			//make NxN array that represents the group’s layout
 			var w:Number = Math.max(map[0].length, map.length);
@@ -62,6 +62,7 @@ package game
 				var rN:Array = null;//nitrogen vector
 				var rP:Array = null;//phosphorous vector
 				var rK:Array = null;//potassium vector
+				var rW:Array = null;//water vector
 				if (nNitrogen != null)
 				{
 					if (nNitrogen.length > row)
@@ -76,6 +77,11 @@ package game
 				{
 					if (nPotassium.length > row)
 						rK = nPotassium[row];
+				}
+				if (wWater != null)
+				{
+					if (wWater.length > row)
+						rW = wWater[row];
 				}
 		 
 				for (var col:int = 0; col < r.length; col++)
@@ -96,6 +102,11 @@ package game
 					{
 						if (rK.length > col)
 							nutrients.push(rP[col] as itemObject);
+					}
+					if (rW != null)
+					{
+						if (rW.length > col)
+							nutrients.push(rW[col] as itemObject);
 					}
 					var tile:Tile = new Tile(map[row][col], nutrients);
 					tile.setSize(_grid.cellSize, _grid.cellSize, 0);
