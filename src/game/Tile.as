@@ -66,11 +66,11 @@ package game
 			return this.isActive;
 		}
 		
-		public function acceptExternalItemFromInventory(value:itemObject):void
+		public function acceptExternalItemFromInventory(value:itemObject):Boolean
 		{
 			//all of these things need to be added to the top layer initially, that is where they will do the work specified by the player
 			//check for top layer can accept the new item here
-			top.acceptExternalItemFromInventory(value);//this should dispatch an event if successful
+			return top.acceptExternalItemFromInventory(value);//this should dispatch an event if successful
 		}
 		
 		//fuck it implement itimeupdateable on this too ?  no don't do that yet, we don't need a description of time here or for it to handle action objects
@@ -87,16 +87,6 @@ package game
 			this.mid.resolveActions();
 			this.top.resolveActions();
 		}
-		
-		//commented extra code
-		//private event handlers
-		/*
-		private function inventoryEventHandler(ev:ProxyEvent):void
-		{
-			//trace("doing event");
-			//inventory event just bubbles up yo.
-		}
-		*/
 		
 	}
 

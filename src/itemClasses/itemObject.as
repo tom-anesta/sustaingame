@@ -28,7 +28,6 @@ package itemClasses
 		public static const DEFAULT_TYPE:uint = DISTRIBUTABLE_TYPE;//default is distributable
 		public static const DEFAULT_BASE_ITEMKEY:uint = DEFAULT_TYPE;//states that it only has a default type and no details
 		public static const DEFAULT_COST:uint = uint.MAX_VALUE;
-		public static const DEFAULT_DAYS:uint = 0;//how many days the player has owned this item
 		public static const DEFAULT_REDEEMABILITY:Number = 0.000000000001;//represents sell values
 		public static const DEFAULT_NAME:String = "UNKNOWN";
 		//image defaults

@@ -148,33 +148,6 @@ private function sellLayedOutHandler(e:layedOutEvent):void
 	e.target.setSellPanelDataProvider(user_inventory);
 	e.stopImmediatePropagation();
 }
-/*
-private function landSelectedHandler(e:landSelectEvent):void
-{
-	trace("main has received tile selected");
-	selectedTile = e.tile;
-}
-private function landDeSelectedHandler(e:landSelectEvent):void
-{
-	trace("main has received tile deselected");
-	selectedTile = null;
-}
-
-private function tileRequestHandler(e:landSelectEvent):void
-{
-	trace("tile request received");
-	if (selectedTile != null)
-	{
-		trace("setting to null");
-		e.target.setDefaults();
-	}
-	else
-	{
-		trace("setting to new");
-		e.target.setTile(selectedTile);
-	}
-}
-*/
 //handle a transaction
 private function handleCost(ev:transactionEvent):void
 {
@@ -188,7 +161,7 @@ private function handleIncome(ev:transactionEvent):void
 }
 //handle inventory stuff
 private function handleInventoryRemove(ev:inventoryEvent):void
-{
+{//we may be removing from inventory for good.  you should not need to change the isInInventory variable
 	for (var i:int = 0; i < ev.items.length; i++)
 	{
 		removeOneItemFromInventory(ev.items[i]);
@@ -252,6 +225,7 @@ private function switchViewFunc(e:viewChangeEvent):void
 //handle adding and removing a single item from inventory
 public function addOneItemToInventory(item:itemObject):void
 {
+	item.isInInventory = true;//set to be in the inventory
 	if (user_inventory.length == 0)
 	{
 		var firstItem:itemObjectCollection = new itemObjectCollection();

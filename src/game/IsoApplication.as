@@ -190,12 +190,14 @@ package game
 			m_timeline = value;
 			m_timeline.addEventListener(timeElapsedEvent.HOURCOMPLETE, hourhandler);
 		}
-		public function acceptExternalItemFromInventory(value:itemObject):void
+		public function acceptExternalItemFromInventory(value:itemObject):Boolean
 		{
 			if (selectedTile != null)
 			{
-				selectedTile.acceptExternalItemFromInventory(value);
+				return selectedTile.acceptExternalItemFromInventory(value);
 			}
+			else
+				return false;
 		}
 		//-private
 		//--construction event handlers
@@ -409,7 +411,7 @@ package game
 				}
 			}
 			view.currentZoom = zoom;
-			trace(view.currentZoom);
+			//trace(view.currentZoom);
 			
 		}
 		private function hourhandler(ev:timeElapsedEvent):void

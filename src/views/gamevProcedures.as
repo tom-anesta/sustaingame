@@ -163,7 +163,10 @@ private function useFromInventory(ev:inventoryEvent):void
 	//need to wait for the tile signal to remove from inventory
 	if (ev.type == inventoryEvent.USE && ev.items.length == 1)
 	{
-		(gameSpriteContainer.getChildAt(0) as IsoApplication).acceptExternalItemFromInventory(ev.items[0]);
+		if ((gameSpriteContainer.getChildAt(0) as IsoApplication).acceptExternalItemFromInventory(ev.items[0]))
+		{
+			ev.items[0].isInInventory = false;//that item is now in the inventory
+		}
 	}
 }
 private function useRequestEventReceived(ev:popupRequestEvent):void
