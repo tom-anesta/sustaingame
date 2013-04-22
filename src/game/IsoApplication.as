@@ -476,7 +476,6 @@ package game
 		//	}
 		//}
 		//else
-		
 		//for temp screenshot take into account width
 		//if (j > bgWidth / 2)//if on the bad side
 		//{

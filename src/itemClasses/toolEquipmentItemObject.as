@@ -39,6 +39,7 @@ package itemClasses
 		[Embed(source = "../../assets/images/Hoe.gif")]
 		protected static var TOOL_HOE_TNASSET:Class;
 		//private
+		//static
 		private static var s_inited:Boolean = false;
 		private static var s_assetArray:Array;
 		//functions
