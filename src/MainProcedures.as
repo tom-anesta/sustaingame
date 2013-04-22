@@ -21,6 +21,8 @@ import mx.rpc.events.ResultEvent;
 //spark events
 import spark.events.*;
 import spark.events.IndexChangeEvent;
+import flash.media.SoundChannel;
+import flash.media.Sound;
 //our classes
 //objects
 import globalManagers.moneyManager;
@@ -68,6 +70,13 @@ public var mainTimeLine:timeLine;
 public var infoIsInited:Boolean = false;
 
 
+[Embed(source="../assets/music/main.mp3")]
+public var Music:Class;
+public var music:Sound = new (Music) as Sound;
+public var mixer:SoundChannel;
+
+
+
 //PUBLIC FUNCTIONS
 
 
@@ -107,6 +116,7 @@ private function initApp():void
 	//addEventListener(landSelectEvent.LAND_SELECT, landSelectedHandler);
 	//addEventListener(landSelectEvent.LAND_DESELECT, landDeSelectedHandler);
 	//addEventListener(requestInfoEvent.requestTile, tileRequestHandler);
+	mixer = music.play();
 }
 private function ccApp():void
 {
@@ -118,6 +128,7 @@ private function ccApp():void
 	this.addEventListener(transactionEvent.INCOME, handleIncome);
 	this.addEventListener(inventoryEvent.REMOVE, handleInventoryRemove);
 	this.addEventListener(inventoryEvent.ADD, handleInventoryAdd);
+	
 }
 //private event handlers
 //views
@@ -130,6 +141,7 @@ private function gameLayedOutHandler(e:layedOutEvent):void
 	//since we already switched to we can start now
 	//mainTimeLine.addEventListener(timeElapsedEvent.HOURCOMPLETE, handleHourComplete);
 	mainTimeLine.start();
+	mixer.stop();
 }
 //test function
 /*
