@@ -113,18 +113,9 @@ package game
 		private var m_waterAvg:Number;
 		private var m_waterStdDev:Number;
 		
-		
-		[Embed(source="../../assets/music/song1.wav", mimeType="application/octet-stream")]
-		private var BGMusicOne:Class;
-		private var bgMusicOne:Sound;
-		
-		[Embed(source = "../../assets/music/song2.wav", mimeType = "application/octet-stream")]
-		private var BGMusicTwo:Class;
-		private var bgMusicTwo:Sound;
-		
-		[Embed(source = "../../assets/music/song3.wav", mimeType = "application/octet-stream")]
-		private var BGMusicThree:Class;
-		private var bgMusicThree:Sound;
+		[Embed(source="../../assets/music/bgmusic.mp3")]
+		private var BGMusic:Class;
+		private var bgMusic:Sound;
 		
 		//functions
 		//-public
@@ -193,6 +184,7 @@ package game
 			this.m_potassiumAvg = Math.abs(kAvg);
 			this.m_potassiumStdDev = Math.abs(kStdDev);
 			
+			
 		}
 		//set timeline and add items
 		public function setTimeLine(value:timeLine):void
@@ -238,31 +230,8 @@ package game
 			dispatchEvent(ev2);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
 			
-			//music
-			bgMusicOne = (new BGMusicOne) as Sound;
-			bgMusicTwo = (new BGMusicTwo) as Sound;
-			bgMusicThree = (new BGMusicThree) as Sound;
-			
-			while (1)
-			{
-				var x:uint = 0;
-				if (x == 0)
-				{
-					bgMusicOne.play(0, 1, 0);
-					x++;
-				}
-				if (x == 1)
-				{
-					bgMusicTwo.play(0, 1, 0);
-					x++;
-				}
-				if (x == 2)
-				{
-					bgMusicThree.play(0, 1, 0);
-					x = 0;
-				}
-				
-			}
+			bgMusic = new (BGMusic) as Sound;
+			bgMusic.play(0, 9999);
 			
 		}
 		private function createGroup():void
