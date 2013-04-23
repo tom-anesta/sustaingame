@@ -27,23 +27,40 @@ package itemClasses
 		public static const DEFAULT_CROP_ITEMKEY:uint = DEFAULT_CROP_SUBTYPE;
 		//public static const DEFAULT_CROP_TNSOURCE:String = "/../assets/images/SorghumStage3.gif";
 		//-protected
+		//--image things
+		
 		//cannot do this and that makes me sad//[Embed(source = cropItemObject.DEFAULT_CROP_TNSOURCE)]
+		//--embeds
 		[Embed(source="../../assets/images/SorghumStage3.gif")]
 		protected static var DEFAULT_CROP_TNASSET : Class;
+		//--the class init stuff
+		protected static var s_inited:Boolean = false;
+		protected static var s_imgArray:Array;
 		//functions
 		//-public
 		
 		//--constructor
 		public function cropItemObject(itemKey:uint = DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
-			
+			if (!s_inited)
+			{
+				//s_inited = initImgArray();//super will handle the set
+				initImgArray();
+			}
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			//this.m_tNSource = DEFAULT_CROP_TNSOURCE;
 			this.m_tNAsset = DEFAULT_CROP_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
-
+		
+		//--image array things
+		public static function initImgArray():Boolean
+		{
+			s_imgArray = new Array();
+			s_imgArray.push(DEFAULT_CROP_TNASSET);
+			return true;
+		}
 		
 	}
 }

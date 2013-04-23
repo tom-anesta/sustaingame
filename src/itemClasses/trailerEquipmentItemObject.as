@@ -32,19 +32,17 @@ package itemClasses
 		protected static var DEFAULT_TRAILEREQUIPMENT_TNASSET:Class;
 		[Embed(source="../../assets/images/WaterCanNWater.gif")]
 		protected static var TRAILER_WATERINGCAN_TNASSET:Class;
-		//private
-		private static var s_inited:Boolean = false;
-		private static var s_assetArray:Array;
+		//--image things
+		protected static var s_inited:Boolean = false;
+		protected static var s_imgArray:Array;
+		//--equipment things
+		protected static var s_acceptedTypes:Array;
 		//functions
 		//-public
 		//--constructor
 		public function trailerEquipmentItemObject(typeString:String, itemKey:uint=trailerEquipmentItemObject.DEFAULT_TRAILEREQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=TRAILER_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
-			if (!s_inited)
-			{
-				s_inited = initClassArray();
-			}
-			super(itemKey, type, subtype, cost, redeemability, isInInventory);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory);//will also handle the accepted types
 			switch(typeString)
 			{
 				case TRAILER_WATERINGCAN:
@@ -56,16 +54,21 @@ package itemClasses
 				default://default itemkey
 					break;
 			}
-			this.m_tNAsset = s_assetArray[this.m_itemKey - TYPE_CONSTRUCTOR];
+			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
-		//-private
-		//--init function
-		private static function initClassArray():Boolean
+		//--init functions
+		public static function initImgArray():Boolean
 		{
-			s_assetArray = new Array();
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_TRAILEREQUIPMENT_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(TRAILER_WATERINGCAN_TNASSET))) as Class );
+			s_imgArray = new Array();
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_TRAILEREQUIPMENT_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(TRAILER_WATERINGCAN_TNASSET))) as Class );
+			return true;
+		}
+		public static function initAcceptedTypesArray():Boolean
+		{
+			s_acceptedTypes = new Array();
+			s_acceptedTypes.push(equipmentItemObject);
 			return true;
 		}
 		

@@ -36,8 +36,8 @@ package itemClasses
 		protected static var FERTILIZER_POTASSIUM_TNASSET:Class;
 		//-private
 		//--class inits
-		private static var s_inited:Boolean = false;
-		private static var s_assetArray:Array;
+		protected static var s_inited:Boolean = false;
+		protected static var s_imgArray:Array;
 		
 		
 		
@@ -48,7 +48,8 @@ package itemClasses
 		{
 			if (!s_inited)
 			{
-				s_inited = initClassArray();
+				//s_inited = initImgArray();//super will handle the set
+				initImgArray();
 			}
 			super(itemKey, type, subtype, cost, redeemability, isInInventory, unit, maxQuantityVal, quantityVal);
 			switch(typeString)
@@ -69,19 +70,17 @@ package itemClasses
 					this.m_itemKey = DEFAULT_FERTILIZERDISTRIBUTABLE_ITEMKEY;
 					this.m_name = "fertilizer";
 			}
-			this.m_tNAsset = s_assetArray[this.m_itemKey - TYPE_CONSTRUCTOR];
+			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
-		
-		//-private
 		//--init functions
-		private static function initClassArray():Boolean
+		public static function initImgArray():Boolean
 		{
-			s_assetArray = new Array();
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_FERTILIZER_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(FERTILIZER_NITROGEN_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(FERTILIZER_PHOSPHOROUS_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(FERTILIZER_POTASSIUM_TNASSET))) as Class );
+			s_imgArray = new Array();
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_FERTILIZER_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(FERTILIZER_NITROGEN_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(FERTILIZER_PHOSPHOROUS_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(FERTILIZER_POTASSIUM_TNASSET))) as Class );
 			return true;
 		}
 		
