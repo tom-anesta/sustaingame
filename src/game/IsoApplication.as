@@ -125,6 +125,8 @@ package game
 		private var s2Music:Class;
 		[Embed(source = "../../assets/music/song3.mp3")]
 		private var s3Music:Class;
+		[Embed(source = "../../assets/music/main.mp3")]
+		private var s4Music:Class;
 		private var bgMusic:Sound;
 		private var bgMusicChannel:SoundChannel;
 		//functions
@@ -473,17 +475,21 @@ package game
 		private function getRandomBGMusic():Sound
 		{
 			var rVal:Number = Math.random();
-			if (rVal < 0.333333)
+			if (rVal < 0.2555555)
 			{
 				return new (this.s1Music) as Sound;
 			}
-			else if (rVal < 0.666666666)
+			else if (rVal < 0.5555555)
 			{
 				return new (this.s2Music) as Sound;
 			}
-			else
+			else if (rVal < 0.7555555)
 			{
 				return new (this.s3Music) as Sound;
+			}
+			else
+			{
+				return new (this.s4Music) as Sound;
 			}
 		}
 		
