@@ -1,9 +1,15 @@
 package itemClasses 
 {
+	//imports
+	//-flash
+	import flash.display.Bitmap;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
+	//-our things
 	import itemClasses.itemObject;
 	import itemClasses.cropItemObject;
 	import itemClasses.equipmentItemObject;
-	import flash.display.Bitmap;
+	
 	/**
 	 * ...
 	 * @author thomas anesta
@@ -37,9 +43,11 @@ package itemClasses
 		//-protected
 		//cannot do this and that makes me sad//[Embed(source = distributableItemObject.DEFAULT_DISTRIBUTABLE_TNSOURCE)]
 		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
-		protected var DEFAULT_DISTRIBUTABLE_TNASSET : Class;
-		//-private
-		//
+		protected static var DEFAULT_DISTRIBUTABLE_TNASSET : Class;
+		//--static from itemobject for inits
+		protected static var s_inited:Boolean = false;
+		protected static var s_imgArray:Array;
+		//--class specifics
 		protected var m_unit:String;
 		protected var m_quantity:Number;
 		protected var m_maxQuantity:Number;//applies to all items of the class? no because in the future we are going to make this dependent on the soil quality
@@ -49,6 +57,10 @@ package itemClasses
 		//--constructor
 		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number = DEFAULT_MINIMUM_MAXQUANTITY)
 		{
+			if (!getDefinitionByName(getQualifiedClassName(this)).s_inited)
+			{
+				//getDefinitionByName(getQualifiedClassName(this)).init//will be handled by super
+			}
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			//this.m_tNSource = DEFAULT_DISTRIBUTABLE_TNSOURCE;
 			this.m_tNAsset = DEFAULT_DISTRIBUTABLE_TNASSET;
@@ -122,6 +134,13 @@ package itemClasses
 		public function set maxQuantity(value:Number):void
 		{
 			return;//set by class, don't bother here
+		}
+		//--for imginit
+		public static function initImgArray():Boolean
+		{
+			s_imgArray = new Array();
+			s_imgArray.push(DEFAULT_DISTRIBUTABLE_TNASSET as Class);
+			return true;
 		}
 		
 

@@ -1,9 +1,15 @@
 package itemClasses 
 {
+	//imports
+	//-flash
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
-	import mx.accessibility.UIComponentAccProps;
 	import flash.display.Bitmap;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
+	//-mx
+	import mx.accessibility.UIComponentAccProps;
+	//-our things
 	import ITimeUpdateable;
 	import myEvents.timeElapsedEvent;
 	
@@ -28,10 +34,10 @@ package itemClasses
 		public static const DEFAULT_TYPE:uint = DISTRIBUTABLE_TYPE;//default is distributable
 		public static const DEFAULT_BASE_ITEMKEY:uint = DEFAULT_TYPE;//states that it only has a default type and no details
 		public static const DEFAULT_COST:uint = uint.MAX_VALUE;
-		public static const DEFAULT_REDEEMABILITY:Number = 0.000000000001;//represents sell values
+		public static const DEFAULT_REDEEMABILITY:Number = 0.0000001;//represents sell values
 		public static const DEFAULT_NAME:String = "UNKNOWN";
 		//image defaults
-		//public static const DEFAULT_TNSOURCE:String = "../../assets/images/SorghumStage1.gif"; 
+		//public static const DEFAULT_TNSOURCE:String = "../../assets/images/SorghumStage1.gif";
 		//public static const DEFAULT_//need something to describe the function for calculating redeemability
 		//-private
 		//-protected
@@ -58,7 +64,10 @@ package itemClasses
 		//--embeds
 		[Embed(source = "../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
 		protected static var DEFAULT_TNASSET:Class;
-		
+		//--for image array
+		protected static var s_inited:Boolean = false;
+		protected static var s_imgArray:Array;// = [DEFAULT_SEEDDISTRIBUTABLE_TNASSET, SEED_SORGHUM_TNASSET, SEED_MAIZE_TNASSET, SEED_PEANUT_TNASSET, SEED_SOYBEAN_TNASSET, SEED_GRAPE_TNASSET, SEED_TOBACCO_TNASSET, SEED_SUGARCANE_TNASSET, SEED_APRICOT_TNASSET];
+		//-resolve the type and information
 		
 		//functions
 		//-public
@@ -66,6 +75,11 @@ package itemClasses
 		public function itemObject(itemKey:uint = DEFAULT_BASE_ITEMKEY, type:uint = DEFAULT_TYPE, subtype:uint = DEFAULT_TYPE, cost:uint = DEFAULT_COST, redeemability:Number = DEFAULT_REDEEMABILITY, isInInventory:Boolean = true )
 		{
 			super();
+			var cVal:Object = getDefinitionByName(getQualifiedClassName(this));
+			if (!cVal.s_inited)//set the images
+			{
+				cVal.s_inited = cVal.initImgArray();
+			}
 			this.m_eventDispatcher = new EventDispatcher(this);
 			//handle types
 			this.m_type = type;
@@ -294,6 +308,13 @@ package itemClasses
 		public function resolveActions(hourVal:uint = uint.MAX_VALUE, dayVal:uint = uint.MAX_VALUE, dateVal:uint = uint.MAX_VALUE, monthVal:uint = uint.MAX_VALUE, yearVal:uint = uint.MAX_VALUE):void//resolve all actions set to occur on the hour, day, date, month, and year specified
 		{
 			return;
+		}
+		
+		//-protected
+		//--image inits
+		public static function initImgArray():Boolean
+		{
+			return true;
 		}
 		
 	

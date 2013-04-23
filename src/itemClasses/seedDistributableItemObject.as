@@ -83,17 +83,20 @@ package itemClasses
 		protected static var SEED_APRICOT_TNASSET : Class;
 		//private
 		private static var s_inited:Boolean = false;
-		private static var s_assetArray:Array;// = [DEFAULT_SEEDDISTRIBUTABLE_TNASSET, SEED_SORGHUM_TNASSET, SEED_MAIZE_TNASSET, SEED_PEANUT_TNASSET, SEED_SOYBEAN_TNASSET, SEED_GRAPE_TNASSET, SEED_TOBACCO_TNASSET, SEED_SUGARCANE_TNASSET, SEED_APRICOT_TNASSET];
+		private static var s_imgArray:Array;// = [DEFAULT_SEEDDISTRIBUTABLE_TNASSET, SEED_SORGHUM_TNASSET, SEED_MAIZE_TNASSET, SEED_PEANUT_TNASSET, SEED_SOYBEAN_TNASSET, SEED_GRAPE_TNASSET, SEED_TOBACCO_TNASSET, SEED_SUGARCANE_TNASSET, SEED_APRICOT_TNASSET];
 		//-resolve the type and information
 		//functions
 		//-public
 		//--constructor
 		public function seedDistributableItemObject(typeString:String, itemKey:uint = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=SEED_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number = DEFAULT_MINIMUM_MAXQUANTITY)
 		{
+			/*
 			if (!s_inited)
 			{
-				s_inited = initClassArray();
+				//s_inited = initImgArray();//
+				//will be handled by super
 			}
+			*/
 			super(itemKey, type, subtype, cost, redeemability, isInInventory, unitVal, maxQuantity, quantity);
 			switch(typeString)
 			{
@@ -134,23 +137,22 @@ package itemClasses
 				default://default itemkey
 					break;
 			}
-			this.m_tNAsset = s_assetArray[this.m_itemKey - TYPE_CONSTRUCTOR];
+			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
-		//-private
 		//--init function
-		private static function initClassArray():Boolean
+		public static function initImgArray():Boolean
 		{
-			s_assetArray = new Array();
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_SEEDDISTRIBUTABLE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SORGHUM_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_MAIZE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_PEANUT_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SOYBEAN_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_GRAPE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_TOBACCO_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SUGARCANE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(SEED_APRICOT_TNASSET))) as Class );
+			s_imgArray = new Array();
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_SEEDDISTRIBUTABLE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SORGHUM_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_MAIZE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_PEANUT_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SOYBEAN_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_GRAPE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_TOBACCO_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SUGARCANE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_APRICOT_TNASSET))) as Class );
 			return true;
 		}
 		//--getters and setters

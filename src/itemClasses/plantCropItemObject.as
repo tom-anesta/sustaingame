@@ -60,7 +60,7 @@ package itemClasses
 		protected static var PLANT_APRICOT_TNASSET:Class;
 		//private
 		private static var s_inited:Boolean = false;
-		private static var s_assetArray:Array;
+		private static var s_imgArray:Array;
 		//functions
 		//-public
 		//--constructor
@@ -102,20 +102,19 @@ package itemClasses
 			this.m_tNAsset = s_assetArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
-		//-private
 		//--init function
-		private static function initClassArray():Boolean
+		public static function initImgArray():Boolean
 		{
-			s_assetArray = new Array();
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_PLANTCROP_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_SORGHUM_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_MAIZE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_PEANUT_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_SOYBEAN_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_GRAPE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_TOBACCO_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_SUGARCANE_TNASSET))) as Class );
-			s_assetArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_APRICOT_TNASSET))) as Class );
+			s_imgArray = new Array();
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_PLANTCROP_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_SORGHUM_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_MAIZE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_PEANUT_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_SOYBEAN_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_GRAPE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_TOBACCO_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_SUGARCANE_TNASSET))) as Class );
+			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PLANT_APRICOT_TNASSET))) as Class );
 			return true;
 		}
 		
