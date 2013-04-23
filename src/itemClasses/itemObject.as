@@ -13,11 +13,6 @@ package itemClasses
 	import ITimeUpdateable;
 	import myEvents.timeElapsedEvent;
 	
-	
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
 	[Bindable]
 	public class itemObject extends Object implements IEventDispatcher, ITimeUpdateable //the object we are using to represent things in inventory, buy, and sell
 	{// support for IEventDispatcher Interface provided by http://flexdiary.blogspot.com/2008/11/implementing-ieventdispatcher.html	
@@ -25,21 +20,22 @@ package itemClasses
 		//member variables
 		//-public
 		//--static const
-		//types
+		//---types
 		public static const DISTRIBUTABLE_TYPE:uint = 0;//INCLUDES SEEDS, FERTILIZER, WATER
 		public static const CROP_TYPE:uint = 1;//INCLUDES SEEDS AFTER DISTRIBUTION ANY CROP AFTER HARVESTING
 		public static const EQUIPMENT_TYPE:uint = 2;//INCLUDES IRRIGATION SYSTEMS, TRACTORS, FARMING EQUIPMENT
 		public static const MAINTYPES_LENGTH:uint = 3;//how many main types are in the main types enum
-		//defaults
+		
+		//---defaults
 		public static const DEFAULT_TYPE:uint = DISTRIBUTABLE_TYPE;//default is distributable
 		public static const DEFAULT_BASE_ITEMKEY:uint = DEFAULT_TYPE;//states that it only has a default type and no details
 		public static const DEFAULT_COST:uint = uint.MAX_VALUE;
 		public static const DEFAULT_REDEEMABILITY:Number = 0.0000001;//represents sell values
 		public static const DEFAULT_NAME:String = "UNKNOWN";
-		//image defaults
-		//public static const DEFAULT_TNSOURCE:String = "../../assets/images/SorghumStage1.gif";
-		//public static const DEFAULT_//need something to describe the function for calculating redeemability
-		//-private
+		//---taskAsOperant
+		public static const TASK_PLANTING:uint = 0;
+		public static const TASK_TILLING:uint = 1;
+		public static const TASK_HARVESTING:uint = 2;
 		//-protected
 		//--for children
 		protected var m_itemKey:uint;//the unique itemkey, identifies both type and subtype and name
@@ -67,7 +63,8 @@ package itemClasses
 		//--for image array
 		protected static var s_inited:Boolean = false;
 		protected static var s_imgArray:Array;// = [DEFAULT_SEEDDISTRIBUTABLE_TNASSET, SEED_SORGHUM_TNASSET, SEED_MAIZE_TNASSET, SEED_PEANUT_TNASSET, SEED_SOYBEAN_TNASSET, SEED_GRAPE_TNASSET, SEED_TOBACCO_TNASSET, SEED_SUGARCANE_TNASSET, SEED_APRICOT_TNASSET];
-		//-resolve the type and information
+		//--so equipment itemObject knows what to do with everything
+		protected var m_taskAsOperant:uint;
 		
 		//functions
 		//-public
@@ -100,6 +97,7 @@ package itemClasses
 			this.m_actions = new Vector.<actionObject>();
 			//other for handling adding and removing actions
 			this.m_isInInventory = isInInventory;
+			this.m_taskAsOperant = TASK_PLANTING;//default whatevs
 		}
 		//--getters and setters
 		//---for class
@@ -143,6 +141,10 @@ package itemClasses
 		public function get isInInventory():Boolean
 		{
 			return this.m_isInInventory;
+		}
+		public function get taskAsOperant():uint
+		{
+			return this.m_taskAsOperant;
 		}
 		//----setters, for data binding (are read only)
 		public function set itemKey(value:uint):void
@@ -188,6 +190,10 @@ package itemClasses
 			{
 				this.m_actions = new Vector.<actionObject>();
 			}
+		}
+		public function set taskAsOperant(value:uint):void
+		{
+			return;
 		}
 		//
 		//---for ITimeUpdatable
@@ -314,6 +320,8 @@ package itemClasses
 		//--image inits
 		public static function initImgArray():Boolean
 		{
+			s_imgArray = new Array();
+			s_imgArray.push((getDefinitionByName(getQualifiedClassName(DEFAULT_TNASSET))) as Class);
 			return true;
 		}
 		

@@ -2,12 +2,14 @@ package itemClasses
 {
 	import eDpLib.events.IEventDispatcherProxy;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import itemClasses.itemObject;
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
 	import flash.display.Bitmap;
 	import flash.utils.*;
+	import mx.accessibility.UIComponentAccProps;
 	/**
 	 * ...
 	 * @author thomas anesta
@@ -24,14 +26,15 @@ package itemClasses
 		public static const TRAILER_TYPE:uint = 12//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 2;
 		public static const IRRIGATIONSYSTEM_TYPE:uint = 13//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 3;
 		//--what tasks can it do?
-		public static const TOOL_EQUIPMENT_TASK_TYPE:uint = 0;
-		public static const VEHICLE_EQUIPMENT_TASK_TYPE:uint = 1;
-		public static const TRAILER_EQUIPMENT_TASK_TYPE:uint = 2;
-		public static const IRRIGATIONSYSTEM_EQUIPMENT_TASK_TYPE:uint = 3;
+		public static const TOOL_EQUIPMENT_TASK_TYPE:uint = 3;
+		public static const VEHICLE_EQUIPMENT_TASK_TYPE:uint = 4;
+		public static const TRAILER_EQUIPMENT_TASK_TYPE:uint = 5;
+		public static const IRRIGATIONSYSTEM_EQUIPMENT_TASK_TYPE:uint = 6;
 		//---defaults
 		public static const DEFAULT_EQUIPMENT_SUBTYPE:uint = TOOL_TYPE;
 		public static const DEFAULT_EQUIPMENT_ITEMKEY:uint = DEFAULT_EQUIPMENT_SUBTYPE;
 		public static const DEFAULT_TASK_TYPE:uint = TOOL_EQUIPMENT_TASK_TYPE;
+		public static const MAX_OPERANTS:uint = 1;//start with only one operant
 		//-protected
 		//--embeds
 		//cannot do this and it makes me sad//[Embed(source = equipmentItemObject.DEFAULT_EQUIPMENT_TNSOURCE)]
@@ -50,7 +53,8 @@ package itemClasses
 		private var m_hourlyProgress:Number;//how much progress do we make each hour?
 		private var m_performingTask:Boolean;
 		//--related to the object that the equipment is working on//can be the tile
-		private var m_operant:Object//IEventDispatcher;//the object that the equipment is working on, functions as a child object
+		private var m_operants:Array;//IEventDispatcher;//the object that the equipment is working on, functions as a child object
+		private var m_maxOperants:uint;
 		//functions
 		//-public
 		//--constructor
@@ -68,7 +72,8 @@ package itemClasses
 			this.m_task = null;
 			this.m_taskType = DEFAULT_TASK_TYPE;
 			this.m_performingTask = false;
-			this.m_operant = null;
+			this.m_operants = new Array();
+			this.m_maxOperants = MAX_OPERANTS;
 		}
 		//--getters and setters
 		//---getters
@@ -88,9 +93,9 @@ package itemClasses
 		{
 			return this.m_performingTask;
 		}
-		public function get Operant():Object
+		public function get Operants():Array
 		{
-			return this.m_operant;
+			return this.m_operants;
 		}
 		//---setters
 		public function set taskProgress(value:Number):void
@@ -115,24 +120,77 @@ package itemClasses
 			else
 				this.m_performingTask = value;
 		}
-		public function set Operant(value:Object):void
+		public function set Operants(value:Array):void
 		{
-			if (!validOperant(value))
+			if (!validOperant(value))//handle size in valid operant
 			{
 				return;
 			}
-			if (this.m_operant != null && (this.m_operant is IEventDispatcher) && this.m_operant.hasEventListener("tempTrigger"))
+			var i:uint = 0;
+			for (i = 0; i < this.m_operants.length; i++)
 			{
-				this.m_operant.removeEventListener("tempTrigger", handleOperantEvent);
+				if (this.m_operants[i] != null && (this.m_operants[i] is IEventDispatcherProxy) && this.m_operants[i].proxy.hasEventListener("tempTrigger"))
+				{
+					(this.m_operants[i] as IEventDispatcherProxy).removeEventListener("tempTrigger", handleOperantEvent);
+				}
+				else if (this.m_operants[i] != null && (this.m_operants[i] is IEventDispatcher) && this.m_operants[i].hasEventListener("tempTrigger"))
+				{
+					(this.m_operants[i] as IEventDispatcher).removeEventListener("tempTrigger", handleOperantEvent);
+				}
 			}
-			else if(this.m_operant != null && (this.m_operant is IEventDispatcherProxy) && this.m_operant.proxy.hasEventListener("tempTrigger"))
-			this.m_operant = value;
-			value.addEventListener("tempTrigger", handleOperantEvent);
+			this.m_operants = new Array();
+			for (i = 0; i < value.length; i++)
+			{
+				this.m_operants.push(value[i]);
+				if (this.m_operants[i] is IEventDispatcherProxy)
+				{
+					(this.m_operants[i] as IEventDispatcherProxy).addEventListener("tempTrigger", handleOperantEvent);
+				}
+				else if (this.m_operants[i] is IEventDispatcher)
+				{
+					(this.m_operants[i] as IEventDispatcher).addEventListener("tempTrigger", handleOperantEvent);
+				}
+			}
+			//value.addEventListener("tempTrigger", handleOperantEvent);
 		}
 		//--boolean returns for using an operant
 		public function validOperant(value:Object):Boolean
 		{
-			return true;
+			//http://stackoverflow.com/questions/5054418/how-to-test-if-an-object-is-a-vector
+			//http://www.newgrounds.com/bbs/topic/1298636
+			var i:uint = 0;
+			if (value is Array)
+			{
+				if ( (value as Array).length > this.m_maxOperants)
+				{
+					return false;
+				}
+				for (i = 0; i < (value as Array).length; i++)
+				{
+					if (value[i] is Array)
+					{
+						return false;
+					}
+					else
+					return validOperant(value[i]);
+				}
+			}
+			else if (value is Vector.<*> || value is Vector.<Number> || value is Vector.<int> || value is Vector.<uint> || value is Dictionary)
+			{
+				return false;
+			}
+			if (this.m_operants.length >= this.m_maxOperants)
+			{
+				return false;
+			}
+			for (i = 0; i < s_acceptedTypes.length; i++)
+			{
+				if (value is (s_acceptedTypes[i] as Class))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 		public function addOperant(value:Object):Boolean//true if added false otherwise
 		{
@@ -152,6 +210,28 @@ package itemClasses
 			s_acceptedTypes.push(equipmentItemObject);
 			return true;
 		}
+		
+		//DETERMINE PURPOSE
+		public function finalizeEquipment(value:Object):Boolean
+		{
+			if (!validOperant(value))
+				return false;//need to make sure because the set is void
+			if (value is Array)
+			{
+				Operants = (value as Array);
+				//how do we determine the task from this?
+				//...um i guess we dont?
+			}
+			else
+			{
+				var tempArr:Array = new Array();
+				tempArr.push(value);
+				Operants = tempArr;
+				
+			}
+			return true;
+		}
+		
 		//-private
 		//--adding functions
 		

@@ -27,13 +27,14 @@ package itemClasses
 		public static const BYHAND_TOOL_TYPE:uint = 30;
 		public static const HOE_TOOL_TYPE:uint = 31;//TYPE_CONSTRUCTOR + 1;
 		//public static const TOOLEQUIPMENT_TYPES_LENGTH:uint = 2;
-		//---type identifiers
+		//---type identifiers (string)
+		public static const TOOL_DEFAULT_NAME:String = "tool";
 		public static const TOOL_BYHAND:String = "byhand";
 		public static const TOOL_HOE:String = "hoe";
 		//task types
-		public static const PLANTING_TOOL_TASK_TYPE:uint = 4;//applies to all distributables
-		public static const TILLING_TOOL_TASK_TYPE:uint = 5;//applies to soil
-		public static const HARVESTING_TOOL_TASK_TYPE:uint = 6;//applies to all growing crops
+		public static const PLANTING_TOOL_TASK_TYPE:uint = 7;//applies to all distributables
+		public static const TILLING_TOOL_TASK_TYPE:uint = 8;//applies to soil
+		public static const HARVESTING_TOOL_TASK_TYPE:uint = 9;//applies to all growing crops
 		//---defaults
 		public static const DEFAULT_TOOLEQUIPMENT_ITEMKEY:uint = DEFAULT_TOOL_TYPE;
 		//--embeds
@@ -53,16 +54,23 @@ package itemClasses
 		//--constructor
 		public function toolEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true) 
 		{
+			this.m_name = typeString;
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);//will also handle the accepted types
-			switch(typeString)
+			switch(this.m_name)
 			{
 				case TOOL_HOE:
 					this.m_itemKey = HOE_TOOL_TYPE;
-					this.m_name = TOOL_HOE;
 					this.m_cost = 75;
 					this.m_redeemability = 0.6;
+					this.m_taskAsOperant = TILLING_TOOL_TASK_TYPE;
 					break;
+				case TOOL_BYHAND:
+					this.m_itemKey = BYHAND_TOOL_TYPE;
+					this.m_cost = 0;
+					this.m_redeemability = 0;
+					this.m_taskAsOperant = HARVESTING_TOOL_TASK_TYPE;
 				default://default itemkey
+					this.m_name = TOOL_DEFAULT_NAME;
 					break;
 			}
 			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
