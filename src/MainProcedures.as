@@ -143,13 +143,6 @@ private function gameLayedOutHandler(e:layedOutEvent):void
 	mainTimeLine.start();
 	mixer.stop();
 }
-//test function
-/*
-public function handleHourComplete(ev:timeElapsedEvent):void
-{
-	return;//do nothing for now
-}
-*/
 private function inventoryLayedOutHandler(e:layedOutEvent):void
 {
 	e.target.setInventoryPanelDataProvider(user_inventory);

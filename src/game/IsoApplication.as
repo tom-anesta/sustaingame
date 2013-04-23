@@ -5,6 +5,7 @@ package game
 	import as3isolib.core.IsoDisplayObject;
 	import eDpLib.events.ProxyEvent;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import itemClasses.waterDistributableItemObject;
 	//-de
 	import de.polygonal.ds.Array2
@@ -118,8 +119,14 @@ package game
 		
 		[Embed(source="../../assets/music/bgmusic.mp3")]
 		private var BGMusic:Class;
+		[Embed(source = "../../assets/music/song1.mp3")]
+		private var s1Music:Class;
+		[Embed(source = "../../assets/music/song2.mp3")]
+		private var s2Music:Class;
+		[Embed(source = "../../assets/music/song3.mp3")]
+		private var s3Music:Class;
 		private var bgMusic:Sound;
-		
+		private var bgMusicChannel:SoundChannel;
 		//functions
 		//-public
 		//--constructor
@@ -244,8 +251,10 @@ package game
 			dispatchEvent(ev2);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
 			
-			bgMusic = new (BGMusic) as Sound;
-			bgMusic.play(0, 9999);
+			
+			this.bgMusic = getRandomBGMusic();
+			bgMusicChannel = bgMusic.play(0, 0);
+			bgMusicChannel.addEventListener(Event.SOUND_COMPLETE, bgMusicEndHandler);
 			
 		}
 		private function createGroup():void
@@ -448,6 +457,34 @@ package game
 		private function deselectHandler(ev:landSelectEvent):void
 		{
 			selectedTile = null;
+		}
+		//event handlers for sound
+		private function bgMusicEndHandler(ev:Event):void
+		{
+			if (ev.target != this.bgMusicChannel && ev.target != this.bgMusic)
+			{
+				return;//was wrong source
+			}
+			this.bgMusic = getRandomBGMusic();
+			this.bgMusicChannel.removeEventListener(Event.SOUND_COMPLETE, bgMusicEndHandler);//remove from old so no memory leak
+			this.bgMusicChannel = bgMusic.play(0, 0);
+			this.bgMusicChannel.addEventListener(Event.SOUND_COMPLETE, bgMusicEndHandler);
+		}
+		private function getRandomBGMusic():Sound
+		{
+			var rVal:Number = Math.random();
+			if (rVal < 0.333333)
+			{
+				return new (this.s1Music) as Sound;
+			}
+			else if (rVal < 0.666666666)
+			{
+				return new (this.s2Music) as Sound;
+			}
+			else
+			{
+				return new (this.s3Music) as Sound;
+			}
 		}
 		
 		
