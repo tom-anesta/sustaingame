@@ -26,6 +26,12 @@ package itemClasses
 		//public static const VEHICLEEQUIPMENT_TYPES_LENGTH:uint = 2;
 		//---type identifiers
 		public static const VEHICLE_TRACTOR:String = "tractor";
+		//---task types
+		public static const HAULING_VEHICLE_TASK_TYPE:uint = 7;//if it has a trailer, the trailer can do it's own task
+		public static const PLANTING_VEHICLE_TASK_TYPE:uint = 8;//if the vehicle plants things itself (seeds, fertilizer, water, pesticides, herbicides)
+		public static const TILLING_VEHICLE_TASK_TYPE:uint = 9;//if the vehicle tills things itself
+		public static const ASSISTED_HARVESTING_VEHICLE_TASK_TYPE:uint = 10;//if the vehicle harvests and needs a trailer to contain the stuff
+		public static const HARVESTING_VEHICLE_TASK_TYPE:uint = 11;//if the vehicle harvests without needing a trailer
 		//---defaults
 		public static const DEFAULT_VEHICLEEQUIPMENT_ITEMKEY:uint = DEFAULT_VEHICLE_TYPE;
 		//--embeds
@@ -72,6 +78,7 @@ package itemClasses
 			s_acceptedTypes.push(equipmentItemObject);
 			return true;
 		}
+		
 		
 	}
 

@@ -30,6 +30,10 @@ package itemClasses
 		//---type identifiers
 		public static const TOOL_BYHAND:String = "byhand";
 		public static const TOOL_HOE:String = "hoe";
+		//task types
+		public static const PLANTING_TOOL_TASK_TYPE:uint = 4;//applies to all distributables
+		public static const TILLING_TOOL_TASK_TYPE:uint = 5;//applies to soil
+		public static const HARVESTING_TOOL_TASK_TYPE:uint = 6;//applies to all growing crops
 		//---defaults
 		public static const DEFAULT_TOOLEQUIPMENT_ITEMKEY:uint = DEFAULT_TOOL_TYPE;
 		//--embeds

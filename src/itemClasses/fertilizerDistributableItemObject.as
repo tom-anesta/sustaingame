@@ -34,8 +34,7 @@ package itemClasses
 		protected static var FERTILIZER_PHOSPHOROUS_TNASSET:Class;
 		[Embed(source = "../../assets/images/Tractor_clip_art_small.png")]
 		protected static var FERTILIZER_POTASSIUM_TNASSET:Class;
-		//-private
-		//--class inits
+		//--for image things
 		protected static var s_inited:Boolean = false;
 		protected static var s_imgArray:Array;
 		

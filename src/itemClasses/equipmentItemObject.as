@@ -18,16 +18,20 @@ package itemClasses
 		//members
 		//-public
 		//--static const
-		//must hard code because we can't evaluate expressions
+		//must hard code because we can't evaluate expressions :(
 		public static const TOOL_TYPE:uint = 10//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 0;
 		public static const VEHICLE_TYPE:uint = 11//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 1;
 		public static const TRAILER_TYPE:uint = 12//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 2;
 		public static const IRRIGATIONSYSTEM_TYPE:uint = 13//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 3;
-		//public static const EQUIPMENTTYPES_LENGTH:uint = 4;
+		//--what tasks can it do?
+		public static const TOOL_EQUIPMENT_TASK_TYPE:uint = 0;
+		public static const VEHICLE_EQUIPMENT_TASK_TYPE:uint = 1;
+		public static const TRAILER_EQUIPMENT_TASK_TYPE:uint = 2;
+		public static const IRRIGATIONSYSTEM_EQUIPMENT_TASK_TYPE:uint = 3;
 		//---defaults
 		public static const DEFAULT_EQUIPMENT_SUBTYPE:uint = TOOL_TYPE;
 		public static const DEFAULT_EQUIPMENT_ITEMKEY:uint = DEFAULT_EQUIPMENT_SUBTYPE;
-		//public static const DEFAULT_EQUIPMENT_TNSOURCE:String = "/../assets/images/WaterCanNWater.gif";
+		public static const DEFAULT_TASK_TYPE:uint = TOOL_EQUIPMENT_TASK_TYPE;
 		//-protected
 		//--embeds
 		//cannot do this and it makes me sad//[Embed(source = equipmentItemObject.DEFAULT_EQUIPMENT_TNSOURCE)]
@@ -42,6 +46,7 @@ package itemClasses
 		//--related to task
 		private var m_taskProgress:Number;
 		private var m_task:Function;
+		private var m_taskType:uint;
 		private var m_hourlyProgress:Number;//how much progress do we make each hour?
 		private var m_performingTask:Boolean;
 		//--related to the object that the equipment is working on//can be the tile
@@ -59,8 +64,9 @@ package itemClasses
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);//also handles the init for img array
 			this.m_tNAsset = DEFAULT_EQUIPMENT_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
-			this.m_taskProgress = 0;
+			this.m_taskProgress = 0;//these are not to be specified by the constructor
 			this.m_task = null;
+			this.m_taskType = DEFAULT_TASK_TYPE;
 			this.m_performingTask = false;
 			this.m_operant = null;
 		}
@@ -73,6 +79,10 @@ package itemClasses
 		public function get task():Function
 		{
 			return this.m_task;
+		}
+		public function get taskType():uint
+		{
+			return this.m_taskType;
 		}
 		public function get performingTask():Boolean
 		{
@@ -91,9 +101,19 @@ package itemClasses
 		{
 			return;
 		}
+		public function set taskType(value:uint):void
+		{
+			return;
+		}
 		public function set performingTask(value:Boolean):void
 		{
-			this.m_performingTask = value;
+			if (value == true)
+			{
+				if (this.m_task != null)
+					this.m_performingTask = value;
+			}
+			else
+				this.m_performingTask = value;
 		}
 		public function set Operant(value:Object):void
 		{

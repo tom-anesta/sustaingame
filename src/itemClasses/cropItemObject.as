@@ -40,7 +40,7 @@ package itemClasses
 		//-public
 		
 		//--constructor
-		public function cropItemObject(itemKey:uint = DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
+		public function cropItemObject(typeString:String, itemKey:uint = DEFAULT_CROP_ITEMKEY, type:uint=itemObject.CROP_TYPE, subtype:uint = DEFAULT_CROP_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
 			if (!s_inited)
 			{

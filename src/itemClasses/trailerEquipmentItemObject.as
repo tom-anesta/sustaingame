@@ -25,8 +25,13 @@ package itemClasses
 		//public static const PLANTCROPTYPES_LENGTH:uint = 2;
 		//---type identifiers
 		public static const TRAILER_WATERINGCAN:String = "wateringcan";
+		//---task types
+		public static const PLANTING_TRAILER_TASK_TYPE:uint = 12;
+		public static const TILLING_TRAILER_TASK_TYPE:uint = 13;
+		public static const HARVESTING_TRAILER_TASK_TYPE:uint = 14;
 		//---defaults
 		public static const DEFAULT_TRAILEREQUIPMENT_ITEMKEY:uint = DEFAULT_TRAILER_TYPE;
+		//-protected
 		//--embeds
 		[Embed(source="../../assets/images/WaterCanNWater.gif")]
 		protected static var DEFAULT_TRAILEREQUIPMENT_TNASSET:Class;
