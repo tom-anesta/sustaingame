@@ -26,13 +26,13 @@ package itemClasses
 		public static const DEFAULT_FERTILIZERDISTRIBUTABLE_ITEMKEY:uint = NITROGEN_FERTILIZER_TYPE;
 		//-protected
 		//--embeds
-		[Embed(source="../../assets/images/Tractor_clip_art_small.png")]
+		[Embed(source="../../assets/images/Fertilizer.gif")]
 		protected static var DEFAULT_FERTILIZER_TNASSET:Class;
-		[Embed(source="../../assets/images/Tractor_clip_art_small.png")]
+		[Embed(source="../../assets/images/Fertilizer.gif")]
 		protected static var FERTILIZER_NITROGEN_TNASSET:Class;
-		[Embed(source = "../../assets/images/Tractor_clip_art_small.png")]
+		[Embed(source = "../../assets/images/Fertilizer.gif")]
 		protected static var FERTILIZER_PHOSPHOROUS_TNASSET:Class;
-		[Embed(source = "../../assets/images/Tractor_clip_art_small.png")]
+		[Embed(source = "../../assets/images/Fertilizer.gif")]
 		protected static var FERTILIZER_POTASSIUM_TNASSET:Class;
 		//--for image things
 		protected static var s_inited:Boolean = false;
@@ -56,18 +56,25 @@ package itemClasses
 				case FERTILIZER_NITROGEN:
 					this.m_itemKey = NITROGEN_FERTILIZER_TYPE;
 					this.m_name = FERTILIZER_NITROGEN;
+					this.m_cost = 100;
+					this.m_redeemability = 0.5;
 					break;	
 				case FERTILIZER_PHOSPHOROUS:
 					this.m_itemKey = PHOSPHOROUS_FERTILIZER_TYPE;
 					this.m_name = FERTILIZER_PHOSPHOROUS;
+					this.m_cost = 100;
+					this.m_redeemability = 0.5;
 					break;
 				case FERTILIZER_POTASSIUM:
 					this.m_itemKey = POTASSIUM_FERTILIZER_TYPE;
 					this.m_name = FERTILIZER_POTASSIUM;
+					this.m_cost = 100;
+					this.m_redeemability = 0.5;
 					break;
 				default:
 					this.m_itemKey = DEFAULT_FERTILIZERDISTRIBUTABLE_ITEMKEY;
 					this.m_name = "fertilizer";
+					break;
 			}
 			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );

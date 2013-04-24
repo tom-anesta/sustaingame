@@ -3,7 +3,9 @@
 import Array;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import mx.core.UIComponent;
+import itemClasses.fertilizerDistributableItemObject;
+import itemClasses.irrigationsystemEquipmentItemObject;
+import itemClasses.pesticideDistributableItemObject;
 //-mx
 import mx.collections.ArrayCollection;
 import mx.managers.PopUpManager;
@@ -62,6 +64,9 @@ private function initBuyPanel():void
 	buyPanelDataProvider.addItem(new seedDistributableItemObject(seedDistributableItemObject.SEED_SOYBEAN, seedDistributableItemObject.SOYBEAN_SEED_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.SEED_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true, distributableItemObject.UNIT_KILOGRAM, 100, 100));
 	buyPanelDataProvider.addItem(new seedDistributableItemObject(seedDistributableItemObject.SEED_TOBACCO, seedDistributableItemObject.TOBACCO_SEED_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.SEED_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true, distributableItemObject.UNIT_KILOGRAM, 100, 100));
 	buyPanelDataProvider.addItem(new seedDistributableItemObject(seedDistributableItemObject.SEED_SUGARCANE, seedDistributableItemObject.SUGARCANE_SEED_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.SEED_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true, distributableItemObject.UNIT_KILOGRAM, 100, 100));
+	buyPanelDataProvider.addItem(new fertilizerDistributableItemObject(fertilizerDistributableItemObject.FERTILIZER_NITROGEN, fertilizerDistributableItemObject.NITROGEN_FERTILIZER_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.FERTILIZER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true, distributableItemObject.UNIT_KILOGRAM, 100, 100));
+	buyPanelDataProvider.addItem(new pesticideDistributableItemObject(pesticideDistributableItemObject.PESTICIDE_STANDARD, pesticideDistributableItemObject.STANDARD_PESTICIDE_TYPE, itemObject.DISTRIBUTABLE_TYPE, distributableItemObject.PESTICIDE_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true, distributableItemObject.UNIT_KILOGRAM, 100, 100));
+	buyPanelDataProvider.addItem(new irrigationsystemEquipmentItemObject(irrigationsystemEquipmentItemObject.TYPE_SPRINKLER, irrigationsystemEquipmentItemObject.SPRINKLER_IRRIGATIONSYSTEM_TYPE, itemObject.EQUIPMENT_TYPE, equipmentItemObject.IRRIGATIONSYSTEM_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true)); 
 	buyPanelDataProvider.addItem(new trailerEquipmentItemObject(trailerEquipmentItemObject.TRAILER_WATERINGCAN, trailerEquipmentItemObject.WATERINGCAN_TRAILER_TYPE, itemObject.EQUIPMENT_TYPE, equipmentItemObject.TRAILER_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true));
 	buyPanelDataProvider.addItem(new toolEquipmentItemObject(toolEquipmentItemObject.TOOL_HOE, toolEquipmentItemObject.HOE_TOOL_TYPE, itemObject.EQUIPMENT_TYPE, equipmentItemObject.TOOL_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true));
 	buyPanelDataProvider.addItem(new vehicleEquipmentItemObject(vehicleEquipmentItemObject.VEHICLE_TRACTOR, vehicleEquipmentItemObject.TRACTOR_VEHICLE_TYPE, itemObject.EQUIPMENT_TYPE, equipmentItemObject.VEHICLE_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, true));

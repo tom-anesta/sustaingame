@@ -53,23 +53,26 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function toolEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true) 
+		public function toolEquipmentItemObject(typeString:String, itemKey:uint=toolEquipmentItemObject.DEFAULT_TOOLEQUIPMENT_ITEMKEY, type:uint=EQUIPMENT_TYPE, subtype:uint=TOOL_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true) 
 		{
+			this.m_name = typeString;
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);//will also handle the accepted types
 			this.m_name = typeString;
-			switch(this.m_name)
 			{
 				case TOOL_HOE:
 					this.m_itemKey = HOE_TOOL_TYPE;
+					this.m_name = TOOL_HOE;
 					this.m_cost = 75;
 					this.m_redeemability = 0.6;
 					this.m_taskAsOperant = TILLING_TOOL_TASK_TYPE;
 					break;
 				case TOOL_BYHAND:
 					this.m_itemKey = BYHAND_TOOL_TYPE;
+					this.m_name = TOOL_BYHAND;
 					this.m_cost = 0;
 					this.m_redeemability = 0;
 					this.m_taskAsOperant = HARVESTING_TOOL_TASK_TYPE;
+					break;
 				default://default itemkey
 					this.m_name = TOOL_DEFAULT_NAME;
 					break;
