@@ -9,6 +9,9 @@ package game
 	import as3isolib.graphics.BitmapFill;
 	import eDpLib.events.IEventDispatcherProxy;
 	import eDpLib.events.ProxyEvent;
+	import flash.display.BitmapData;
+	import flash.geom.Matrix;
+	import flash.display.*;
 	//-flash
 	import flash.display.Bitmap;
 	import flash.utils.getDefinitionByName;
@@ -88,9 +91,19 @@ package game
 		{
 			img = new Bitmap();
 			img = value.tNBitmap;
+			
+			var scale = 7;
+			var matrix:Matrix = new Matrix();
+			matrix.scale(scale, scale);
+			
+			var big:BitmapData = new BitmapData(img.width * scale, img.height * scale, true, 0x000000);
+			big.draw(img, matrix, null, null, null, true);
+			
+			var bitmap:Bitmap = new Bitmap(big, PixelSnapping.NEVER, true);
+			
 			sprite = new IsoSprite();
-			sprite.sprites = [img];
-			sprite.moveTo(sprite.x, sprite.y, 100);//may not be necessary after more testing
+			sprite.sprites = [bitmap];
+			sprite.moveTo(sprite.x - 100, sprite.y + 100, 100);//may not be necessary after more testing
 			this.addSprite(sprite);
 			//this.render(true);
 		}
