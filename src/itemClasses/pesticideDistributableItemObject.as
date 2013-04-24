@@ -5,8 +5,11 @@ package itemClasses
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	//-our things
+	import flash.utils.*;
+	import flash.display.Bitmap;
+	//-our things
+	import itemClasses.distributableItemObject;
 	
-	[Bindable]
 	public class pesticideDistributableItemObject extends distributableItemObject 
 	{
 		//members
@@ -19,7 +22,7 @@ package itemClasses
 		//---type identififers (string)
 		public static const PESTICIDE_STANDARD:String = "standard_pesticide";
 		//--defaults
-		public static const DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY:uint = NITROGEN_FERTILIZER_TYPE;
+		public static const DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY:uint = STANDARD_PESTICIDE_TYPE;
 		//-protected
 		//--embeds
 		[Embed(source = "../../assets/images/Pesticide.gif")]
@@ -36,8 +39,25 @@ package itemClasses
 		//--constructor
 		public function pesticideDistributableItemObject(typeString:String, itemKey:uint=pesticideDistributableItemObject.DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY) 
 		{
+			if (!s_inited)
+			{
+				//s_inited = initImgArray();//super will handle the set
+				initImgArray();
+			}
 			super(itemKey, type, subtype, cost, redeemability, isInInventory, unitVal, maxQuantityVal, quantityVal);
-			
+			switch(typeString)
+			{
+				case PESTICIDE_STANDARD:
+					this.m_itemKey = STANDARD_PESTICIDE_TYPE;
+					this.m_name = PESTICIDE_STANDARD;
+					this.m_cost = 200;
+					this.m_redeemability = 0.7;
+					break;
+				default:
+					this.m_itemKey = DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY;
+					this.m_name = "pesticides";
+					break;
+			}
 		}
 		//--getters and setters
 		//---getters
