@@ -48,9 +48,9 @@ package game
 			mid.addChild(bot);
 			//this.addEventListener(inventoryEvent.REMOVE, inventoryEventHandler);//inventory events should be handled by bubbling
 			//add children
-			this.addChild(top);
-			top.addChild(mid);
-			mid.addChild(bot);
+			//this.addChild(top);
+			//top.addChild(mid);
+			//mid.addChild(bot);
 		}
 		
 		public function select():Boolean

@@ -57,32 +57,32 @@ package itemClasses
 		//-protected
 		//--embeds
 		//[Embed(source = seedDistributableItemObject.DEFAULT_SEEDDISTRIBUTABLE_TNSOURCE, mimeType='image.gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag_FINAL.gif")]
 		protected static var DEFAULT_SEEDDISTRIBUTABLE_TNASSET:Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SORGHUM_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SorghumSeedBag_FINAL.gif")]
 		protected static var SEED_SORGHUM_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_MAIZE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/CornSeedbag_FINAL.gif")]
 		protected static var SEED_MAIZE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_PEANUT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/Peanuts_Seedbag_FINAL.gif")]
 		protected static var SEED_PEANUT_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SOYBEAN_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SoybeanSeedbag_FINAL.gif")]
 		protected static var SEED_SOYBEAN_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_GRAPE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source = "../../assets/images/SorghumSeedBag2.gif")]
-		protected static var SEED_GRAPE_TNASSET : Class;
+		//[Embed(source = "../../assets/images/GrapesSeedBag.gif")]
+		//protected static var SEED_GRAPE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_TOBACCO_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/TobaccoSeedbag_FINAL.gif")]
 		protected static var SEED_TOBACCO_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_SUGARCANE_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		[Embed(source="../../assets/images/SugarcaneSeedBag_FINAL.gif")]
 		protected static var SEED_SUGARCANE_TNASSET : Class;
 		//[Embed(source = seedDistributableItemObject.SEED_APRICOT_TNSOURCE, mimeType='image/gif')]//can't do this and it makes me sad
-		[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
-		protected static var SEED_APRICOT_TNASSET : Class;
+		//[Embed(source="../../assets/images/SorghumSeedBag2.gif")]
+		//protected static var SEED_APRICOT_TNASSET : Class;
 		//private
 		private static var s_inited:Boolean = false;
 		private static var s_imgArray:Array;// = [DEFAULT_SEEDDISTRIBUTABLE_TNASSET, SEED_SORGHUM_TNASSET, SEED_MAIZE_TNASSET, SEED_PEANUT_TNASSET, SEED_SOYBEAN_TNASSET, SEED_GRAPE_TNASSET, SEED_TOBACCO_TNASSET, SEED_SUGARCANE_TNASSET, SEED_APRICOT_TNASSET];
@@ -120,10 +120,10 @@ package itemClasses
 					this.m_itemKey = SOYBEAN_SEED_TYPE;
 					this.m_name = SEED_SOYBEAN;
 					break;
-				case SEED_GRAPE:
-					this.m_itemKey = GRAPE_SEED_TYPE;
-					this.m_name = SEED_GRAPE;
-					break;
+				//case SEED_GRAPE:
+					//this.m_itemKey = GRAPE_SEED_TYPE;
+					//this.m_name = SEED_GRAPE;
+					//break;
 				case SEED_TOBACCO:
 					this.m_itemKey = TOBACCO_SEED_TYPE;
 					this.m_name = SEED_TOBACCO;
@@ -132,10 +132,10 @@ package itemClasses
 					this.m_itemKey = SUGARCANE_SEED_TYPE;
 					this.m_name = SEED_SUGARCANE;
 					break;
-				case SEED_APRICOT:
-					this.m_itemKey = APRICOT_SEED_TYPE;
-					this.m_name = SEED_APRICOT;
-					break;
+				//case SEED_APRICOT:
+					//this.m_itemKey = APRICOT_SEED_TYPE;
+					//this.m_name = SEED_APRICOT;
+					//break;
 				default://default itemkey
 					break;
 			}
@@ -151,10 +151,10 @@ package itemClasses
 			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_MAIZE_TNASSET))) as Class );
 			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_PEANUT_TNASSET))) as Class );
 			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SOYBEAN_TNASSET))) as Class );
-			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_GRAPE_TNASSET))) as Class );
+			//s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_GRAPE_TNASSET))) as Class );
 			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_TOBACCO_TNASSET))) as Class );
 			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_SUGARCANE_TNASSET))) as Class );
-			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_APRICOT_TNASSET))) as Class );
+			//s_imgArray.push( (getDefinitionByName(getQualifiedClassName(SEED_APRICOT_TNASSET))) as Class );
 			return true;
 		}
 		//--getters and setters
