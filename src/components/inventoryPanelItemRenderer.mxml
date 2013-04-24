@@ -2,8 +2,11 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:mx="library://ns.adobe.com/flex/halo"
-			   height="100%" width="100%"
 			   creationComplete = "ccbuypanelitemrenderer()">
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign = "center"/>
+	</s:layout>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -14,18 +17,17 @@
 		include "inventoryPanelItemRendererProcedures.as";
 		]]>
 	</fx:Script>
-
-	<s:Group height="100%" width="100%">
+	<s:Group >
 		<s:layout>
 			<s:VerticalLayout horizontalAlign = "center"/>
 		</s:layout>
-		<s:BitmapImage id="rendererThumbNail" height="80%" width="80%" source = "{data.tNBitmap}" />
-		<s:Group height="15%" width="100%">
+		<s:BitmapImage id="rendererThumbNail" height="95%" width="{height}" source = "{data.tNBitmap}" />
+		<s:Group height="5%" width="100%">
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle" />
 			</s:layout>
-			<s:Label height="100%" width="73%" text="{data.name}" />
-			<s:Label height="100%" width="27%" text="{String(data.length)}" />
+			<s:Label text="{data.name}" /> <!-- height="100%" width="73%"  /> -->
+			<s:Label text="{String(data.length)}" /> <!-- height="100%" width="27%" /> -->
 		</s:Group>
 	</s:Group>
 	

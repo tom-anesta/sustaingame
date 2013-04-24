@@ -55,8 +55,8 @@ package itemClasses
 		//--constructor
 		public function toolEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true) 
 		{
-			this.m_name = typeString;
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);//will also handle the accepted types
+			this.m_name = typeString;
 			switch(this.m_name)
 			{
 				case TOOL_HOE:

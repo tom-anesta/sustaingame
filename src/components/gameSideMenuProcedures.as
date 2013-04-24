@@ -2,6 +2,7 @@ import flash.display.DisplayObject;
 import game.Tile;
 import itemClasses.itemObject;
 import itemClasses.itemObjectCollection;
+import mx.collections.ArrayCollection;
 
 /**
  * ...
@@ -33,6 +34,10 @@ public function itemsToInventory(inputs:Vector.<itemObject>):void
 public function toInventory():void
 {
 	menuPanel.toInventory();
+}
+public function setInventory(value:ArrayCollection):void
+{
+	menuPanel.setInventory(value);
 }
 /*
 public function toInfo(deselecting:Boolean = false):void

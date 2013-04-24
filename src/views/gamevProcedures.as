@@ -335,6 +335,7 @@ public function setMoneyManager(value:moneyManager):void
 public function setInventory(value:ArrayCollection):void
 {
 	user_inventory = value;
+	sideMenu.setInventory(user_inventory);
 }
 public function setTimeLine(value:timeLine):void
 {

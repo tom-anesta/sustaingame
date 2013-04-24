@@ -51,7 +51,8 @@ package itemClasses
 		public function vehicleEquipmentItemObject(typeString:String, itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true) 
 		{
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);//will also handle the accepted types
-			switch(typeString)
+			this.m_name = typeString
+			switch(this.m_name)
 			{
 				case VEHICLE_TRACTOR:
 					this.m_itemKey = TRACTOR_VEHICLE_TYPE;

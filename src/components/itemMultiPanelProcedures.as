@@ -1,10 +1,12 @@
 import game.Tile;
 import itemClasses.itemObject;
 import flash.display.DisplayObject;
+import mx.collections.ArrayCollection;
 import mx.containers.ViewStack;
 import mx.events.FlexEvent;
 import myEvents.layedOutEvent;
 import myEvents.viewChangeEvent;
+import spark.layouts.TileLayout;
 /**
  * ...
  * @author thomas anesta
@@ -28,7 +30,6 @@ private function preinitTheStack():void
 
 private function initItemMultiPanel():void
 {
-	//multipanelstack.selectedIndex = 0;
 	addEventListener(viewChangeEvent.VIEW_CHANGE, viewChangeHandler);
 }
 
@@ -41,31 +42,9 @@ public function toInventory():void
 {
 	//trace("moving to inventory");
 	multiPanelTabs.selectedIndex = 2;
+	//trace(theInventoryView.inventoryPanelList.dataProvider.length);
+	//trace( (theInventoryView.inventoryPanelList.layout as TileLayout).requestedRowCount);
 }
-/*
-public function toInfo(deselecting:Boolean = false ):void
-{
-	if (!deselecting)
-	{
-		//theInforView.enabled = true;
-		multiPanelTabs.selectedIndex = 3;
-		theInforView.requestTile();
-	}
-	else
-	{
-		theInforView.setDefaults();
-	}
-}
-
-public function toInfo(req:Boolean):void
-{
-	multiPanelTabs.selectedIndex = 3;
-	if (req)
-	{
-		callLater(theInforView.requestTile);
-	}
-}
-*/
 public function toInfo():void
 {
 	multiPanelTabs.selectedIndex = 3;
@@ -78,13 +57,15 @@ public function DeSelectLand():void
 {
 	theInforView.setDefaults();
 }
-
+public function setInventory(value:ArrayCollection):void
+{
+	theSellView.setSellPanelDataProvider(value);
+	theInventoryView.setInventoryPanelDataProvider(value);
+}
 public function viewChangeHandler(ev:viewChangeEvent):void
 {
-	//trace("view change received by multipanel");
 	if (ev.target is components.infoPanel)//if the calling thing was the info panel
 	{
-		//trace("the target is the info panel");
 		if (!ev.target.hasTile)
 		{
 			if (multipanelstack.selectedIndex == 3)//if on the thing reset it

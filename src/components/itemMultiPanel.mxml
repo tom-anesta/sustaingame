@@ -5,7 +5,8 @@
 			   xmlns:mxContainers="mx.containers.*"
 			   xmlns:components="components.*"
 			   initialize="initItemMultiPanel()"
-			   creationComplete="ccItemMultiPanel()">
+			   creationComplete="ccItemMultiPanel()"
+			   width="100%" height="100%">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -29,10 +30,10 @@
 	
 	<s:TabBar id="multiPanelTabs" dataProvider="{multipanelstack}" height="4%" />
     <mxContainers:ViewStack id="multipanelstack" width="100%" height="96%" selectedIndex="-1" top="0" bottom="0" left="0" right="0" creationPolicy="all">
-        <components:buyPanel label="{tabBarDataProvider.getItemAt(0)}"  width="100%" height="100%" top="0" bottom="0" left="0" right="0" id="theBuyView" />
-        <components:sellPanel label="{tabBarDataProvider.getItemAt(1)}"  width="100%" height="100%" id="theSellView" />
-        <components:inventoryPanel label="{tabBarDataProvider.getItemAt(2)}"  width="100%" height="100%" id="theInventoryView" />
-		<components:infoPanel label="{tabBarDataProvider.getItemAt(3)}" width="100%" height="100%" id="theInforView" />
+        <components:buyPanel label="{tabBarDataProvider.getItemAt(0)}"  width="{this.width}" height="100%" top="0" bottom="0" left="0" right="0" id="theBuyView" />
+        <components:sellPanel label="{tabBarDataProvider.getItemAt(1)}"  width="{this.width}" height="100%" id="theSellView" />
+        <components:inventoryPanel label="{tabBarDataProvider.getItemAt(2)}"  width="{this.width}" height="100%" id="theInventoryView" />
+		<components:infoPanel label="{tabBarDataProvider.getItemAt(3)}" width="{this.width}" height="100%" id="theInforView" />
     </mxContainers:ViewStack>
 	
 </s:Group>

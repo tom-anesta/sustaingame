@@ -1,11 +1,9 @@
 import mx.collections.ArrayCollection;
+import mx.events.CollectionEvent;
 import myEvents.layedOutEvent;
 import flash.events.MouseEvent;
 import myEvents.popupRequestEvent;
-/**
-* ...
-* @author thomas anesta
-*/
+import spark.layouts.TileLayout;
 
 private var sellPanelDataProvider:ArrayCollection;
 
@@ -17,19 +15,11 @@ private function initSellPanel():void
 private function ccSellPanel():void
 {
 	sellPanelDataProvider = new ArrayCollection();
-	//if (sellPanelList != null)
-	//{
 	sellPanelList.dataProvider = sellPanelDataProvider;
-	//}
-	//if (sellItemButton != null)
-	//{
+	sellPanelList.scroller.setStyle("horizontalScrollPolicy", "off");
 	sellItemButton.addEventListener(MouseEvent.CLICK, sellItemButtonClicked);
-	//}
-	//if (infoItemButton != null)
-	//{
 	infoItemButton.addEventListener(MouseEvent.CLICK, infoItemButtonClicked);
-	//}
-	//dispatch event to the main
+	
 	var ev:layedOutEvent = new layedOutEvent(layedOutEvent.SELLLAYEDOUT, true, true);
 	dispatchEvent(ev);
 }
@@ -43,13 +33,33 @@ private function sellItemButtonClicked(ev:MouseEvent):void
 	var dEvent:popupRequestEvent = new popupRequestEvent(popupRequestEvent.SELL_REQUEST, sellPanelList.selectedItem as Object, true, false);
 	dispatchEvent(dEvent);
 }
-public function setSellPanelDataProvider(value:mx.collections.ArrayCollection):void
+public function setSellPanelDataProvider(value:ArrayCollection):void
 {
+	if (sellPanelDataProvider != null)
+	{
+		sellPanelDataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, resizePanel);
+	}
 	sellPanelDataProvider = value;
-	//if(sellPanelList != null)
 	sellPanelList.dataProvider = sellPanelDataProvider;
+	sellPanelDataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, resizePanel);
+	resizePanel();
+	
 }
-public function setListWidth():void
+public function resizePanel(ev:CollectionEvent = null):void
 {
-	sellPanelList.width = sellPanelList.parent.width;
+	sellPanelList.width = this.parent.width;
+	sellPanelList.height = this.parent.height*0.95;
+	((sellPanelList.layout) as TileLayout).columnWidth = (sellPanelList.width / 2);
+	((sellPanelList.layout) as TileLayout).rowHeight = (sellPanelList.height / 4);
+	((sellPanelList.layout) as TileLayout).requestedColumnCount = Math.max(1, Math.min(2, sellPanelDataProvider.length));
+	((sellPanelList.layout) as TileLayout).requestedRowCount = Math.max(1, (sellPanelDataProvider.length) / 2 + (sellPanelDataProvider.length % 2));
+	/*
+	trace("sell panel");
+	trace("rrc is " + ((sellPanelList.layout) as TileLayout).requestedRowCount );
+	trace("rcc is " + ((sellPanelList.layout) as TileLayout).requestedColumnCount );
+	trace("height is " + sellPanelList.height);
+	trace("width is " + sellPanelList.width);
+	trace("rh is " + ((sellPanelList.layout) as TileLayout).rowHeight );
+	trace("cw is " + ((sellPanelList.layout) as TileLayout).columnWidth );
+	*/
 }

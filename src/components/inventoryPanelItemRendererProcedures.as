@@ -1,8 +1,4 @@
 
-/**
- * ...
- * @author thomas anesta
- */
 
 private function ccbuypanelitemrenderer():void
 {

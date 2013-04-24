@@ -110,30 +110,44 @@ package itemClasses
 				case SEED_MAIZE:
 					this.m_itemKey = MAIZE_SEED_TYPE;
 					this.m_name = SEED_MAIZE;
+					this.m_cost = 114;
+					this.m_redeemability = 0.8;
 					break;
 				case SEED_PEANUT:
 					this.m_itemKey = PEANUT_SEED_TYPE;
 					this.m_name = SEED_PEANUT
+					this.m_cost = 114;
+					this.m_redeemability = 0.8;
 					break;
 				case SEED_SOYBEAN:
 					this.m_itemKey = SOYBEAN_SEED_TYPE;
 					this.m_name = SEED_SOYBEAN;
+					this.m_cost = 114;
+					this.m_redeemability = 0.8;
 					break;
 				//case SEED_GRAPE:
 					//this.m_itemKey = GRAPE_SEED_TYPE;
 					//this.m_name = SEED_GRAPE;
+					//this.m_cost = 114;
+					//this.m_redeemability = 0.8;
 					//break;
 				case SEED_TOBACCO:
 					this.m_itemKey = TOBACCO_SEED_TYPE;
 					this.m_name = SEED_TOBACCO;
+					this.m_cost = 114;
+					this.m_redeemability = 0.8;
 					break;
 				case SEED_SUGARCANE:
 					this.m_itemKey = SUGARCANE_SEED_TYPE;
 					this.m_name = SEED_SUGARCANE;
+					this.m_cost = 114;
+					this.m_redeemability = 0.8;
 					break;
 				//case SEED_APRICOT:
 					//this.m_itemKey = APRICOT_SEED_TYPE;
 					//this.m_name = SEED_APRICOT;
+					//this.m_cost = 114;
+					//this.m_redeemability = 0.8;
 					//break;
 				default://default itemkey
 					break;

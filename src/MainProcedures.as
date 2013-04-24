@@ -236,6 +236,7 @@ public function addOneItemToInventory(item:itemObject):void
 		var firstItem:itemObjectCollection = new itemObjectCollection();
 		firstItem.addItem(item);
 		user_inventory.addItem(firstItem);
+		//trace(user_inventory.length);
 		return;
 	}
 	var i:uint = 0;
@@ -247,12 +248,14 @@ public function addOneItemToInventory(item:itemObject):void
 	if (i != user_inventory.length)
 	{
 		user_inventory[i].addItem(item);
+		//trace(user_inventory.length);
 	}
 	else
 	{
 		var nextItem:itemObjectCollection = new itemObjectCollection();
 		nextItem.addItem(item);
 		user_inventory.addItem(nextItem);
+		//trace(user_inventory.length);
 		return;
 	}
 }
