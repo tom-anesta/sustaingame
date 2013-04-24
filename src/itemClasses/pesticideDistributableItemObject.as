@@ -2,9 +2,6 @@ package itemClasses
 {
 	//imports
 	//-flash
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
-	//-our things
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	//-our things
@@ -25,9 +22,10 @@ package itemClasses
 		public static const DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY:uint = STANDARD_PESTICIDE_TYPE;
 		//-protected
 		//--embeds
-		[Embed(source = "../../assets/images/Pesticide.gif")]
+		[Embed(source="../../assets/images/Pesticide.gif")]
 		protected static var DEFAULT_PESTICIDEDISTRIBUTABLE_TNASSET:Class;
-		[Embed(source = "../../assets/images/Pesticide.gif")]
+		//[Embed(source = "../../assets/images/Pesticide.gif")]
+		[Embed(source="../../assets/images/Pesticide.gif")]
 		protected static var PESTICIDE_STANDARD_TNASSET:Class;//not sure what better to call it until more research
 		//--for image things
 		protected static var s_inited:Boolean = false;
@@ -37,14 +35,14 @@ package itemClasses
 		//functions
 		//-public
 		//--constructor
-		public function pesticideDistributableItemObject(typeString:String, itemKey:uint=pesticideDistributableItemObject.DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY) 
+		public function pesticideDistributableItemObject(typeString:String, itemKey:uint=pesticideDistributableItemObject.DEFAULT_PESTICIDEDISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=PESTICIDE_TYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean=true, unitVal:String=distributableItemObject.UNIT_KILOGRAM, maxQuantityVal:Number=distributableItemObject.DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number=distributableItemObject.DEFAULT_MINIMUM_MAXQUANTITY) 
 		{
 			if (!s_inited)
 			{
-				//s_inited = initImgArray();//super will handle the set
-				initImgArray();
+				s_inited = initImgArray();//super will handle the set
+				//initImgArray();
 			}
-			super(itemKey, type, subtype, cost, redeemability, isInInventory, unitVal, maxQuantityVal, quantityVal);
+			super(itemKey, type, subtype, cost, redeemability, isInInventory, unit, maxQuantityVal, quantityVal);
 			switch(typeString)
 			{
 				case PESTICIDE_STANDARD:
@@ -58,6 +56,8 @@ package itemClasses
 					this.m_name = "pesticides";
 					break;
 			}
+			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
+			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
 		//---getters
@@ -74,12 +74,10 @@ package itemClasses
 		public function initImgArray():Boolean
 		{
 			s_imgArray = new Array();
-			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(DEFAULT_PESTICIDEDISTRIBUTABLE_TNASSET))) as Class );
-			s_imgArray.push( (getDefinitionByName(getQualifiedClassName(PESTICIDE_STANDARD_TNASSET))) as Class );
+			s_imgArray.push((getDefinitionByName(getQualifiedClassName(DEFAULT_PESTICIDEDISTRIBUTABLE_TNASSET))) as Class );
+			s_imgArray.push((getDefinitionByName(getQualifiedClassName(PESTICIDE_STANDARD_TNASSET))) as Class );
 			return true;
 		}
-		
-		
 		
 	}
 

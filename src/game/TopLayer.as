@@ -92,7 +92,7 @@ package game
 			img = new Bitmap();
 			img = value.tNBitmap;
 			
-			var scale = 7;
+			var scale:uint = 7;
 			var matrix:Matrix = new Matrix();
 			matrix.scale(scale, scale);
 			
