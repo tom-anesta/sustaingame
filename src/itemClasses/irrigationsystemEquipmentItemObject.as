@@ -19,7 +19,7 @@ package itemClasses
 		public static const DEFAULT_IRRIGATIONSYSTEM_TYPE:uint = TYPE_CONSTRUCTOR;
 		public static const SPRINKLER_IRRIGATIONSYSTEM_TYPE:uint = 37;
 		//---typeIdentifiers(string)
-		public static const TYPE_SPRINKLER = "sprinkler";
+		public static const TYPE_SPRINKLER:String = "sprinkler";
 		//---taskTypes//well this kind of only does one thing
 		public static const IRRIGATIONSYSTEM_IRRIGATING_TASK:uint = 18;
 		//---defaults
