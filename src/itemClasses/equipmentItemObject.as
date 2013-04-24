@@ -279,14 +279,6 @@ package itemClasses
 			}
 			return true;
 		}
-		//--override general task getting solution
-		/*//or maybe we don't need to override it
-		override public function selfTask():void
-		{
-			return;
-		}
-		*/
-		
 		//-private
 		//--adding functions
 		

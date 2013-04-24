@@ -6,6 +6,7 @@ package itemClasses
 	import flash.utils.*;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import game.Tile;
 	//-our things
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
@@ -82,6 +83,22 @@ package itemClasses
 		}
 		//--getters and setters
 		//---getters
+		override public function get tNAsset():Class
+		{
+			if (this.m_operants == null || this.m_operants.length ==0 || this.m_operants[0] is Tile)
+			{
+				return this.m_tNAsset;
+			}
+			return (this.m_operants[0] as itemObject).tNAsset;
+		}
+		override public function get tNBitmap():Bitmap
+		{
+			if (this.m_operants == null || this.m_operants.length ==0 || this.m_operants[0] is Tile)
+			{
+				return this.m_tNBitmap;
+			}
+			return (this.m_operants[0] as itemObject).tNBitmap;
+		}
 		public static function get inited():Boolean
 		{
 			return s_inited;
@@ -111,7 +128,7 @@ package itemClasses
 		public static function initAcceptedTypesArray():Boolean
 		{
 			s_acceptedTypes = new Array();
-			s_acceptedTypes.push(equipmentItemObject);
+			s_acceptedTypes.push(distributableItemObject, Tile);
 			return true;
 		}
 		

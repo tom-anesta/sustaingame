@@ -9,7 +9,7 @@ package itemClasses
 	//-our things
 	import itemClasses.equipmentItemObject;
 	
-	public class irrigationsystemEquipmentItemObject extends equipmentItemObject 
+	public class irrigationsystemEquipmentItemObject extends equipmentItemObject
 	{
 		//members
 		//-public
