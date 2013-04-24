@@ -255,7 +255,6 @@ public function addOneItemToInventory(item:itemObject):void
 		var nextItem:itemObjectCollection = new itemObjectCollection();
 		nextItem.addItem(item);
 		user_inventory.addItem(nextItem);
-		//trace(user_inventory.length);
 		return;
 	}
 }

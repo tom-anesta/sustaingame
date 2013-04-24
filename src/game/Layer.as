@@ -188,7 +188,6 @@ package game
 			}
 			return false;
 		}
-		
 		//-protected functions
 		//init the types
 		public static function initTypes():void

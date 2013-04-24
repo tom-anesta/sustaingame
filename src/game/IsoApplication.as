@@ -257,7 +257,6 @@ package game
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
 			
-			
 			this.bgMusic = getRandomBGMusic();
 			bgMusicChannel = bgMusic.play(0, 0);
 			bgMusicChannel.addEventListener(Event.SOUND_COMPLETE, bgMusicEndHandler);
@@ -453,7 +452,8 @@ package game
 		}
 		private function hourhandler(ev:timeElapsedEvent):void
 		{
-			return;//do whatever you want here
+			trace("hour passed");
+			this._group.acceptHourAdvancement(1, ev);
 		}
 		private function selectHandler(ev:landSelectEvent):void
 		{

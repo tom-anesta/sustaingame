@@ -80,6 +80,9 @@ package game
 			this.mid.acceptHourAdvancement(quant, evt);//tell mid to do its whatever and send events if needed
 			this.top.acceptHourAdvancement(quant, evt);//tell top to do its whatever and send events if needed
 			//next resolve their events at this time
+			this.bot.resolveActions();
+			this.mid.resolveActions();
+			this.top.resolveActions();
 		}
 		public function resolveActions():void
 		{

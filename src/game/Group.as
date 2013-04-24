@@ -26,6 +26,7 @@ package game
 	import itemClasses.itemObject;
 	import myEvents.landSelectEvent;
 	import flash.events.Event;
+	import myEvents.timeElapsedEvent;
     
     public class Group extends IsoGroup
     {
@@ -36,11 +37,8 @@ package game
 		private var imgSoil:Class;
 		[Embed(source = "../../assets/images/DrySoil.gif")]
 		private var imgDrySoil:Class;
-		
 		//event dispatching solution from 
 		//http://tech.groups.yahoo.com/group/as3isolib/messages/2387?threaded=1&m=e&var=1&tidx=1
-		
-		
         public function Group(grid:IsoGrid)
         {
 			//this.m_standardDispatcher = new EventDispatcher(this);
@@ -186,14 +184,16 @@ package game
 			return _layout.size();
 		}
 		
-		/*
-		private function selectHandler(ev:ProxyEvent):void//(ev:landSelectEvent):void
-		{
+		public function acceptHourAdvancement(value:uint, ev:timeElapsedEvent):void
+		{//fuck it doesn't matter what order we go in as long as we get all of them (its symmetric anyway)
+			for (var i:uint = 0; i < _layout._h; i++)//i think we want row first
+			{
+				for (var j:uint = 0; j < _layout._w; j++)//then collumn
+				{
+					(_layout.get(j, i) as Tile).acceptHourAdvancement(value, ev);
+				}
+			}
 		}
-		private function deselectHandler(ev:ProxyEvent):void//(ev:landSelectEvent):void
-		{
-		}
-		*/
 		
 	}
 }

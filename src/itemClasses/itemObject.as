@@ -340,7 +340,6 @@ package itemClasses
 			return;
 		}
 		
-		
 		//-protected
 		//--image inits
 		public static function initImgArray():Boolean
