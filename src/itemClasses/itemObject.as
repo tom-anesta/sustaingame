@@ -294,22 +294,65 @@ package itemClasses
 		//--FUNCTIONS SUPPORTING ITIMEUPDATEABLE
 		public function updateByHours(value:uint = 1, event:timeElapsedEvent = null):void//move hours forward
 		{
+			while (value > 0)
+			{
+				this.m_hour++;
+				if(this.m_hour >= 24)
+				{
+					this.m_hour = 0;
+					this.updateByDate(1, event);					
+				}
+				dispatchEvent(event);
+				value--;
+			}
 			return;
 		}
 		public function updateByDays(value:uint = 1, event:timeElapsedEvent = null):void//move days forward
 		{
+			while (value > 0)
+			{
+				this.m_day++;
+				value--;
+			}
 			return;
 		}
 		public function updateByDate(value:uint = 1, event:timeElapsedEvent = null):void//move date forward
 		{
+			while (value > 0)
+			{
+				this.m_date++;
+				if(this.m_date >= 31)
+				{
+					this.m_date = 1;
+					this.updateByMonths(1, event);
+				}
+				//dispatch the day event after the date has been set properly
+				this.updateByDays(1, event);//handles the day advance event
+				value--;
+			}
 			return;
 		}
 		public function updateByMonths(value:uint = 1, event:timeElapsedEvent = null):void//move months forward
 		{
+			while (value > 0)
+			{
+				this.m_month++;
+				if(this.m_month >= 12)
+				{
+					this.m_month = 1;
+					this.updateByYears(1, event);
+				}
+				value--;
+			}
 			return;
 		}
 		public function updateByYears(value:uint = 1, event:timeElapsedEvent = null):void//move years forward
 		{
+			while (value > 0)
+			{
+				this.m_year++;
+				value--;
+			}
 			return;
 		}
 		public function addActions(valueVect:Vector.<actionObject> = null):void//add action objects
@@ -332,6 +375,22 @@ package itemClasses
 		}
 		public function resolveActions(hourVal:uint = uint.MAX_VALUE, dayVal:uint = uint.MAX_VALUE, dateVal:uint = uint.MAX_VALUE, monthVal:uint = uint.MAX_VALUE, yearVal:uint = uint.MAX_VALUE):void//resolve all actions set to occur on the hour, day, date, month, and year specified
 		{
+			var remVect:Vector.<uint> = new Vector.<uint>();
+			var i:uint = 0;
+			for (i = 0; i < this.m_actions.length; i++)
+			{
+				//list of indices to remove
+				
+				if (this.m_actions[i].Execute(hourVal, dayVal, dateVal, monthVal, yearVal))
+				{
+					remVect.push(i);
+				}
+			}
+			remVect.sort(Array.DESCENDING);
+			for (i = 0; i < remVect.length; i++)
+			{
+				this.m_actions.splice(remVect[i], 1);
+			}
 			return;
 		}
 		//for equipment

@@ -65,7 +65,6 @@ package game
 		{
 			return this.isActive;
 		}
-		
 		public function acceptExternalItemFromInventory(value:itemObject):Boolean
 		{
 			//all of these things need to be added to the top layer initially, that is where they will do the work specified by the player

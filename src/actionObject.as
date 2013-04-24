@@ -125,7 +125,7 @@ package
 		//http://stackoverflow.com/questions/1914648/accept-multiple-arguments-in-an-as3-method
 		//http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/Function.html
 		//http://stackoverflow.com/questions/972460/as3-arguments
-		public function execute(value:itemObject):void
+		private function execute(value:itemObject):void
 		{
 			this.m_func.apply(value, this.m_args);//could be dangerous.  let's find out!
 		}

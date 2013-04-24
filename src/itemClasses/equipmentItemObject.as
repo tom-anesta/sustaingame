@@ -7,6 +7,7 @@ package itemClasses
 	import flash.events.IEventDispatcher;
 	import flash.display.Bitmap;
 	import flash.utils.*;
+	import myEvents.timeElapsedEvent;
 	//-eDpLib
 	import eDpLib.events.IEventDispatcherProxy;
 	//-mx
@@ -15,8 +16,6 @@ package itemClasses
 	import itemClasses.itemObject;
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
-	
-	
 	
 	public class equipmentItemObject extends itemObject 
 	{
@@ -279,6 +278,12 @@ package itemClasses
 			}
 			return true;
 		}
+		//override time thing
+		//override public function updateByHours(value:uint, ev:timeElapsedEvent)
+		//{
+		//	
+		//}
+		
 		//-private
 		//--adding functions
 		
