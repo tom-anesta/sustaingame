@@ -26,9 +26,9 @@ package itemClasses
 		//---type identifiers
 		public static const TRAILER_WATERINGCAN:String = "wateringcan";
 		//---task types
-		public static const PLANTING_TRAILER_TASK_TYPE:uint = 12;
-		public static const TILLING_TRAILER_TASK_TYPE:uint = 13;
-		public static const HARVESTING_TRAILER_TASK_TYPE:uint = 14;
+		public static const PLANTING_TRAILER_TASK_TYPE:uint = 15;
+		public static const TILLING_TRAILER_TASK_TYPE:uint = 16;
+		public static const HARVESTING_TRAILER_TASK_TYPE:uint = 17;
 		//---defaults
 		public static const DEFAULT_TRAILEREQUIPMENT_ITEMKEY:uint = DEFAULT_TRAILER_TYPE;
 		//-protected
