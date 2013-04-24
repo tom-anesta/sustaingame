@@ -6,7 +6,7 @@ package itemClasses
 	import flash.utils.getQualifiedClassName;
 	//-our things
 	
-	
+	[Bindable]
 	public class pesticideDistributableItemObject extends distributableItemObject 
 	{
 		//members

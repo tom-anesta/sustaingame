@@ -1,17 +1,19 @@
 package itemClasses 
 {
+	//imports
+	//-flash
+	import flash.utils.*;
+	import flash.display.Bitmap;
+	//-our things
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
 	import itemClasses.itemObject;
 	import itemClasses.trailerEquipmentItemObject;
 	import itemClasses.seedDistributableItemObject;
-	import flash.utils.*;
-	import flash.display.Bitmap;
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
+	
+	
+	[Bindable]
 	public class plantCropItemObject extends cropItemObject 
 	{
 		//members

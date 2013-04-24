@@ -1,9 +1,8 @@
 package itemClasses 
 {
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
+	//imports
+	
+	[Bindable]
 	public class irrigationsystemEquipmentItemObject extends equipmentItemObject 
 	{
 		//members

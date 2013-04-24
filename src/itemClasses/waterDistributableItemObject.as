@@ -8,6 +8,7 @@ package itemClasses
 	//-our things
 	import itemClasses.distributableItemObject;
 	
+	[Bindable]
 	public class waterDistributableItemObject extends distributableItemObject
 	{
 		//members

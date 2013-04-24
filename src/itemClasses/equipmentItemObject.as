@@ -1,19 +1,25 @@
 package itemClasses
 {
-	import eDpLib.events.IEventDispatcherProxy;
+	//imports
+	//-flash
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	import flash.display.Bitmap;
+	import flash.utils.*;
+	//-eDpLib
+	import eDpLib.events.IEventDispatcherProxy;
+	//-mx
+	import mx.accessibility.UIComponentAccProps;
+	//-our things
 	import itemClasses.itemObject;
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
-	import flash.display.Bitmap;
-	import flash.utils.*;
-	import mx.accessibility.UIComponentAccProps;
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
+	
+	
+	
+	
+	
 	[Bindable]
 	public class equipmentItemObject extends itemObject 
 	{

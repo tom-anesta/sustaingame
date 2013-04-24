@@ -8,6 +8,9 @@ import flash.events.Event;
 import flash.events.TransformGestureEvent;
 import flash.events.MouseEvent;
 import flash.utils.*;
+import itemClasses.cropItemObject;
+import itemClasses.distributableItemObject;
+import itemClasses.toolEquipmentItemObject;
 //-mx
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
@@ -35,6 +38,8 @@ import globalManagers.moneyManager;
 //--itemclasses
 import itemClasses.itemObjectCollection;
 import itemClasses.itemObject;
+import itemClasses.toolEquipmentItemObject;
+import itemClasses.equipmentItemObject;
 //--globalmanagers
 import globalManagers.timeLine;
 
@@ -181,9 +186,24 @@ private function useFromInventory(ev:inventoryEvent):void
 	dispatchEvent(ev2);
 	*/
 	//need to wait for the tile signal to remove from inventory
+	//remember not to use if a crop, can't do that
+
 	if (ev.type == inventoryEvent.USE && ev.items.length == 1)
 	{
-		if ((gameSpriteContainer.getChildAt(0) as IsoApplication).acceptExternalItemFromInventory(ev.items[0]))
+		var byHandVal:toolEquipmentItemObject = new toolEquipmentItemObject(toolEquipmentItemObject.TOOL_BYHAND, toolEquipmentItemObject.BYHAND_TOOL_TYPE, itemObject.EQUIPMENT_TYPE, equipmentItemObject.TOOL_TYPE, itemObject.DEFAULT_COST, itemObject.DEFAULT_REDEEMABILITY, false);
+		var externItem:itemObject;
+		if (ev.items[0] is distributableItemObject)
+		{
+			//set the hand's value
+			//don't have the thing yet
+			//extern is now the hand
+			externItem = byHandVal;
+		}
+		else//then it must be equipment
+		{
+			externItem = ev.items[0];
+		}
+		if ((gameSpriteContainer.getChildAt(0) as IsoApplication).acceptExternalItemFromInventory(externItem))//
 		{
 			ev.items[0].isInInventory = false;//that item is now in the inventory
 		}
@@ -191,9 +211,22 @@ private function useFromInventory(ev:inventoryEvent):void
 }
 private function useRequestEventReceived(ev:popupRequestEvent):void
 {
-	if (selectedTile == null)
+	if (selectedTile == null || lastItemSelectedForUse is cropItemObject)
 	{
-		Alert.show("no tile selected on which to use this item");
+		var message:String = "error: ";
+		if (selectedTile == null)
+		{
+			message += "no tile selected";
+		}
+		if (selectedTile == null && lastItemSelectedForUse is cropItemObject)
+		{
+			message += ", ";
+		}
+		if (lastItemSelectedForUse is cropItemObject)
+		{
+			message += "that item cannot be used on any tile";
+		}
+		Alert.show(message);
 		return;
 	}
 	lastItemSelectedForUse = (ev.releventItem as itemObjectCollection);

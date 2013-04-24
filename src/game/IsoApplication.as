@@ -499,12 +499,7 @@ package game
 		{
 			//trace("entering frame");
 			view.render(true);
-		}
-		
-		
-		
-		
-		
+		}		
 		/*
 		private function viewMouseDown(e:Event):void
 		{
@@ -512,9 +507,6 @@ package game
 			view.addEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			view.addEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
-		*/
-		
-		/*
 		if(e.delta > 0)
 		{
 			zoom +=  0.01;
@@ -523,9 +515,6 @@ package game
 		{
 			zoom -=  0.01;
 		}
-		*/
-		
-		/*
 		private function viewPan(e:Event):void
 		{
 			view.panBy(panPt.x - stage.mouseX, panPt.y - stage.mouseY);
@@ -537,7 +526,6 @@ package game
 			view.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			view.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
-		*/
 		
 		//if (j >= gridWidth/2)
 		//{	
@@ -577,6 +565,10 @@ package game
 		//else//on the good side
 		//{
 		//}
+		
+		*/
+		
+		
 	}
 	
 }

@@ -1,5 +1,10 @@
 package itemClasses 
 {
+	//imports
+	//-flash
+	import flash.utils.*;
+	import flash.display.Bitmap;
+	//-our things
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
@@ -8,12 +13,9 @@ package itemClasses
 	import itemClasses.plantCropItemObject;
 	import itemClasses.trailerEquipmentItemObject;
 	import itemClasses.toolEquipmentItemObject;
-	import flash.utils.*;
-	import flash.display.Bitmap;
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
+	
+	
+	[Bindable]
 	public class vehicleEquipmentItemObject extends equipmentItemObject
 	{
 		//members

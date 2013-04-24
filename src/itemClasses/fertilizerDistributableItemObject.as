@@ -1,12 +1,13 @@
 package itemClasses
 {
-		//imports
-		//-flash
-		import flash.utils.*;
-		import flash.display.Bitmap;
-		//-our things
-		import itemClasses.distributableItemObject;
+	//imports
+	//-flash
+	import flash.utils.*;
+	import flash.display.Bitmap;
+	//-our things
+	import itemClasses.distributableItemObject;
 	
+	[Bindable]
 	public class fertilizerDistributableItemObject extends distributableItemObject
 	{
 		//members

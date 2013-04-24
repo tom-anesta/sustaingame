@@ -1,6 +1,12 @@
 package itemClasses 
 {
-	import flash.net.dns.AAAARecord;
+	
+	//imports
+	//-flash
+	import flash.utils.*;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	//-our things
 	import itemClasses.cropItemObject;
 	import itemClasses.distributableItemObject;
 	import itemClasses.equipmentItemObject;
@@ -9,13 +15,9 @@ package itemClasses
 	import itemClasses.plantCropItemObject;
 	import itemClasses.trailerEquipmentItemObject;
 	import itemClasses.vehicleEquipmentItemObject;
-	import flash.utils.*;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
+	
+	
+	[Bindable]
 	public class toolEquipmentItemObject extends equipmentItemObject
 	{
 		//members
