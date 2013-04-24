@@ -80,6 +80,7 @@ package game
 			if(this.m_items.length > 0)//we can add weeds later
 				return false;
 			this.m_items.push(value);
+			showVisuals(value);
 			return true;
 		}
 		public static function initTypes():void
@@ -90,6 +91,14 @@ package game
 			TopLayer.m_inited = true;
 		}
 		
+		public function showVisuals(value:itemObject):void
+		{
+			img = new Bitmap();
+			img = value.tNBitmap;
+			sprite = new IsoSprite();
+			sprite.sprites = [img];
+			this.addSprite(sprite);
+		}
 	}
 
 }
