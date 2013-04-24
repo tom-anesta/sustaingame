@@ -97,7 +97,7 @@ package game
 		//-protected
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
-			if(this.m_items.length > 0)//we can add weeds later
+			if(this.m_items.length > 0)
 				return false;
 			this.m_items.push(value);
 			showVisuals(value);
@@ -107,7 +107,6 @@ package game
 		public static function initTypes():void
 		{
 			s_allowedTypes = new Array();//define the accepted types for this class
-			//s_allowedTypes.push(distClass);//add the default class
 			s_allowedTypes.push(equipClass);//only equip class allowed on top
 			s_inited = true;
 		}

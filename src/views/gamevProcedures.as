@@ -195,7 +195,7 @@ private function useFromInventory(ev:inventoryEvent):void
 		if (ev.items[0] is distributableItemObject)
 		{
 			//set the hand's value
-			//don't have the thing yet
+			byHandVal.finalizeEquipment(ev.items[0] as itemObject);
 			//extern is now the hand
 			externItem = byHandVal;
 		}

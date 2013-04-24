@@ -15,7 +15,6 @@ package itemClasses
 	import itemClasses.vehicleEquipmentItemObject;
 	
 	
-	[Bindable]
 	public class trailerEquipmentItemObject extends equipmentItemObject
 	{
 		//members
@@ -63,6 +62,25 @@ package itemClasses
 			}
 			this.m_tNAsset = s_imgArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
+		}
+		//--getters and setters
+		//---getters
+		public static function get inited():Boolean
+		{
+			return s_inited;
+		}
+		public static function get acceptedTypes():Array
+		{
+			return s_acceptedTypes;
+		}
+		//---setters
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
+		}
+		public static function set acceptedTypes(value:Array):void
+		{
+			return;
 		}
 		//--init functions
 		public static function initImgArray():Boolean

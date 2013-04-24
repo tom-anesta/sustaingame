@@ -18,9 +18,6 @@ package itemClasses
 	
 	
 	
-	
-	
-	[Bindable]
 	public class equipmentItemObject extends itemObject 
 	{
 		//members
@@ -41,6 +38,7 @@ package itemClasses
 		public static const DEFAULT_EQUIPMENT_ITEMKEY:uint = DEFAULT_EQUIPMENT_SUBTYPE;
 		public static const DEFAULT_TASK_TYPE:uint = TOOL_EQUIPMENT_TASK_TYPE;
 		public static const MAX_OPERANTS:uint = 1;//start with only one operant
+		public static const DEFAULT_HOURLYPROGRESS:Number = 0.1;//in 10 hours
 		//-protected
 		//--embeds
 		//cannot do this and it makes me sad//[Embed(source = equipmentItemObject.DEFAULT_EQUIPMENT_TNSOURCE)]
@@ -51,31 +49,31 @@ package itemClasses
 		protected static var s_imgArray:Array;
 		//--acceptable class types
 		protected static var s_acceptedTypes:Array;
-		//-private
 		//--related to task
-		private var m_taskProgress:Number;
-		private var m_task:Function;
-		private var m_taskType:uint;
-		private var m_hourlyProgress:Number;//how much progress do we make each hour?
-		private var m_performingTask:Boolean;
+		protected var m_taskProgress:Number;
+		//private var m_task:Function;//handled in itemobject
+		protected var m_taskType:uint;
+		protected var m_hourlyProgress:Number;//how much progress do we make each hour?
+		protected var m_performingTask:Boolean;
 		//--related to the object that the equipment is working on//can be the tile
-		private var m_operants:Array;//IEventDispatcher;//the object that the equipment is working on, functions as a child object
-		private var m_maxOperants:uint;
+		protected var m_operants:Array;//IEventDispatcher;//the object that the equipment is working on, functions as a child object
+		protected var m_maxOperants:uint;
 		//functions
 		//-public
 		//--constructor
 		public function equipmentItemObject(itemKey:uint=equipmentItemObject.DEFAULT_EQUIPMENT_ITEMKEY, type:uint=itemObject.EQUIPMENT_TYPE, subtype:uint=equipmentItemObject.DEFAULT_EQUIPMENT_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true) 
 		{
 			var cVal:Object = getDefinitionByName(getQualifiedClassName(this));
-			if (!cVal.s_inited)
+			if (!cVal.inited)
 			{
 				cVal.initAcceptedTypesArray();
 			}
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);//also handles the init for img array
 			this.m_tNAsset = DEFAULT_EQUIPMENT_TNASSET;
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
+			this.m_hourlyProgress = DEFAULT_HOURLYPROGRESS;
 			this.m_taskProgress = 0;//these are not to be specified by the constructor
-			this.m_task = null;
+			//this.m_task = null;//set to void in the thing
 			this.m_taskType = DEFAULT_TASK_TYPE;
 			this.m_performingTask = false;
 			this.m_operants = new Array();
@@ -86,10 +84,6 @@ package itemClasses
 		public function get taskProgress():Number
 		{
 			return this.m_taskProgress;
-		}
-		public function get task():Function
-		{
-			return this.m_task;
 		}
 		public function get taskType():uint
 		{
@@ -103,12 +97,16 @@ package itemClasses
 		{
 			return this.m_operants;
 		}
+		public static function get inited():Boolean
+		{
+			return s_inited;
+		}
+		public static function get acceptedTypes():Array
+		{
+			return s_acceptedTypes;
+		}
 		//---setters
 		public function set taskProgress(value:Number):void
-		{
-			return;
-		}
-		public function set task(value:Function):void
 		{
 			return;
 		}
@@ -118,13 +116,10 @@ package itemClasses
 		}
 		public function set performingTask(value:Boolean):void
 		{
-			if (value == true)
-			{
-				if (this.m_task != null)
-					this.m_performingTask = value;
-			}
-			else
+			if (this.m_selfTask != null)
 				this.m_performingTask = value;
+			else
+				this.m_performingTask = false;
 		}
 		public function set operants(value:Array):void
 		{
@@ -158,12 +153,21 @@ package itemClasses
 				}
 			}
 		}
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
+		}
+		public static function set acceptedTypes(value:Array):void
+		{
+			return;
+		}
 		//--boolean returns for using an operant
 		public function validOperant(value:Object):Boolean
 		{
 			//http://stackoverflow.com/questions/5054418/how-to-test-if-an-object-is-a-vector
 			//http://www.newgrounds.com/bbs/topic/1298636
 			var i:uint = 0;
+			var cVal:Object = getDefinitionByName(getQualifiedClassName(this));
 			if (value is Array)
 			{
 				if ( (value as Array).length > this.m_maxOperants)
@@ -188,9 +192,9 @@ package itemClasses
 			{
 				return false;
 			}
-			for (i = 0; i < s_acceptedTypes.length; i++)
+			for (i = 0; i < cVal.acceptedTypes.length; i++)//need a class specific reference
 			{
-				if (value is (s_acceptedTypes[i] as Class))
+				if (value is (cVal.acceptedTypes[i] as Class))
 				{
 					return true;
 				}
@@ -216,7 +220,7 @@ package itemClasses
 			return true;
 		}
 		
-		//DETERMINE PURPOSE
+		//--DETERMINE PURPOSE
 		public function finalizeEquipment(value:Object):Boolean
 		{
 			if (!validOperant(value))
@@ -232,15 +236,56 @@ package itemClasses
 				var tempArr:Array = new Array();
 				tempArr.push(value);
 				this.operants = tempArr;
-				switch( (this.m_operants[0] as itemObject).taskAsOperant )
+				//reset any progress on task
+				this.m_performingTask = false;
+				this.m_taskProgress = 0;
+				if (! (this.m_operants[0] is itemObject))//if it is a tile
 				{
-					
-					default:
-						this.m_taskType = equipmentItemObject.DEFAULT_TASK_TYPE;
+					this.m_taskType = TILLING_TASK_TYPE;//well then we want to till
+					this.m_selfTask = defaultSelfTask;//change this to 
 				}
+				else
+				{
+					switch( (this.m_operants[0] as itemObject).taskAsOperant )//this should be mostly moved to the override
+					{
+						case vehicleEquipmentItemObject.HAULING_VEHICLE_TASK_TYPE://well then we are carrying a vehicle carrying a trailer
+							this.m_taskType = vehicleEquipmentItemObject.HAULING_VEHICLE_TASK_TYPE;
+							break;
+						case trailerEquipmentItemObject.PLANTING_TRAILER_TASK_TYPE://well then this must be a vehicle
+							this.m_taskType = vehicleEquipmentItemObject.HAULING_VEHICLE_TASK_TYPE;
+							break;
+						case trailerEquipmentItemObject.TILLING_TRAILER_TASK_TYPE://well then this must be a vehicle
+							this.m_taskType = vehicleEquipmentItemObject.HAULING_VEHICLE_TASK_TYPE;
+							break;
+						case trailerEquipmentItemObject.HARVESTING_TRAILER_TASK_TYPE:
+							this.m_taskType = vehicleEquipmentItemObject.HAULING_VEHICLE_TASK_TYPE;
+							break;
+						case distributableItemObject.DISTRIBUTABLE_TASK_TYPE:
+							if (this is toolEquipmentItemObject)
+								this.m_taskType = toolEquipmentItemObject.PLANTING_TOOL_TASK_TYPE;
+							else if (this is trailerEquipmentItemObject)
+								this.m_taskAsOperant = trailerEquipmentItemObject.HARVESTING_TRAILER_TASK_TYPE;
+							else if (this is vehicleEquipmentItemObject)
+								this.m_taskAsOperant = vehicleEquipmentItemObject.PLANTING_VEHICLE_TASK_TYPE;
+							else
+								this.m_taskAsOperant = DEFAULT_TASK_TYPE;//well then what is this?
+							break;
+						default:
+							this.m_taskType = equipmentItemObject.DEFAULT_TASK_TYPE;
+					}
+					this.m_selfTask = (this.m_operants[0] as itemObject).selfTask;//the task is that which belongs to the item
+				}
+				
 			}
 			return true;
 		}
+		//--override general task getting solution
+		/*//or maybe we don't need to override it
+		override public function selfTask():void
+		{
+			return;
+		}
+		*/
 		
 		//-private
 		//--adding functions

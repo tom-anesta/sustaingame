@@ -38,7 +38,23 @@ package itemClasses
 		}
 		//--getters and setters
 		//---getters
+		public static function get inited():Boolean
+		{
+			return s_inited;
+		}
+		public static function get acceptedTypes():Array
+		{
+			return s_acceptedTypes;
+		}
 		//---setters
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
+		}
+		public static function set acceptedTypes(value:Array):void
+		{
+			return;
+		}
 		//--inits
 		public static function initImgArray():Boolean
 		{
