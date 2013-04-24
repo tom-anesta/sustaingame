@@ -1,31 +1,51 @@
-import game.Tile;
-import itemClasses.itemObjectCollection;
-import globalManagers.moneyManager;
-import itemClasses.itemObject;
+
+//imports
+
+//-flash
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.TransformGestureEvent;
-import game.IsoApplication;
-import globalManagers.timeLine;
+import flash.events.MouseEvent;
+import flash.utils.*;
+//-mx
 import mx.collections.ArrayCollection;
+import mx.controls.Alert;
 import mx.core.Window;
 import mx.events.CloseEvent;
 import mx.events.FlexEvent;
-import flash.events.MouseEvent;
-import myEvents.landSelectEvent;
-import myEvents.layedOutEvent;
+import mx.managers.PopUpManager;
+//-our things
+//--components
+import components.popups.sellItemPopup;
 import components.popups.buyItemPopup;
 import components.popups.infoOnItemPopup;
-import myEvents.popupRequestEvent;
-import mx.managers.PopUpManager;
-import myEvents.timeElapsedEvent;
-import myEvents.transactionEvent;
-import itemClasses.itemObject;
-import components.popups.sellItemPopup;
-import flash.utils.*;
+//--myEvents
+import myEvents.landSelectEvent;
+import myEvents.layedOutEvent;
 import myEvents.inventoryEvent;
 import myEvents.landSelectEvent;
+import myEvents.popupRequestEvent;
+import myEvents.timeElapsedEvent;
+import myEvents.transactionEvent;
+//--game
+import game.Tile;
+import game.IsoApplication;
+import globalManagers.moneyManager;
+//--itemclasses
+import itemClasses.itemObjectCollection;
+import itemClasses.itemObject;
+//--globalmanagers
+import globalManagers.timeLine;
+
+
+
+
+
+import itemClasses.itemObject;
+
+
+
 //import mx.core.*;
 /**
  * ...
@@ -171,6 +191,11 @@ private function useFromInventory(ev:inventoryEvent):void
 }
 private function useRequestEventReceived(ev:popupRequestEvent):void
 {
+	if (selectedTile == null)
+	{
+		Alert.show("no tile selected on which to use this item");
+		return;
+	}
 	lastItemSelectedForUse = (ev.releventItem as itemObjectCollection);
 	gameVUsePopup = PopUpManager.createPopUp(this, components.popups.inventoryUsePopup, true) as components.popups.inventoryUsePopup;
 	gameVUsePopup.addEventListener(CloseEvent.CLOSE, usePopupClosing);
@@ -182,7 +207,6 @@ private function useRequestEventReceived(ev:popupRequestEvent):void
 //land selectevents
 private function landSelectHandler(ev:landSelectEvent):void
 {//it is more appropriate that we handle everything here
-	//sideMenu.toInfo(true);
 	ev.stopPropagation();
 	selectedTile = ev.tile;
 	sideMenu.selectLand(selectedTile);

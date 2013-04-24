@@ -246,11 +246,15 @@ package game
 			createBackground();
 			createGroup();
 			//BOOM COLORS
-			scene.render()
+			scene.render();
+			view.render();
+			view.addEventListener(Event.ENTER_FRAME, viewEnterFrame);
 			//now handle with events
+			
 			this.m_addedToStage = true;
 			var ev2:layedOutEvent = new layedOutEvent(layedOutEvent.INTERNALGAMELAYEDOUT, true, true);
 			dispatchEvent(ev2);
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, viewKeyDown);
 			
 			
@@ -259,6 +263,7 @@ package game
 			bgMusicChannel.addEventListener(Event.SOUND_COMPLETE, bgMusicEndHandler);
 			
 		}
+		
 		private function createGroup():void
 		{
 			_map = new Array();
@@ -445,8 +450,6 @@ package game
 				}
 			}
 			view.currentZoom = zoom;
-			//trace(view.currentZoom);
-			
 		}
 		private function hourhandler(ev:timeElapsedEvent):void
 		{
@@ -491,6 +494,11 @@ package game
 			{
 				return new (this.s4Music) as Sound;
 			}
+		}
+		private function viewEnterFrame(ev:Event):void
+		{
+			//trace("entering frame");
+			view.render(true);
 		}
 		
 		

@@ -28,7 +28,6 @@
 			<s:VerticalLayout horizontalAlign="center" />
 		</s:layout>
 		<s:Label text="" height="12.5%" width="100%" />
-		<!-- <s:SpriteVisualElement id="gameSpriteContainer" width="100%" height="75%"/> -->
 		<coreComps:UIComponent id="gameSpriteContainer" width="100%" height="75%"/>
 		<s:Label text="" height="12.5%" width="100%" />
 	</s:Group>

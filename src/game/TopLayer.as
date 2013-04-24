@@ -97,7 +97,10 @@ package game
 			img = value.tNBitmap;
 			sprite = new IsoSprite();
 			sprite.sprites = [img];
+			sprite.moveTo(sprite.x, sprite.y, 100);//may not be necessary after more testing
 			this.addSprite(sprite);
+			//this.render(true);
+			
 		}
 	}
 
