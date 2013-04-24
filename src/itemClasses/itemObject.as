@@ -33,9 +33,10 @@ package itemClasses
 		public static const DEFAULT_REDEEMABILITY:Number = 0.0000001;//represents sell values
 		public static const DEFAULT_NAME:String = "UNKNOWN";
 		//---taskAsOperant
-		public static const TASK_PLANTING:uint = 0;
-		public static const TASK_TILLING:uint = 1;
-		public static const TASK_HARVESTING:uint = 2;
+		public static const TASK_NONE:uint = 0;
+		public static const TASK_PLANTING:uint = 1;
+		public static const TASK_TILLING:uint = 2;
+		public static const TASK_HARVESTING:uint = 3;
 		//-protected
 		//--for children
 		protected var m_itemKey:uint;//the unique itemkey, identifies both type and subtype and name
@@ -97,7 +98,7 @@ package itemClasses
 			this.m_actions = new Vector.<actionObject>();
 			//other for handling adding and removing actions
 			this.m_isInInventory = isInInventory;
-			this.m_taskAsOperant = TASK_PLANTING;//default whatevs
+			this.m_taskAsOperant = TASK_NONE;//default whatevs
 		}
 		//--getters and setters
 		//---for class

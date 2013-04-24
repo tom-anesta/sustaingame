@@ -32,10 +32,10 @@ package itemClasses
 		public static const TRAILER_TYPE:uint = 12//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 2;
 		public static const IRRIGATIONSYSTEM_TYPE:uint = 13//MAINTYPES_LENGTH + distributableItemObject.DISTRIBUTABLETYPES_LENGTH + cropItemObject.CROPTYPES_LENGTH + 3;
 		//--what tasks can it do?
-		public static const TOOL_EQUIPMENT_TASK_TYPE:uint = 3;
-		public static const VEHICLE_EQUIPMENT_TASK_TYPE:uint = 4;
-		public static const TRAILER_EQUIPMENT_TASK_TYPE:uint = 5;
-		public static const IRRIGATIONSYSTEM_EQUIPMENT_TASK_TYPE:uint = 6;
+		public static const TOOL_EQUIPMENT_TASK_TYPE:uint = 4;
+		public static const VEHICLE_EQUIPMENT_TASK_TYPE:uint = 5;
+		public static const TRAILER_EQUIPMENT_TASK_TYPE:uint = 6;
+		public static const IRRIGATIONSYSTEM_EQUIPMENT_TASK_TYPE:uint = 7;
 		//---defaults
 		public static const DEFAULT_EQUIPMENT_SUBTYPE:uint = TOOL_TYPE;
 		public static const DEFAULT_EQUIPMENT_ITEMKEY:uint = DEFAULT_EQUIPMENT_SUBTYPE;
@@ -99,7 +99,7 @@ package itemClasses
 		{
 			return this.m_performingTask;
 		}
-		public function get Operants():Array
+		public function get operants():Array
 		{
 			return this.m_operants;
 		}
@@ -126,7 +126,7 @@ package itemClasses
 			else
 				this.m_performingTask = value;
 		}
-		public function set Operants(value:Array):void
+		public function set operants(value:Array):void
 		{
 			if (!validOperant(value))//handle size in valid operant
 			{
@@ -157,7 +157,6 @@ package itemClasses
 					(this.m_operants[i] as IEventDispatcher).addEventListener("tempTrigger", handleOperantEvent);
 				}
 			}
-			//value.addEventListener("tempTrigger", handleOperantEvent);
 		}
 		//--boolean returns for using an operant
 		public function validOperant(value:Object):Boolean
@@ -224,7 +223,7 @@ package itemClasses
 				return false;//need to make sure because the set is void
 			if (value is Array)
 			{
-				Operants = (value as Array);
+				this.operants = (value as Array);
 				//how do we determine the task from this?
 				//...um i guess we dont?
 			}
@@ -232,8 +231,13 @@ package itemClasses
 			{
 				var tempArr:Array = new Array();
 				tempArr.push(value);
-				Operants = tempArr;
-				
+				this.operants = tempArr;
+				switch( (this.m_operants[0] as itemObject).taskAsOperant )
+				{
+					
+					default:
+						this.m_taskType = equipmentItemObject.DEFAULT_TASK_TYPE;
+				}
 			}
 			return true;
 		}
