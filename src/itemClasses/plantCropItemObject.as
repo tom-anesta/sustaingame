@@ -104,6 +104,17 @@ package itemClasses
 			this.m_tNAsset = s_assetArray[this.m_itemKey - TYPE_CONSTRUCTOR];
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
+		//--getters and setters
+		//---getters
+		public static function get inited():Boolean
+		{
+			return s_inited;
+		}
+		//---setters
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
+		}
 		//--init function
 		public static function initImgArray():Boolean
 		{

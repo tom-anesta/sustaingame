@@ -51,7 +51,16 @@ package itemClasses
 			this.m_tNBitmap = new Bitmap( ((Bitmap) (new this.m_tNAsset())).bitmapData );
 		}
 		//--getters and setters
-		
+		//---get
+		public static function get inited():Boolean
+		{
+			return s_inited;
+		}
+		//---set
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
+		}
 		//--image array things
 		public static function initImgArray():Boolean
 		{

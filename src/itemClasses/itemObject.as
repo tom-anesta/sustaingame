@@ -33,10 +33,10 @@ package itemClasses
 		public static const DEFAULT_REDEEMABILITY:Number = 0.0000001;//represents sell values
 		public static const DEFAULT_NAME:String = "UNKNOWN";
 		//---taskAsOperant
-		public static const TASK_NONE:uint = 0;
-		public static const TASK_PLANTING:uint = 1;
-		public static const TASK_TILLING:uint = 2;
-		public static const TASK_HARVESTING:uint = 3;
+		public static const NONE_TASK_TYPE:uint = 0;
+		public static const PLANTING_TASK_TYPE:uint = 1;
+		public static const TILLING_TASK_TYPE:uint = 2;
+		public static const HARVESTING_TASK_TYPE:uint = 3;
 		//-protected
 		//--for children
 		protected var m_itemKey:uint;//the unique itemkey, identifies both type and subtype and name
@@ -58,6 +58,8 @@ package itemClasses
 		protected var m_month:uint;
 		protected var m_year:uint;
 		protected var m_actions:Vector.<actionObject>;
+		//for equipment
+		protected var m_selfTask:Function;
 		//--embeds
 		[Embed(source = "../../assets/images/SorghumStage1.gif", mimeType='image/gif')]
 		protected static var DEFAULT_TNASSET:Class;
@@ -74,9 +76,9 @@ package itemClasses
 		{
 			super();
 			var cVal:Object = getDefinitionByName(getQualifiedClassName(this));
-			if (!cVal.s_inited)//set the images
+			if (!cVal.inited)//set the images
 			{
-				cVal.s_inited = cVal.initImgArray();
+				cVal.inited = cVal.initImgArray();
 			}
 			this.m_eventDispatcher = new EventDispatcher(this);
 			//handle types
@@ -98,7 +100,8 @@ package itemClasses
 			this.m_actions = new Vector.<actionObject>();
 			//other for handling adding and removing actions
 			this.m_isInInventory = isInInventory;
-			this.m_taskAsOperant = TASK_NONE;//default whatevs
+			this.m_taskAsOperant = NONE_TASK_TYPE;//default whatevs
+			this.m_selfTask = defaultSelfTask;
 		}
 		//--getters and setters
 		//---for class
@@ -146,6 +149,10 @@ package itemClasses
 		public function get taskAsOperant():uint
 		{
 			return this.m_taskAsOperant;
+		}
+		public static function get inited():Boolean
+		{
+			return s_inited;
 		}
 		//----setters, for data binding (are read only)
 		public function set itemKey(value:uint):void
@@ -196,6 +203,10 @@ package itemClasses
 		{
 			return;
 		}
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
+		}
 		//
 		//---for ITimeUpdatable
 		//
@@ -224,6 +235,11 @@ package itemClasses
 		{
 			return this.m_actions;
 		}
+		//--for equipment
+		public function get selfTask():Function//the task specified by the class
+		{
+			return this.m_selfTask;
+		}
 		//-----setters
 		public function set hour(value:uint):void//set the hour of this item
 		{
@@ -249,10 +265,12 @@ package itemClasses
 		{
 			return;
 		}
-		//outer functions
-		//--update functions
-		
-		//IEventDispatcher Support from http://flexdiary.blogspot.com/2008/11/implementing-ieventdispatcher.html
+		//--for equipment
+		public function set selfTask(value:Function):void//the task specified by the class
+		{
+			return;
+		}
+		//--IEventDispatcher Support from http://flexdiary.blogspot.com/2008/11/implementing-ieventdispatcher.html
 		public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false):void
 		{
 			this.m_eventDispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
@@ -273,7 +291,7 @@ package itemClasses
 		{
 			return this.m_eventDispatcher.willTrigger(type);
 		}
-		//FUNCTIONS SUPPORTING ITIMEUPDATEABLE
+		//--FUNCTIONS SUPPORTING ITIMEUPDATEABLE
 		public function updateByHours(value:uint = 1, event:timeElapsedEvent = null):void//move hours forward
 		{
 			return;
@@ -316,6 +334,12 @@ package itemClasses
 		{
 			return;
 		}
+		//for equipment
+		public function defaultSelfTask():void
+		{
+			return;
+		}
+		
 		
 		//-protected
 		//--image inits
@@ -325,6 +349,8 @@ package itemClasses
 			s_imgArray.push((getDefinitionByName(getQualifiedClassName(DEFAULT_TNASSET))) as Class);
 			return true;
 		}
+		
+		
 		
 	
 	}

@@ -10,11 +10,6 @@ package itemClasses
 	import itemClasses.cropItemObject;
 	import itemClasses.equipmentItemObject;
 	
-	/**
-	 * ...
-	 * @author thomas anesta
-	 */
-	[Bindable]
 	public class distributableItemObject extends itemObject
 	{
 		//members
@@ -31,13 +26,15 @@ package itemClasses
 		public static const UNIT_METERCUBED:String = "meterscubed";//for liquid materials - in most cases
 		public static const UNIT_KILOGRAM:String = "kilogram";//for solid materials - in most cases
 		public static const UNIT_METRICTON:String = "metricton";
-		//public static const UNIT_HECTARE:String = "hectare";
-		//public static const UNIT_KILOMETERSSQUARED = "kilometerssquared";
-		//defaults
+		public static const UNIT_HECTARE:String = "hectare";
+		public static const UNIT_KILOMETERSSQUARED:String = "kilometerssquared";
+		//---defaults
 		public static const DEFAULT_DISTRIBUTABLE_SUBTYPE:uint = SEED_TYPE;
 		public static const DEFAULT_DISTRIBUTABLE_ITEMKEY:uint = DEFAULT_DISTRIBUTABLE_SUBTYPE;
 		public static const DEFAULT_UNIT:String = UNIT_METERCUBED;
 		public static const DEFAULT_MINIMUM_MAXQUANTITY:Number = 1;
+		//---task
+		public static const DISTRIBUTABLE_TASK_TYPE:uint = 999;//fix this later
 		
 		//public static const DEFAULT_DISTRIBUTABLE_TNSOURCE:String = "/../assets/images/SorghumSeedBag2.gif";
 		//-protected
@@ -57,10 +54,6 @@ package itemClasses
 		//--constructor
 		public function distributableItemObject(itemKey:uint=DEFAULT_DISTRIBUTABLE_ITEMKEY, type:uint=DISTRIBUTABLE_TYPE, subtype:uint=DEFAULT_DISTRIBUTABLE_SUBTYPE, cost:uint=DEFAULT_COST, redeemability:Number=DEFAULT_REDEEMABILITY, isInInventory:Boolean = true, unitVal:String=DEFAULT_UNIT, maxQuantityVal:Number=DEFAULT_MINIMUM_MAXQUANTITY, quantityVal:Number = DEFAULT_MINIMUM_MAXQUANTITY)
 		{
-			if (!getDefinitionByName(getQualifiedClassName(this)).s_inited)
-			{
-				//getDefinitionByName(getQualifiedClassName(this)).init//will be handled by super
-			}
 			super(itemKey, type, subtype, cost, redeemability, isInInventory);
 			//this.m_tNSource = DEFAULT_DISTRIBUTABLE_TNSOURCE;
 			this.m_tNAsset = DEFAULT_DISTRIBUTABLE_TNASSET;
@@ -97,6 +90,8 @@ package itemClasses
 				this.m_quantity = 0.000000000000002;//should be smallest number greater than 0 according to wikipedia//took out a zero just in case
 				//http://en.wikipedia.org/wiki/Double-precision_floating-point_format
 			}
+			//set the task
+			this.m_taskAsOperant = DISTRIBUTABLE_TASK_TYPE;
 		}
 		//--getters and setters
 		//---getters
@@ -111,6 +106,11 @@ package itemClasses
 		public function get maxQuantity():Number
 		{
 			return this.m_maxQuantity;
+		}
+		//----for init
+		public static function get inited():Boolean
+		{
+			return s_inited;
 		}
 		//---setters
 		public function set unit(value:String):void//do nothing
@@ -134,6 +134,11 @@ package itemClasses
 		public function set maxQuantity(value:Number):void
 		{
 			return;//set by class, don't bother here
+		}
+		//----for init
+		public static function set inited(value:Boolean):void
+		{
+			s_inited = value;
 		}
 		//--for imginit
 		public static function initImgArray():Boolean
