@@ -22,24 +22,53 @@ package game
 
 	public class TopLayer extends Layer
 	{
-		//private var m_parentTile:Tile;
+		//members
+		//-public
+		//--static const
+		//-protected
+		protected static var s_allowedTypes:Array;
+		protected static var s_inited:Boolean = false;
+		//-private
 		private var img:Bitmap;
 		private var sprite:IsoSprite;
 		private static var distClass:Class = distributableItemObject;
 		private static var equipClass:Class = equipmentItemObject;
-		private static var m_allowedTypes:Array;
-		private static var m_inited:Boolean = false;
-		
+		//functions
+		//-public
+		//--constructor
 		public function TopLayer(value:Tile) 
 		{
 			super(value);
 			//m_parentTile = value;//handled in super
-			if (!TopLayer.m_inited)
-			{
-				TopLayer.initTypes();
-			}
 		}
-		
+		//--getters and setters
+		//---get
+		public static function get acceptedTypes():Array//overload in subclasses for class
+		{
+			if (!s_inited)
+			{
+				initTypes();
+			}
+			return s_allowedTypes;
+		}
+		public static function get inited():Boolean
+		{
+			if (!s_inited)
+			{
+				initTypes();
+			}
+			return s_inited;
+		}
+		//---set
+		public static function set acceptedTypes(value:Array):void
+		{
+			return;
+		}
+		public static function set inited(value:Boolean):void
+		{
+			return;
+		}
+		//--other public functions
 		//accept an item from outside, not in the other classes?
 		public function acceptExternalItemFromInventory(value:itemObject):Boolean
 		{
@@ -55,42 +84,6 @@ package game
 			else
 				return false
 		}
-		public static function get acceptedTypes():Array
-		{
-			if (!TopLayer.inited)
-			{
-				TopLayer.initTypes();
-			}
-			return TopLayer.m_allowedTypes;
-		}
-		public static function set acceptedTypes(value:Array):void
-		{
-			return;
-		}
-		public static function get inited():Boolean
-		{
-			return TopLayer.m_inited;
-		}
-		public static function set inited(value:Boolean):void
-		{
-			return;
-		}
-		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
-		{
-			if(this.m_items.length > 0)//we can add weeds later
-				return false;
-			this.m_items.push(value);
-			showVisuals(value);
-			return true;
-		}
-		public static function initTypes():void
-		{
-			TopLayer.m_allowedTypes = new Array();//define the accepted types for this class
-			TopLayer.m_allowedTypes.push(distClass);//add the default class
-			TopLayer.m_allowedTypes.push(equipClass);
-			TopLayer.m_inited = true;
-		}
-		
 		public function showVisuals(value:itemObject):void
 		{
 			img = new Bitmap();
@@ -100,8 +93,26 @@ package game
 			sprite.moveTo(sprite.x, sprite.y, 100);//may not be necessary after more testing
 			this.addSprite(sprite);
 			//this.render(true);
-			
 		}
+		//-protected
+		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
+		{
+			if(this.m_items.length > 0)//we can add weeds later
+				return false;
+			this.m_items.push(value);
+			showVisuals(value);
+			return true;
+		}
+		//--for inits
+		public static function initTypes():void
+		{
+			s_allowedTypes = new Array();//define the accepted types for this class
+			//s_allowedTypes.push(distClass);//add the default class
+			s_allowedTypes.push(equipClass);//only equip class allowed on top
+			s_inited = true;
+		}
+		
+		
 	}
 
 }

@@ -24,33 +24,70 @@ package game
 		//-protected
 		protected var m_parentTile:Tile;
 		protected var m_items:Vector.<itemObject>;
-		private static var m_allowedTypes:Array;
-		private static var m_inited:Boolean = false;
+		protected static var s_allowedTypes:Array;
+		protected static var s_inited:Boolean = false;
 		//-private
-		private static var m_defaultClass:Class = itemObject;
+		private static var s_defaultClass:Class = itemObject;
 		//functions
 		//-public
 		//--constructor
 		public function Layer(value:Tile, items:Vector.<itemObject>=null )
 		{
 			super();//isocontainer constructor
-			/*
-			if (!getDefinitionByName(getQualifiedClassName(this)).inited)//do it by the class
+			var cVal:Object = getDefinitionByName(getQualifiedClassName(this));
+			if (!cVal.inited)
 			{
-				trace(getQualifiedClassName(this));
-				( (this) as (Object(this).constructor as Class)  ).initTypes();
-			}
-			*/
-			if (!Layer.m_inited)
-			{
-				Layer.initTypes();
+				cVal.initTypes();
 			}
 			if (items == null)
 			{
 				this.m_items = new Vector.<itemObject>();
 			}
 			else
-				m_items = items;//set to starting items (used for bottom layer when we assign these things to tile (starting soil content)
+				this.m_items = items;//set to starting items (used for bottom layer when we assign these things to tile (starting soil content)
+		}
+		//--getters and setters
+		//--get
+		public function get items():Vector.<itemObject>
+		{
+			return this.m_items;
+		}
+		public function get parentTile():Tile
+		{
+			return this.m_parentTile;
+		}
+		public static function get acceptedTypes():Array//overload in subclasses for class
+		{
+			if (!s_inited)
+			{
+				initTypes();
+			}
+			return s_allowedTypes;
+		}
+		public static function get inited():Boolean
+		{
+			if (!s_inited)
+			{
+				initTypes();
+			}
+			return s_inited;
+		}
+		//--set
+		public function set items(value:Vector.<itemObject>):void//override in bottom layer to allow for setting of nutrients and initial water.
+		{
+			return;//cannot be set externally
+		}
+		public function set parentTile(value:Tile):void
+		{
+			return;//cannot be set externally
+		}
+		public static function set acceptedTypes(value:Array):void//overload in subclasses for class
+		{
+			return;//
+		}
+		public static function set inited(value:Boolean):void
+		{
+			return;
 		}
 		//add a whole item, may want to change to protected
 		public function addWholeItem(value:itemObject):Boolean//overload the following protected function this one should not need to be overloaded
@@ -108,43 +145,7 @@ package game
 			}
 			return rVect;
 		}
-		//getters and setters
-		public function get items():Vector.<itemObject>
-		{
-			return this.m_items;
-		}
-		public function set items(value:Vector.<itemObject>):void//override in bottom layer to allow for setting of nutrients and initial water.
-		{
-			return;//cannot be set externally
-		}
-		public function get parentTile():Tile
-		{
-			return this.m_parentTile;
-		}
-		public function set parentTile(value:Tile):void
-		{
-			return;//cannot be set externally
-		}
-		public static function get acceptedTypes():Array//overload in subclasses for class
-		{
-			if (!Layer.m_inited)
-			{
-				Layer.initTypes();
-			}
-			return Layer.m_allowedTypes;
-		}
-		public static function set acceptedTypes(value:Array):void//overload in subclasses for class
-		{
-			return;//
-		}
-		public static function get inited():Boolean
-		{
-			return Layer.m_inited;
-		}
-		public static function set inited(value:Boolean):void
-		{
-			return;
-		}
+		
 		//time functions for handling time stuff
 		//fuck it implement itimeupdateable on this too ?  no don't do that yet//this does not need its own time representation or 
 		public function acceptHourAdvancement(quant:int = 1, evt:timeElapsedEvent = null):void
@@ -193,9 +194,9 @@ package game
 		public static function initTypes():void
 		{
 			//trace(getQualifiedClassName(Layer) + " init types");
-			Layer.m_allowedTypes = new Array();//define the accepted types for this class
-			Layer.m_allowedTypes.push(m_defaultClass);//add the default class
-			Layer.m_inited = true;
+			s_allowedTypes = new Array();//define the accepted types for this class
+			s_allowedTypes.push(s_defaultClass);//add the default class
+			s_inited = true;
 		}
 		//add after function checking: decide whether or not we can add that thing
 		protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes

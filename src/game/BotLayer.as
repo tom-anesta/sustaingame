@@ -14,41 +14,54 @@ package game
 
 	public class BotLayer extends Layer
 	{
-		//private var m_parentTile:Tile;
+		//members
+		//-public
+		//--static const
+		//-protected
+		protected static var m_allowedTypes:Array;
+		protected static var m_inited:Boolean = false;
+		//-private
+		//--classes
 		private static var distClass:Class = distributableItemObject;
-		private static var m_allowedTypes:Array;
-		private static var m_inited:Boolean = false;
 		
+		
+		//functions
+		//-public
+		//--constructor
 		public function BotLayer(value:Tile, items:Vector.<itemObject> = null) //the bot layer expects soil nutrients and stuff
 		{
 			super(value, items);
 			//this.m_parentTile = value;//handled in super
-			if (!BotLayer.m_inited)
-			{
-				BotLayer.initTypes();
-			}
 		}
-		
+		//--getters and setters
+		//----get
 		public static function get acceptedTypes():Array//overload in subclasses for class
 		{
-			if (!BotLayer.inited)
-				{
-					BotLayer.initTypes();
-				}
-				return BotLayer.m_allowedTypes;
-		}
-		public static function set acceptedTypes(value:Array):void
-		{
-			return;
+			if (!s_inited)
+			{
+				initTypes();
+			}
+			return s_allowedTypes;
 		}
 		public static function get inited():Boolean
 		{
-			return BotLayer.m_inited;
+			if (!s_inited)
+			{
+				initTypes();
+			}
+			return s_inited;
+		}
+		
+		//---set
+		public static function set acceptedTypes(value:Array):void
+		{
+			return;
 		}
 		public static function set inited(value:Boolean):void
 		{
 			return;
 		}
+		//-protected
 		override protected function addWholeItemOfAcceptedType(value:itemObject):Boolean//overload this in lower classes
 		{
 			//check if this thing is already in the tile
@@ -62,12 +75,13 @@ package game
 			this.m_items.push(value);
 			return true;
 		}
+		//--for inits
 		public static function initTypes():void
 		{
 			//trace(getQualifiedClassName(BotLayer) + " init types");
-			BotLayer.m_allowedTypes = new Array();//define the accepted types for this class
-			BotLayer.m_allowedTypes.push(distClass);//add the default class
-			BotLayer.m_inited = true;
+			s_allowedTypes = new Array();//define the accepted types for this class
+			s_allowedTypes.push(distClass);//add the default class
+			s_inited = true;
 		}
 		
 		
