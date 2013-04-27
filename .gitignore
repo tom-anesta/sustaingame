@@ -16,3 +16,7 @@ assets/
 *.bat
 Air_readme.txt
 *.as3proj
+# we don't want the installation directory
+air/
+#or the unique key
+bat/
